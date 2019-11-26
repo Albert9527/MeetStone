@@ -40,7 +40,7 @@ public class FragmentDynmic extends Fragment {
 
         viewAdapter = new DynamicViewAdpter(null);
 
-        FragmentAllTeam.OnItemClickListener listener = new FragmentAllTeam.OnItemClickListener() {
+        FragmentDynmic.OnItemClickListener listener = new FragmentDynmic.OnItemClickListener() {
             @Override
             public void itemClick(int position, View view) {
                 Toast.makeText(view.getContext(),position+"被点击",Toast.LENGTH_LONG).show();

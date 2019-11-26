@@ -9,21 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ZCZ1024.MeetStone.Entity.Dynamic;
-import com.ZCZ1024.MeetStone.Entity.Team;
-import com.ZCZ1024.MeetStone.Fragments.FragmentAllTeam;
+import com.ZCZ1024.MeetStone.Fragments.FragmentDynmic;
 import com.ZCZ1024.MeetStone.R;
 
 import java.util.List;
 
 public class DynamicViewAdpter extends RecyclerView.Adapter<DynamicViewAdpter.ListViewHolder>{
     private List<Dynamic> dynamics;
-    private FragmentAllTeam.OnItemClickListener listener;
+    private FragmentDynmic.OnItemClickListener listener;
 
     public DynamicViewAdpter(List<Dynamic> dynamics) {
         this.dynamics = dynamics;
     }
 
-    public void setOnItemClickListener(FragmentAllTeam.OnItemClickListener listener){
+    public void setOnItemClickListener(FragmentDynmic.OnItemClickListener listener){
         this.listener = listener;
     }
 
