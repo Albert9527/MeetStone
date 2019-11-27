@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,7 +31,7 @@ public class FragmentMyTeam extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_myteam, container, false);
         recyclerView = view.findViewById(R.id.recyclerview_member);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity().getBaseContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         viewAdpter = new MemberViewAdpter(null);
 
@@ -48,7 +47,7 @@ public class FragmentMyTeam extends Fragment {
 
         initData();
 
-        return recyclerView;
+        return view;
     }
 
     private void initData() {
