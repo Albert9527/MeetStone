@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -24,6 +25,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     private FragmentMyTeam fragmentMyTeam;
     private FragmentDynmic fragmentDynmic;
     private FragmentManager fragmentManager;
+    private TextView textViewtitle;
+    private LinearLayout linearLayoutseach;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,11 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         TextView textView_myteam = findViewById(R.id.fragment_myteam);
         TextView textView_dynmic = findViewById(R.id.fragment_dynmic);
 
+        textViewtitle = findViewById(R.id.tv_title);
+        linearLayoutseach = findViewById(R.id.ly_search);
+        textViewtitle.setVisibility(View.GONE);
+        linearLayoutseach.setVisibility(View.VISIBLE);
+
         textView_allteam.setOnClickListener(this);
         textView_martch.setOnClickListener(this);
         textView_myteam.setOnClickListener(this);
@@ -50,21 +58,31 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.fragment_martch:
+                textViewtitle.setVisibility(View.GONE);
+                linearLayoutseach.setVisibility(View.VISIBLE);
                 setTabSelection(0);
                 break;
             case R.id.fragment_allteam:
+                textViewtitle.setVisibility(View.GONE);
+                linearLayoutseach.setVisibility(View.VISIBLE);
                 setTabSelection(1);
                 break;
             case R.id.fragment_myteam:
+                textViewtitle.setVisibility(View.VISIBLE);
+                textViewtitle.setText("我的队伍");
+                linearLayoutseach.setVisibility(View.GONE);
                 setTabSelection(2);
                 break;
             case R.id.fragment_dynmic:
+                textViewtitle.setVisibility(View.VISIBLE);
+                textViewtitle.setText("动态");
+                linearLayoutseach.setVisibility(View.GONE);
                 setTabSelection(3);
                 break;
             default:
-                    break;
+                break;
         }
 
     }
@@ -73,39 +91,42 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         hideFragments(transaction);
 
-        switch (index){
+        switch (index) {
             case 0:
-                if (fragmentMartch == null){
+                if (fragmentMartch == null) {
                     fragmentMartch = new FragmentMartch();
-                transaction.add(R.id.fragment,fragmentMartch);
-                }else {
+                    transaction.add(R.id.fragment, fragmentMartch);
+                } else {
                     transaction.show(fragmentMartch);
                 }
                 break;
 
             case 1:
-                if (fragmentAllTeam == null){
+                if (fragmentAllTeam == null) {
                     fragmentAllTeam = new FragmentAllTeam();
-                    transaction.add(R.id.fragment,fragmentAllTeam);
-                }else {
+                    transaction.add(R.id.fragment, fragmentAllTeam);
+                } else {
                     transaction.show(fragmentAllTeam);
                 }
                 break;
 
             case 2:
-                if (fragmentMyTeam == null){
+                if (fragmentMyTeam == null) {
                     fragmentMyTeam = new FragmentMyTeam();
-                    transaction.add(R.id.fragment,fragmentMyTeam);
-                }else {
+                    if (!fragmentMyTeam.isAdded()) {
+
+                        transaction.add(R.id.fragment, fragmentMyTeam);
+                    }
+                } else {
                     transaction.show(fragmentMyTeam);
                 }
                 break;
 
             case 3:
-                if (fragmentDynmic == null){
+                if (fragmentDynmic == null) {
                     fragmentDynmic = new FragmentDynmic();
-                    transaction.add(R.id.fragment,fragmentDynmic);
-                }else {
+                    transaction.add(R.id.fragment, fragmentDynmic);
+                } else {
                     transaction.show(fragmentDynmic);
                 }
                 break;
@@ -114,16 +135,16 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void hideFragments(FragmentTransaction transaction) {
-        if (fragmentMartch != null){
+        if (fragmentMartch != null) {
             transaction.hide(fragmentMartch);
         }
-        if (fragmentAllTeam != null){
+        if (fragmentAllTeam != null) {
             transaction.hide(fragmentAllTeam);
         }
-        if (fragmentMyTeam != null){
+        if (fragmentMyTeam != null) {
             transaction.hide(fragmentMyTeam);
         }
-        if (fragmentDynmic != null){
+        if (fragmentDynmic != null) {
             transaction.hide(fragmentDynmic);
         }
         transaction.commit();
