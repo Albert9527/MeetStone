@@ -1,21 +1,34 @@
 package com.ZCZ1024.MeetStone.Activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import com.ZCZ1024.MeetStone.CustomView.CircleView;
+import com.ZCZ1024.MeetStone.Entity.User;
 import com.ZCZ1024.MeetStone.Fragments.FragmentAllTeam;
 import com.ZCZ1024.MeetStone.Fragments.FragmentDynmic;
 import com.ZCZ1024.MeetStone.Fragments.FragmentMartch;
 import com.ZCZ1024.MeetStone.Fragments.FragmentMyTeam;
 import com.ZCZ1024.MeetStone.R;
+import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
+import androidx.annotation.NonNull;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
 
 
 public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,6 +40,11 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     private FragmentManager fragmentManager;
     private TextView textViewtitle;
     private LinearLayout linearLayoutseach;
+
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private CircleView circleView_headpt;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +62,13 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         TextView textView_martch = findViewById(R.id.fragment_martch);
         TextView textView_myteam = findViewById(R.id.fragment_myteam);
         TextView textView_dynmic = findViewById(R.id.fragment_dynmic);
+        drawerLayout = findViewById(R.id.drawer);
+        navigationView = findViewById(R.id.nav);
+        LinearLayout linearLayout = findViewById(R.id.snavbar);
+        View headerView = navigationView.getHeaderView(0);
 
+
+        circleView_headpt = headerView.findViewById(R.id.nav_headpt);
         textViewtitle = findViewById(R.id.tv_title);
         linearLayoutseach = findViewById(R.id.ly_search);
         textViewtitle.setVisibility(View.GONE);
@@ -54,8 +78,35 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         textView_martch.setOnClickListener(this);
         textView_myteam.setOnClickListener(this);
         textView_dynmic.setOnClickListener(this);
+
+        linearLayout.setOnClickListener(this);
+        circleView_headpt.setOnClickListener(this);
+
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView
+                .OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Toast.makeText(HomePageActivity.this,menuItem.getTitle()
+                        .toString(),Toast.LENGTH_SHORT).show();
+                drawerLayout.closeDrawer(navigationView);
+                return true;
+            }
+        });
+        getUser();
+        if (user.getTouxiang() == null){
+            Picasso.with(this).load("https://pics0.baidu.com/feed/9345d688d43f8794140676bbecb6d9f119d53ad8.jpeg?token=edcf1b1d71aedfff9c75cc42610c29ea&s=B9A87D327C35728802F451C70300F0A3").into(circleView_headpt);
+           }
+
     }
 
+    public User getUser(){
+       /*user = new User("name",
+                "C:\\Users\\Shinelon\\Desktop\\nva_bg.JPG");
+        Log.d("zd1120",user.getTouxiang());
+        return user;*/
+      return user = new User();
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -81,6 +132,17 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                 linearLayoutseach.setVisibility(View.GONE);
                 setTabSelection(3);
                 break;
+            case R.id.snavbar:
+                if (drawerLayout.isDrawerOpen(navigationView)){
+                    drawerLayout.closeDrawer(navigationView);
+                }else {
+                    drawerLayout.openDrawer(navigationView);
+                }
+                break;
+            case R.id.nav_headpt:
+                if (user.getUname() == null){
+                    startActivity(new Intent(this,LoginActivity.class));
+                }
             default:
                 break;
         }

@@ -2,9 +2,27 @@ package com.ZCZ1024.MeetStone.Entity;
 
 public class User {
     private String uname;
+    private String touxiang;
 
     public User(String uname) {
         this.uname = uname;
+    }
+
+    public User() {
+
+    }
+
+    public User(String name, String tou) {
+        this.uname = name;
+        this.touxiang = tou;
+    }
+
+    public String getTouxiang() {
+        return touxiang;
+    }
+
+    public void setTouxiang(String touxiang) {
+        this.touxiang = touxiang;
     }
 
     public String getUname() {

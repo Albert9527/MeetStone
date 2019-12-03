@@ -16,5 +16,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view){
+        //登陆验证
+        if(1==1){
+            //提示登陆成功，延时跳转至首页
+        }
+    }
+
+    public void register(View view){
+        //注册
+        //提示注册成功，延时跳转至登陆界面
     }
 }
