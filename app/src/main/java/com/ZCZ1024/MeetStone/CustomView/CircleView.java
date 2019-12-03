@@ -10,7 +10,6 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -75,13 +74,22 @@ public class CircleView extends AppCompatImageView {
             return bd.getBitmap();
         }
 
+        if (drawable.getIntrinsicWidth() != 0 && drawable.getIntrinsicHeight() != 0){
         int w = drawable.getIntrinsicWidth();
         int h = drawable.getIntrinsicHeight();
         Bitmap bitmap = Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0,0,w,h);
-        drawable.draw(canvas);
-        return bitmap;
+            drawable.draw(canvas);
+            return bitmap;
+        }
+        else {
+            Bitmap bitmap = Bitmap.createBitmap(60,60,Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0,0,60,60);
+            drawable.draw(canvas);
+            return bitmap;
+        }
 
     }
 }
