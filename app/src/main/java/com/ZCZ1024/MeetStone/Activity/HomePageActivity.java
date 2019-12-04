@@ -11,8 +11,10 @@ import com.ZCZ1024.MeetStone.Fragments.FragmentDynmic;
 import com.ZCZ1024.MeetStone.Fragments.FragmentMartch;
 import com.ZCZ1024.MeetStone.Fragments.FragmentMyTeam;
 import com.ZCZ1024.MeetStone.R;
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
-import com.squareup.picasso.Picasso;
+import com.liji.circleimageview.CircleImageView;
+
 
 import androidx.annotation.NonNull;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -20,15 +22,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 
-
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.File;
 
 
 public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
@@ -43,7 +42,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private CircleView circleView_headpt;
+    private CircleImageView circleView_headpt;
     private User user;
 
     @Override
@@ -94,9 +93,13 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
             }
         });
         getUser();
-        if (user.getTouxiang() == null){
-            Picasso.with(this).load("https://pics0.baidu.com/feed/9345d688d43f8794140676bbecb6d9f119d53ad8.jpeg?token=edcf1b1d71aedfff9c75cc42610c29ea&s=B9A87D327C35728802F451C70300F0A3").into(circleView_headpt);
-           }
+
+        if (user.getTouxiang() == null) {
+            //加载网络图片
+            Glide.with(HomePageActivity.this.getBaseContext())
+                    .load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575460315770&di=543181b2a7da1b5f045c4b41988d103e&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20111024%2FImg323139260.jpg")
+                    .into(circleView_headpt);
+        }
 
     }
 

@@ -29,12 +29,14 @@
                     android:layout_height="wrap_content"
                     android:text=">>" />
 
-                <com.ZCZ1024.MeetStone.CustomView.CircleView
+                <com.liji.circleimageview.CircleImageView
+                    android:id="@+id/img_usertx"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher_round" />
+                    android:src="@mipmap/ic_launcher_round"
+                    />
             </LinearLayout>
 
             <TextView
