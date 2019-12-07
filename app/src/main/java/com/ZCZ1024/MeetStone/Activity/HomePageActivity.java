@@ -1,10 +1,9 @@
 package com.ZCZ1024.MeetStone.Activity;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
 
-import com.ZCZ1024.MeetStone.CustomView.CircleView;
 import com.ZCZ1024.MeetStone.Entity.User;
 import com.ZCZ1024.MeetStone.Fragments.FragmentAllTeam;
 import com.ZCZ1024.MeetStone.Fragments.FragmentDynmic;
@@ -14,7 +13,6 @@ import com.ZCZ1024.MeetStone.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.liji.circleimageview.CircleImageView;
-
 
 import androidx.annotation.NonNull;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -29,6 +27,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,9 +41,14 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     private TextView textViewtitle;
     private LinearLayout linearLayoutseach;
 
+    private ImageView imgfragment;
+    private TextView tvfragmentname;
+
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private CircleImageView circleView_headpt;
+
+    private List<LinearLayout> layouts;
     private User user;
 
     @Override
@@ -57,94 +63,136 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void init() {
-        TextView textView_allteam = findViewById(R.id.fragment_allteam);
-        TextView textView_martch = findViewById(R.id.fragment_martch);
-        TextView textView_myteam = findViewById(R.id.fragment_myteam);
-        TextView textView_dynmic = findViewById(R.id.fragment_dynmic);
+
+        layouts = new ArrayList<>();
+        LinearLayout layout_allteam = findViewById(R.id.fragment_allteam);
+        LinearLayout textView_martch = findViewById(R.id.fragment_martch);
+        LinearLayout textView_myteam = findViewById(R.id.fragment_myteam);
+        LinearLayout textView_dynmic = findViewById(R.id.fragment_dynmic);
+
+        layouts.add(layout_allteam);
+        layouts.add(textView_martch);
+        layouts.add(textView_myteam);
+        layouts.add(textView_dynmic);
+
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.nav);
         LinearLayout linearLayout = findViewById(R.id.snavbar);
-        View headerView = navigationView.getHeaderView(0);
+        layouts.add(linearLayout);
 
-
-        circleView_headpt = headerView.findViewById(R.id.nav_headpt);
         textViewtitle = findViewById(R.id.tv_title);
         linearLayoutseach = findViewById(R.id.ly_search);
         textViewtitle.setVisibility(View.GONE);
         linearLayoutseach.setVisibility(View.VISIBLE);
 
-        textView_allteam.setOnClickListener(this);
-        textView_martch.setOnClickListener(this);
-        textView_myteam.setOnClickListener(this);
-        textView_dynmic.setOnClickListener(this);
-
-        linearLayout.setOnClickListener(this);
-        circleView_headpt.setOnClickListener(this);
+        for (LinearLayout layout : layouts) {
+            layout.setOnClickListener(this);
+        }
 
 
         navigationView.setNavigationItemSelectedListener(new NavigationView
                 .OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Toast.makeText(HomePageActivity.this,menuItem.getTitle()
-                        .toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomePageActivity.this, menuItem.getTitle()
+                        .toString(), Toast.LENGTH_SHORT).show();
                 drawerLayout.closeDrawer(navigationView);
                 return true;
             }
         });
         getUser();
+        List<CircleImageView> circleViews = initheadpic();
 
         if (user.getTouxiang() == null) {
-            //加载网络图片
-            Glide.with(HomePageActivity.this.getBaseContext())
-                    .load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575460315770&di=543181b2a7da1b5f045c4b41988d103e&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20111024%2FImg323139260.jpg")
-                    .into(circleView_headpt);
+            for (CircleImageView circleImageView : circleViews)
+                //加载网络图片
+                Glide.with(HomePageActivity.this.getBaseContext())
+                        .load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575460315770&di=543181b2a7da1b5f045c4b41988d103e&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20111024%2FImg323139260.jpg")
+                        .into(circleImageView);
         }
 
     }
 
-    public User getUser(){
-       /*user = new User("name",
-                "C:\\Users\\Shinelon\\Desktop\\nva_bg.JPG");
-        Log.d("zd1120",user.getTouxiang());
-        return user;*/
-      return user = new User();
+    public User getUser() {
+        return user = new User();
     }
+
+    private void setFragmentColor(int imagId, int textvid) {
+        imgfragment = findViewById(imagId);
+        tvfragmentname = findViewById(textvid);
+        imgfragment.setImageResource(R.drawable.all_team_on);
+        tvfragmentname.setTextColor(Color.parseColor("#EE3B3B"));
+    }
+
+    //设置当前用户头像
+    private List<CircleImageView> initheadpic() {
+        List<CircleImageView> imageViews = new ArrayList<>();
+        View headerView = navigationView.getHeaderView(0);
+
+
+        circleView_headpt = headerView.findViewById(R.id.nav_headpt);
+        circleView_headpt.setOnClickListener(this);
+        imageViews.add(circleView_headpt);
+
+        CircleImageView img_usertx = findViewById(R.id.img_usertx);
+
+        imageViews.add(img_usertx);
+
+        return imageViews;
+    }
+
+    //Fragment
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.fragment_martch:
                 textViewtitle.setVisibility(View.GONE);
                 linearLayoutseach.setVisibility(View.VISIBLE);
+                setFragmentColor(R.id.fragment_img_martch, R.id.tv_fragment_martch);
                 setTabSelection(0);
                 break;
             case R.id.fragment_allteam:
                 textViewtitle.setVisibility(View.GONE);
                 linearLayoutseach.setVisibility(View.VISIBLE);
+                setFragmentColor(R.id.fragment_img_alltem, R.id.tv_fragment_allteam);
                 setTabSelection(1);
                 break;
             case R.id.fragment_myteam:
                 textViewtitle.setVisibility(View.VISIBLE);
-                textViewtitle.setText("我的队伍");
                 linearLayoutseach.setVisibility(View.GONE);
+                setFragmentColor(R.id.fragment_img_myteam, R.id.tv_fragment_myteam);
+                textViewtitle.setText("我的队伍");
                 setTabSelection(2);
                 break;
             case R.id.fragment_dynmic:
                 textViewtitle.setVisibility(View.VISIBLE);
-                textViewtitle.setText("动态");
                 linearLayoutseach.setVisibility(View.GONE);
+                setFragmentColor(R.id.fragment_img_dynmic, R.id.tv_fragment_dynmic);
+                textViewtitle.setText("动态");
                 setTabSelection(3);
                 break;
+
+            /*
+             * 侧滑栏弹出事件
+             * */
             case R.id.snavbar:
-                if (drawerLayout.isDrawerOpen(navigationView)){
+                if (drawerLayout.isDrawerOpen(navigationView)) {
                     drawerLayout.closeDrawer(navigationView);
-                }else {
+                } else {
                     drawerLayout.openDrawer(navigationView);
                 }
                 break;
+
+            /* 侧滑栏头像点击事件
+             * 如果用户未登录，跳转到登陆界面
+             * 如果用户已登录，跳转到用户主页
+             * */
             case R.id.nav_headpt:
-                if (user.getUname() == null){
-                    startActivity(new Intent(this,LoginActivity.class));
+                if (user.getUname() == null) {
+                    startActivity(new Intent(this, LoginActivity.class));
+                } else {
+                    startActivity(new Intent(this, ShowUserInfo.class));
                 }
             default:
                 break;
@@ -214,4 +262,5 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         }
         transaction.commit();
     }
+
 }
