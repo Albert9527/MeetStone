@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ZCZ1024.MeetStone">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,15 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activity.ShowUserInfo"></activity>
+        <activity android:name=".Activity.UpdateUserInfo" />
+        <activity android:name=".Activity.Apply_Team" />
+        <activity android:name=".Activity.Register" />
         <activity android:name=".Activity.MakeTeamActivity" />
-        <activity android:name=".Activity.LoginActivity"
-            android:theme="@style/AppTheme"
-            android:label="@string/tab_text_5"/>
+        <activity
+            android:name=".Activity.LoginActivity"
+            android:label="@string/tab_text_5"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.HomePageActivity"
             android:label="@string/title_activity_home_page"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.MainActivity"
+        <activity
+            android:name=".Activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

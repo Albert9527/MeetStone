@@ -1,6 +1,6 @@
 package com.ZCZ1024.MeetStone.Fragments;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ZCZ1024.MeetStone.Activity.Apply_Team;
 import com.ZCZ1024.MeetStone.Adapter.RecyclerViewAdapter;
 import com.ZCZ1024.MeetStone.Entity.Team;
 import com.ZCZ1024.MeetStone.R;
@@ -30,18 +31,24 @@ public class FragmentAllTeam extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_allteam, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerview_allteam);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this.getActivity().getBaseContext(),2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this.getActivity().getBaseContext(), 2));
 
         //设置适配器
         viewAdapter = new RecyclerViewAdapter(null);
         OnItemClickListener listener = new OnItemClickListener() {
             @Override
             public void itemClick(int position, View view) {
-                Toast.makeText(view.getContext(),position+"被点击",Toast.LENGTH_LONG).show();
+                switch (view.getId()) {
+                    case R.id.tv_teamname:
+                        Toast.makeText(view.getContext(), position + "被点击", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.bt_teamapply:
+                        startActivity(new Intent(getContext(),Apply_Team.class));
+                }
             }
         };
 
@@ -55,8 +62,7 @@ public class FragmentAllTeam extends Fragment {
 
     private void initData() {
         teams = new ArrayList<>();
-        for (int i = 0; i < 4; i++)
-        {
+        for (int i = 0; i < 4; i++) {
             Team team = new Team("index" + i);
             teams.add(team);
         }
@@ -65,7 +71,7 @@ public class FragmentAllTeam extends Fragment {
     }
 
 
-    public static interface OnItemClickListener{
+    public static interface OnItemClickListener {
         void itemClick(int position, View view);
     }
 }

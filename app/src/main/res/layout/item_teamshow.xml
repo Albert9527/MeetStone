@@ -1,71 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <TextView
+        android:id="@+id/tv_teamname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="队伍名称"
         android:gravity="center"
-        android:textSize="25sp"
-        android:id="@+id/tv_teamname"/>
+        android:text="队伍名称"
+        android:textSize="25sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <TextView
+            android:id="@+id/tv_teamcaptain"
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_weight="1"
-            android:text="队长："
             android:gravity="center_vertical"
-            android:textSize="15sp"
-            android:layout_marginLeft="20dp"/>
+            android:text="队长："
+            android:textSize="15sp" />
+
         <TextView
+            android:id="@+id/tv_teammadetime"
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:text="创建时间"
             android:gravity="right"
-            android:textSize="15sp"
-            android:layout_marginRight="20dp"/>
+            android:text="创建时间"
+            android:textSize="15sp" />
     </LinearLayout>
+
     <TextView
+        android:id="@+id/tv_teamintro"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:text="队伍简介"
-        android:textSize="20sp"
         android:maxLines="5"
-        android:textColor="#000000"/>
+        android:text="队伍简介"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
-        >
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_weight="1"
-            android:text="剩余名额："
             android:gravity="center_vertical"
-            android:textSize="15sp"
-            android:layout_marginLeft="20dp"/>
+            android:text="剩余名额："
+            android:textSize="15sp" />
+
         <TextView
+            android:id="@+id/tv_teamquota"
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="2："
-            android:textSize="15sp"
-            android:layout_marginLeft="20dp"/>
+            android:textSize="15sp" />
+
         <Button
+            android:id="@+id/bt_teamapply"
             android:layout_width="80dp"
             android:layout_height="20dp"
             android:text="申请"
-            android:textSize="15sp"
-            />
+            android:textSize="15sp" />
     </LinearLayout>
 </LinearLayout>

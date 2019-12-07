@@ -3,6 +3,7 @@ package com.ZCZ1024.MeetStone.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.listener = listener;
     }*/
 
-    public void setOnItemClickListener(FragmentAllTeam.OnItemClickListener listener){
+    public void setOnItemClickListener(FragmentAllTeam.OnItemClickListener listener) {
         this.listener = listener;
     }
 
@@ -48,7 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_teamshow,parent,false);
+                .inflate(R.layout.item_teamshow, parent, false);
         return new ListViewHolder(view);
     }
 
@@ -56,8 +57,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ListViewHolder holder, final int position) {
 
         Team team = allTeamData.get(position);
-        holder.textView.setText(team.getName());
-        holder.textView.setOnClickListener(new View.OnClickListener() {
+        holder.textViewTname.setText(team.getName());
+        holder.textViewTname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.itemClick(position, v);
+                }
+            }
+        });
+        holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null){
@@ -72,13 +81,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return allTeamData.size();
     }
 
-    static class ListViewHolder extends RecyclerView.ViewHolder{
-        TextView textView;
-        public ListViewHolder(@NonNull View itemView){
+    static class ListViewHolder extends RecyclerView.ViewHolder {
+        TextView textViewTname;
+        TextView textViewTcaptain;
+        TextView textViewTintro;
+        TextView textViewMadetime;
+        TextView textViewQuota;
+        TextView textViewCtgy;
+        Button button;
+
+        public ListViewHolder(@NonNull View itemView) {
 
             //获取itemUi
             super(itemView);
-            textView = itemView.findViewById(R.id.tv_teamname);
+            textViewTname = itemView.findViewById(R.id.tv_teamname);
+            textViewTintro = itemView.findViewById(R.id.tv_teamintro);
+            textViewTcaptain = itemView.findViewById(R.id.tv_teamcaptain);
+            textViewMadetime = itemView.findViewById(R.id.tv_teammadetime);
+            textViewQuota = itemView.findViewById(R.id.tv_teamquota);
+            button = itemView.findViewById(R.id.bt_teamapply);
+
 
         }
     }

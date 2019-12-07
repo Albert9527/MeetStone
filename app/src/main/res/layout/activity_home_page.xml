@@ -46,14 +46,16 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="标题" />
+                android:text="标题"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/ly_search"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:visibility="visible">
 
                 <EditText
                     android:id="@+id/et_search"
@@ -89,38 +91,98 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-
-            <TextView
+            <LinearLayout
                 android:id="@+id/fragment_martch"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="赛事推荐" />
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+                <ImageView
+                    android:id="@+id/fragment_img_martch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/all_team_on"/>
+                <TextView
+                    android:id="@+id/tv_fragment_martch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="赛事推荐"
+                    android:textColor="@color/click"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+            </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/fragment_allteam"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="组队大厅" />
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+                <ImageView
+                    android:id="@+id/fragment_img_alltem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/all_team_off"/>
+                <TextView
+                    android:id="@+id/tv_fragment_allteam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="组队大厅"
+                    android:textColor="#8a8a8a"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
 
-            <TextView
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/fragment_myteam"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="我的队伍" />
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+                <ImageView
+                    android:id="@+id/fragment_img_myteam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/all_team_off"/>
+                <TextView
+                    android:id="@+id/tv_fragment_myteam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的队伍"
+                    android:textColor="#8a8a8a"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+            </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/fragment_dynmic"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="动态浏览" />
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+                <ImageView
+                    android:id="@+id/fragment_img_dynmic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/all_team_off"/>
+                <TextView
+                    android:id="@+id/tv_fragment_dynmic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="赛事推荐"
+                    android:textColor="#8a8a8a"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
