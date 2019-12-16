@@ -169,16 +169,17 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:layout_gravity="center">
+
                 <ImageView
                     android:id="@+id/fragment_img_dynmic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/all_team_off"/>
+                    android:src="@drawable/all_team_off" />
                 <TextView
                     android:id="@+id/tv_fragment_dynmic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="赛事推荐"
+                    android:text="动态"
                     android:textColor="#8a8a8a"
                     android:textStyle="bold"
                     android:textSize="15sp"/>

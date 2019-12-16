@@ -197,7 +197,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     public void Nvaclick(View view){
 
-        if (user.getUname() != null) {
+        //设置侧滑栏头像点击响应
+        if (user.getUname() == null) {
             startActivity(new Intent(this, LoginActivity.class));
         } else {
             startActivity(new Intent(this, ShowUserInfo.class));

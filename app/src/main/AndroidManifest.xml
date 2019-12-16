@@ -15,8 +15,6 @@
         android:usesCleartextTraffic="true" >
         <activity android:name=".Activity.ShowUserInfo"
             android:theme="@style/AppTheme"></activity>
-        <activity android:name=".Activity.UpdateUserInfo" />
-        <activity android:name=".Activity.Apply_Team" />
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.MakeTeamActivity" />
         <activity
