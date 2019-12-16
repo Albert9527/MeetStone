@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ZCZ1024.MeetStone.Activity.Apply_Team;
-import com.ZCZ1024.MeetStone.Adapter.RecyclerViewAdapter;
+import com.ZCZ1024.MeetStone.Adapter.AllteamViewAdapter;
 import com.ZCZ1024.MeetStone.Entity.Team;
 import com.ZCZ1024.MeetStone.R;
 
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class FragmentAllTeam extends Fragment {
     private RecyclerView recyclerView;
-    private RecyclerViewAdapter viewAdapter;
+    private AllteamViewAdapter viewAdapter;
     private List<Team> teams;
 
     @Nullable
@@ -38,7 +38,7 @@ public class FragmentAllTeam extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(this.getActivity().getBaseContext(), 2));
 
         //设置适配器
-        viewAdapter = new RecyclerViewAdapter(null);
+        viewAdapter = new AllteamViewAdapter(null);
         OnItemClickListener listener = new OnItemClickListener() {
             @Override
             public void itemClick(int position, View view) {

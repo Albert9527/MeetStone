@@ -46,7 +46,7 @@ public class RetrofitFactory
             else
             {
                 // 无网络时 设置超时为1周
-                int maxStale = 60 * 60 * 24 * 7;
+                int maxStale = 60 * 60 * 24;
                 return originalResponse.newBuilder()
                         .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
                         .removeHeader("Pragma")
@@ -59,6 +59,50 @@ public class RetrofitFactory
 
     @NonNull
     public static Retrofit getRetrofit()
+    {
+        if (retrofit == null)
+        {
+            synchronized (RetrofitFactory.class)
+            {
+                if (retrofit == null)
+                {
+                    // 指定缓存路径,缓存大小 50Mb
+//                    Cache cache = new Cache(new File(App.AppContext.getCacheDir(), "HttpCache"),
+//                                            1024 * 1024 * 50);
+
+                    OkHttpClient.Builder builder = new OkHttpClient.Builder()
+//                            .cookieJar(cookieJar)
+//                            .cache(cache).addInterceptor(cacheControlInterceptor)
+                            // 设置连接超市时间
+                            .connectTimeout(10, TimeUnit.SECONDS)
+                            // 设置读超时时间
+                            .readTimeout(15, TimeUnit.SECONDS)
+                            // 设置写超时时间
+                            .writeTimeout(15, TimeUnit.SECONDS).retryOnConnectionFailure(true);
+
+                    // Log 拦截器
+                    if (AppConfig.DEBUG)
+                    {
+
+                        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+                        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+                        builder.addInterceptor(logging);
+
+                    }
+
+                    retrofit = new Retrofit.Builder().baseUrl(AppConfig.BASE_URL)
+                            .client(builder.build())
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                            .build();
+                }
+            }
+        }
+        return retrofit;
+    }
+
+    @NonNull
+    public static Retrofit getRetrofit(String url)
     {
         if (retrofit == null)
         {

@@ -1,13 +1,16 @@
 package com.ZCZ1024.MeetStone.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ZCZ1024.MeetStone.Activity.MakeTeamActivity;
 import com.ZCZ1024.MeetStone.Entity.Martch;
 import com.ZCZ1024.MeetStone.Fragments.FragmentMartch;
 import com.ZCZ1024.MeetStone.R;
@@ -40,15 +43,15 @@ public class MartchViewAdpter extends RecyclerView.Adapter<MartchViewAdpter.List
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MartchViewAdpter.ListViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MartchViewAdpter.ListViewHolder holder, final int position) {
 
-        Martch martch = martches.get(position);
-        holder.textView.setText(martch.getMartchname());
-        holder.textView.setOnClickListener(new View.OnClickListener() {
+        final Martch martch = martches.get(position);
+        holder.MartchName.setText(martch.getMartchname());
+        holder.bt_ToMakeTeam.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (listener != null) {
-                    listener.itemClick(position, v);
+                    listener.itemClick(position, view);
                 }
             }
         });
@@ -59,14 +62,19 @@ public class MartchViewAdpter extends RecyclerView.Adapter<MartchViewAdpter.List
         return martches.size();
     }
 
+    public void startac(Intent intent ,Class c){
+    }
+
     public class ListViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        TextView MartchName,MartchUrl,Date,fabuzhe;
+        Button bt_ToMakeTeam;
+
         public ListViewHolder(@NonNull View itemView){
 
             //获取itemUi
             super(itemView);
-            textView = itemView.findViewById(R.id.tv_martchname);
-
+            bt_ToMakeTeam = itemView.findViewById(R.id.bt_tomaketeam);
+            MartchName = itemView.findViewById(R.id.tv_martchname);
         }
     }
 }

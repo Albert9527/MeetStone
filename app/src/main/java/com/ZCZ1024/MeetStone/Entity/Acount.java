@@ -1,50 +1,50 @@
 package com.ZCZ1024.MeetStone.Entity;
 
 public class Acount {
-    private String username;
-    private String password;
-    private String userid;
-    private int role;
+    private String userName;
+    private String userPsd;
+    private String userID;
+    private int userRole;
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserPsd() {
+        return userPsd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserPsd(String userPsd) {
+        this.userPsd = userPsd;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
-    public int getRole() {
-        return role;
+    public int getUserRole() {
+        return userRole;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    public void setUserRole(int userRole) {
+        this.userRole = userRole;
     }
 
     @Override
     public String toString() {
         return "Acount{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", userid='" + userid + '\'' +
-                ", role=" + role +
+                "userName='" + userName + '\'' +
+                ", userPsd='" + userPsd + '\'' +
+                ", userID='" + userID + '\'' +
+                ", userRole=" + userRole +
                 '}';
     }
 }

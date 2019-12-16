@@ -13,11 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ZCZ1024.MeetStone.Adapter.DynamicViewAdpter;
-import com.ZCZ1024.MeetStone.Adapter.RecyclerViewAdapter;
 import com.ZCZ1024.MeetStone.Entity.Dynamic;
-import com.ZCZ1024.MeetStone.Entity.Team;
 import com.ZCZ1024.MeetStone.R;
-import com.ZCZ1024.MeetStone.ui.main.SectionsPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

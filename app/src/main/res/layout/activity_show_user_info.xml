@@ -1,22 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.ShowUserInfo"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Activity.ShowUserInfo">
 
-    <com.liji.circleimageview.CircleImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/cat"
-        android:id="@+id/show_tx"/>
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="个人主页"
-        android:gravity="center"/>
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:text="《"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="用户主页"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_margin="10dp"
+                android:paddingRight="60dp"/>
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <com.liji.circleimageview.CircleImageView
+            android:id="@+id/show_tx"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/cat" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_userinfoname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="用户昵称"
+                android:textSize="@dimen/sp_20"
+                android:layout_marginLeft="10dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/tv_userinfosex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="性别" />
+
+                <TextView
+                    android:id="@+id/tv_userinfoage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="年龄" />
+
+                <TextView
+                    android:id="@+id/tv_userinfoaddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="地址" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="所在队伍"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textSize="@dimen/sp_20"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:minLines="3"
+        android:text="userintro"
+        android:textSize="@dimen/sp_20" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="动态"
+            android:textSize="30sp"
+            android:background="@drawable/selector_bt_bg_compose_red"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
 
 </LinearLayout>

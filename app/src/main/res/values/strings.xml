@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">MeetStone</string>
-    <string name="title_activity_home_page">HomePageActivity</string>
+    <string name="title_activity_home_page">首页</string>
     <string name="tab_text_1">赛事推荐</string>
     <string name="tab_text_2">组队大厅</string>
     <string name="tab_text_3">我的队伍</string>
     <string name="tab_text_4">动态</string>
-    <string name="tab_text_5">首页</string>
+    <string name="login">用户登陆</string>
 
     <string name="title_activity_main2">Main2Activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

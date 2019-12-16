@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="200dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@drawable/nva_bg">
 
@@ -15,7 +16,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
-                android:onClick="onClick"
+                android:onClick="Nvaclick"
                 android:src="@drawable/cat" />
 
             <TextView

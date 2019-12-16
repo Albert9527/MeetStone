@@ -10,6 +10,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ownColorbyZD" >
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#FFFAF0</item>
+        <item name="android:background">@drawable/selector_bt_bg_compose_red</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="textSize20sp" >
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

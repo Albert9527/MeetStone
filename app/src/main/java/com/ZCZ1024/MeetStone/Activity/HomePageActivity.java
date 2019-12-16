@@ -131,7 +131,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
 
         circleView_headpt = headerView.findViewById(R.id.nav_headpt);
-        circleView_headpt.setOnClickListener(this);
         imageViews.add(circleView_headpt);
 
         CircleImageView img_usertx = findViewById(R.id.img_usertx);
@@ -144,6 +143,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     //Fragment
     @Override
     public void onClick(View v) {
+        //初始化底部导航栏选定状态
+        initbottomNvaStyle();
 
         switch (v.getId()) {
             case R.id.fragment_martch:
@@ -183,21 +184,24 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                     drawerLayout.openDrawer(navigationView);
                 }
                 break;
-
-            /* 侧滑栏头像点击事件
-             * 如果用户未登录，跳转到登陆界面
-             * 如果用户已登录，跳转到用户主页
-             * */
-            case R.id.nav_headpt:
-                if (user.getUname() == null) {
-                    startActivity(new Intent(this, LoginActivity.class));
-                } else {
-                    startActivity(new Intent(this, ShowUserInfo.class));
-                }
             default:
                 break;
         }
 
+    }
+
+    /* 侧滑栏头像点击事件
+     * 如果用户未登录，跳转到登陆界面
+     * 如果用户已登录，跳转到用户主页
+     * */
+
+    public void Nvaclick(View view){
+
+        if (user.getUname() != null) {
+            startActivity(new Intent(this, LoginActivity.class));
+        } else {
+            startActivity(new Intent(this, ShowUserInfo.class));
+        }
     }
 
     private void setTabSelection(int index) {
@@ -261,6 +265,27 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
             transaction.hide(fragmentDynmic);
         }
         transaction.commit();
+    }
+
+    private void initbottomNvaStyle(){
+        TextView textView1 = findViewById(R.id.tv_fragment_martch);
+        TextView textView2 = findViewById(R.id.tv_fragment_allteam);
+        TextView textView3 = findViewById(R.id.tv_fragment_myteam);
+        TextView textView4 = findViewById(R.id.tv_fragment_dynmic);
+
+        ImageView image1 = findViewById(R.id.fragment_img_martch);
+        ImageView image2 = findViewById(R.id.fragment_img_alltem);
+        ImageView image3 = findViewById(R.id.fragment_img_myteam);
+        ImageView image4 = findViewById(R.id.fragment_img_dynmic);
+
+        textView1.setTextColor(Color.parseColor("#8a8a8a"));
+        textView2.setTextColor(Color.parseColor("#8a8a8a"));
+        textView3.setTextColor(Color.parseColor("#8a8a8a"));
+        textView4.setTextColor(Color.parseColor("#8a8a8a"));
+        image1.setImageResource(R.drawable.all_team_off);
+        image2.setImageResource(R.drawable.all_team_off);
+        image3.setImageResource(R.drawable.all_team_off);
+        image4.setImageResource(R.drawable.all_team_off);
     }
 
 }

@@ -4,77 +4,135 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MakeTeamActivity"
-    android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="队伍名称"/>
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:hint=""/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="简介"/>
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:hint=""/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="招募人数"/>
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:hint=""/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="发布时间"/>
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:hint=""/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="队伍标签"/>
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:hint=""/>
-    </LinearLayout>
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:text="创建"/>
+    android:orientation="vertical"
+    tools:context=".Activity.MakeTeamActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/selector_bt_bg_compose_red">
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:text="返回"
+            android:gravity="center">
+
+        </Button>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="创建队伍"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:layout_marginRight="60dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            style="@style/textSize20sp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="队伍名称" />
+
+        <EditText
+            android:id="@+id/et_teamname"
+            style="@style/textSize20sp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/textSize20sp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="队伍简介" />
+
+        <EditText
+            android:id="@+id/tv_teamintro"
+            style="@style/textSize20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint=""
+            android:minLines="4" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10">
+
+        <TextView
+            style="@style/textSize20sp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="招募人数" />
+
+        <EditText
+            android:id="@+id/et_teamnum"
+            style="@style/textSize20sp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10">
+
+        <TextView
+            style="@style/textSize20sp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="发布时间" />
+
+        <EditText
+            style="@style/textSize20sp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            style="@style/textSize20sp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="队伍标签" />
+
+        <EditText
+            style="@style/textSize20sp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_maketeam"
+        style="@style/ownColorbyZD"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="创建"
+        android:textSize="20sp" />
 </LinearLayout>

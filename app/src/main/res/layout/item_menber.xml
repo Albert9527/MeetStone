@@ -11,7 +11,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <com.ZCZ1024.MeetStone.CustomView.CircleView
+        <com.liji.circleimageview.CircleImageView
             android:id="@+id/img_member_tx"
             android:layout_width="40dp"
             android:layout_height="40dp"

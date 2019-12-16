@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Register"
+    android:gravity="center"
     android:orientation="vertical"
-    android:gravity="center">
+    tools:context=".Activity.RegisterActivity"
+    android:background="@drawable/selector_bt_bg_compose_red">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,18 +27,21 @@
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:hint="密码" />
+
         <EditText
             android:id="@+id/et_surepswd"
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:hint="确认密码" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
             android:gravity="center"
-            android:layout_marginTop="10dp">
+            android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/et_testcode"
                 android:layout_width="100dp"
@@ -47,16 +52,17 @@
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:text="获取验证码"/>
+                android:text="获取验证码" />
         </LinearLayout>
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/bt_regist"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginTop="40dp"
-        android:onClick="register"
+        android:onClick="postregister"
         android:text="注册" />
 
 

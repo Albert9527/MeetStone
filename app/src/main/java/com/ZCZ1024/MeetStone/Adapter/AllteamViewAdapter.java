@@ -15,12 +15,12 @@ import com.ZCZ1024.MeetStone.R;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ListViewHolder> {
+public class AllteamViewAdapter extends RecyclerView.Adapter<AllteamViewAdapter.ListViewHolder> {
 
     private List<Team> allTeamData;
     private FragmentAllTeam.OnItemClickListener listener;
 
-    public RecyclerViewAdapter(List<Team> allTeamData) {
+    public AllteamViewAdapter(List<Team> allTeamData) {
         this.allTeamData = allTeamData;
     }
 
