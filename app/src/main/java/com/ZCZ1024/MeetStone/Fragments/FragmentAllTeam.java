@@ -21,6 +21,9 @@ import com.ZCZ1024.MeetStone.Entity.Team;
 import com.ZCZ1024.MeetStone.R;
 import com.ZCZ1024.MeetStone.Util.AcuntInfo;
 import com.ZCZ1024.MeetStone.Util.CreatDialogUtil;
+import com.ZCZ1024.MeetStone.Util.RefreshUtil;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,18 +75,22 @@ public class FragmentAllTeam extends Fragment {
         };
 
         viewAdapter.setOnItemClickListener(listener);
-        recyclerView.setAdapter(viewAdapter);
 
-        clicklistener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                creatDialogUtil.showinfo();
-            }
-        };
+        //全屏水滴刷新
+        RefreshUtil.refresh(getContext(), view, R.id.refresh_allteam,
+                new OnRefreshListener() {
+                    @Override
+                    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                        initData();
+                        refreshLayout.finishRefresh(1000);
+                    }
+                });
+
+        recyclerView.setAdapter(viewAdapter);
 
         initData();
 
-        return recyclerView;
+        return view;
     }
 
     private void initData() {
@@ -102,6 +109,12 @@ public class FragmentAllTeam extends Fragment {
     }
 
     public void showEditDialog() {
+        clicklistener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                creatDialogUtil.showinfo();
+            }
+        };
         creatDialogUtil = new CreatDialogUtil(this.getActivity(),R.style.ownColorbyZD,clicklistener);
         creatDialogUtil.show();
     }

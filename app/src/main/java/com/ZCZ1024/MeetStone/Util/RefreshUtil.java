@@ -17,12 +17,17 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 public class RefreshUtil {
 
     public static void refresh(Context context, View view, int id, OnRefreshListener onRefreshListener){
+
+        //获取刷新页面
         RefreshLayout refreshLayout = view.findViewById(id);
         refreshLayout.setRefreshHeader(new WaveSwipeHeader(context));
+
         //设置 Header 样式
         refreshLayout.setRefreshFooter(new ClassicsFooter(context));
+
         //设置 Footer 样式
         refreshLayout.setRefreshFooter(new BallPulseFooter(context).setSpinnerStyle(SpinnerStyle.Scale));
+
         refreshLayout.setOnRefreshListener(onRefreshListener);
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override

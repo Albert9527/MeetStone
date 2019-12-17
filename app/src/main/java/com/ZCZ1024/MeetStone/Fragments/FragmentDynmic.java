@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ZCZ1024.MeetStone.Adapter.DynamicViewAdpter;
 import com.ZCZ1024.MeetStone.Entity.Dynamic;
 import com.ZCZ1024.MeetStone.R;
+import com.ZCZ1024.MeetStone.Util.RefreshUtil;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,11 +48,23 @@ public class FragmentDynmic extends Fragment {
         };
 
         viewAdapter.setOnItemClickListener(listener);
+
+        //全屏水滴刷新
+
+        RefreshUtil.refresh(getContext(), view, R.id.refresh_dynmic,
+                new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                initData();
+                refreshLayout.finishRefresh(1000);
+            }
+        });
+
         recyclerView.setAdapter(viewAdapter);
 
         initData();
 
-        return recyclerView;
+        return view;
     }
 
     private void initData() {

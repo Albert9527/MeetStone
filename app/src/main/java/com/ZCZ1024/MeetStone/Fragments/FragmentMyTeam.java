@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ZCZ1024.MeetStone.Adapter.MemberViewAdpter;
 import com.ZCZ1024.MeetStone.Entity.User;
 import com.ZCZ1024.MeetStone.R;
+import com.ZCZ1024.MeetStone.Util.RefreshUtil;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +46,18 @@ public class FragmentMyTeam extends Fragment {
         };
 
         viewAdpter.setOnItemClickListener(listener);
+
+
+        //实现recyclerView全屏水滴刷新
+        RefreshUtil.refresh(getContext(), view, R.id.refresh_member,
+                new OnRefreshListener() {
+                    @Override
+                    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                        initData();
+                        refreshLayout.finishRefresh(1500);
+                    }
+                });
+
         recyclerView.setAdapter(viewAdpter);
 
         initData();

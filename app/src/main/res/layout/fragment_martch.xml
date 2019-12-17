@@ -12,7 +12,7 @@
         android:id="@+id/recyclerview_martch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Fragment_Martch" />
+        />
 
 
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>
