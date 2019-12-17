@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/recyclerview_allteam"
+    android:id="@+id/refresh_allteam"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.PlaceholderFragment"
-    >
+    tools:context=".Fragments.FragmentAllTeam">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_allteam"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
-</androidx.recyclerview.widget.RecyclerView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
