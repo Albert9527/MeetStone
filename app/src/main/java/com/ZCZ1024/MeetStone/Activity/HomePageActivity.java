@@ -46,7 +46,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private CircleImageView circleView_headpt;
 
     private List<LinearLayout> layouts;
     private User user;
@@ -90,21 +89,13 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         }
 
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView
-                .OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Toast.makeText(HomePageActivity.this, menuItem.getTitle()
-                        .toString(), Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawer(navigationView);
-                return true;
-            }
-        });
+        //侧滑栏菜单响应事件
+        navigationView.setNavigationItemSelectedListener(navViewclicklisener());
+
         getUser();
-        List<CircleImageView> circleViews = initheadpic();
 
         if (user.getTouxiang() == null) {
-            for (CircleImageView circleImageView : circleViews)
+            for (CircleImageView circleImageView : initheadpic())
                 //加载网络图片
                 Glide.with(HomePageActivity.this.getBaseContext())
                         .load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575460315770&di=543181b2a7da1b5f045c4b41988d103e&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20111024%2FImg323139260.jpg")
@@ -124,13 +115,11 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         tvfragmentname.setTextColor(Color.parseColor("#EE3B3B"));
     }
 
-    //设置当前用户头像
+    //设置当前用户所有页面头像
     private List<CircleImageView> initheadpic() {
         List<CircleImageView> imageViews = new ArrayList<>();
         View headerView = navigationView.getHeaderView(0);
-
-
-        circleView_headpt = headerView.findViewById(R.id.nav_headpt);
+        CircleImageView circleView_headpt = headerView.findViewById(R.id.nav_headpt);
         imageViews.add(circleView_headpt);
 
         CircleImageView img_usertx = findViewById(R.id.img_usertx);
@@ -195,7 +184,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
      * 如果用户已登录，跳转到用户主页
      * */
 
-    public void Nvaclick(View view){
+    public void Nvaclick(View view) {
 
         //设置侧滑栏头像点击响应
         if (user.getUname() == null) {
@@ -203,6 +192,38 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         } else {
             startActivity(new Intent(this, ShowUserInfo.class));
         }
+    }
+
+    /**
+     * 侧滑栏菜单点击事件响应
+     */
+
+    public NavigationView.OnNavigationItemSelectedListener navViewclicklisener() {
+        return new NavigationView
+                .OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.fans:
+                        Toast.makeText(HomePageActivity.this, menuItem.getTitle()
+                                .toString(), Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.foucs:
+                        Toast.makeText(HomePageActivity.this, menuItem.getTitle()
+                                .toString(), Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.userinfo:
+                        Toast.makeText(HomePageActivity.this, menuItem.getTitle()
+                                .toString(), Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+
+                }
+                drawerLayout.closeDrawer(navigationView);
+                return true;
+            }
+        };
     }
 
     private void setTabSelection(int index) {
@@ -268,7 +289,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         transaction.commit();
     }
 
-    private void initbottomNvaStyle(){
+    private void initbottomNvaStyle() {
         TextView textView1 = findViewById(R.id.tv_fragment_martch);
         TextView textView2 = findViewById(R.id.tv_fragment_allteam);
         TextView textView3 = findViewById(R.id.tv_fragment_myteam);

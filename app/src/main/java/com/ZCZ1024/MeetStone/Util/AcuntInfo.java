@@ -30,4 +30,8 @@ public class AcuntInfo {
         String userid = sharedPre.getString("userid", null);
         return userid;
     }
+
+    public static void cleanUserId(Context context){
+        setUserSPf(context,null);
+    }
 }

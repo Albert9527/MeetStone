@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.ZCZ1024.MeetStone.Entity.Acount;
 import com.ZCZ1024.MeetStone.R;
+import com.ZCZ1024.MeetStone.Util.AcuntInfo;
 import com.ZCZ1024.MeetStone.Util.Md5Util;
 import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
 import com.ZCZ1024.MeetStone.presenter.service.UserDataService;
@@ -47,7 +48,9 @@ public class ShowUserInfo extends BaseActivity{
                                 {
                                     Log.d("acount",acount.toString());
                                     textView.setText(acount.getUserName());
+                                    //AcuntInfo.setUserSPf(getBaseContext(),acount.getUserName());
                                     //Md5Util.encrypt(acount.getUserName());
+                                    AcuntInfo.cleanUserId(getBaseContext());
                                 }
                             }
                         }, new Consumer<Throwable>() {

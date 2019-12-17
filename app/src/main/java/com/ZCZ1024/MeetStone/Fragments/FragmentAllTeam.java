@@ -1,5 +1,6 @@
 package com.ZCZ1024.MeetStone.Fragments;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ZCZ1024.MeetStone.Activity.LoginActivity;
 import com.ZCZ1024.MeetStone.Adapter.AllteamViewAdapter;
 import com.ZCZ1024.MeetStone.Entity.Team;
 import com.ZCZ1024.MeetStone.R;
@@ -52,10 +54,13 @@ public class FragmentAllTeam extends Fragment {
                         Toast.makeText(view.getContext(), position + "被点击", Toast.LENGTH_LONG).show();
                         break;
                     case R.id.bt_teamapply:
-                        showEditDialog();
-                        creatDialogUtil.tv_Apply_user.setText(AcuntInfo.getUserId(getContext()));
-                        Log.d("userid",AcuntInfo.getUserId(getContext()));
-                        creatDialogUtil.tv_Apply_group.setText(teams.get(position).getName());
+                        if(AcuntInfo.getUserId(getContext()) == null)
+                        startActivity(new Intent(getContext(), LoginActivity.class));
+                        else{
+                            showEditDialog();
+                            creatDialogUtil.tv_Apply_user.setText(AcuntInfo.getUserId(getContext()));
+                            creatDialogUtil.tv_Apply_group.setText(teams.get(position).getName());
+                        }
                         break;
                     case R.id.bt_applyteam:
                         creatDialogUtil.showinfo();
