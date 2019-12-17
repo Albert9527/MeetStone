@@ -4,10 +4,197 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activity.UpdateUserInfo">
-    <TextView
-        android:layout_width="match_parent"
+
+    <Button
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="个人信息修改"/>
+        android:layout_marginTop="5dp"
+        android:text="《个人信息"
+        android:textSize="15sp"
+        android:layout_marginLeft="10dp"/>
+
+    <LinearLayout
+        style="@style/LinearLayoutStyle"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:text="头像"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                />
+
+            <com.liji.circleimageview.CircleImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="right"
+                android:src="@drawable/cat" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#000000" />
+
+        <LinearLayout
+            style="@style/LinearLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                style="@style/TextviewLeftStyle"
+                android:text="用户昵称"/>
+
+            <TextView
+                style="@style/TextviewshowStyle"
+                android:id="@+id/tv_infoname"
+                android:text="胡图图"/>
+
+            <TextView
+                style="@style/TextviewRightStyle"
+                android:text=">"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                style="@style/TextviewLeftStyle"
+                android:text="账号" />
+
+            <TextView
+                style="@style/TextviewshowStyle"
+                android:text="152****9847"
+               />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                style="@style/TextviewLeftStyle"
+                android:text="修改密码" />
+
+            <TextView
+                style="@style/TextviewRightStyle"
+                android:text=">" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/LinearLayoutStyle"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                style="@style/TextviewLeftStyle"
+                android:text="性别" />
+
+            <TextView
+                style="@style/TextviewshowStyle"
+                android:text="男"/>
+
+            <TextView
+                style="@style/TextviewRightStyle"
+                android:text=">" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                style="@style/TextviewLeftStyle"
+                android:text="出生年月" />
+
+            <TextView
+                style="@style/TextviewshowStyle"
+                android:text="2016-04-16"
+                />
+
+            <TextView
+                style="@style/TextviewRightStyle"
+                android:text=">" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                style="@style/TextviewLeftStyle"
+                android:text="地址" />
+
+            <TextView
+                style="@style/TextviewshowStyle"
+                android:text="翻斗花园二号楼一零零一室"
+                />
+
+            <TextView
+                style="@style/TextviewRightStyle"
+                android:text=">" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                style="@style/TextviewLeftStyle"
+                android:text="职业" />
+
+            <TextView
+                style="@style/TextviewshowStyle"
+                android:text="演员"
+                />
+
+            <TextView
+                style="@style/TextviewRightStyle"
+                android:text=">" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/LinearLayoutStyle"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            style="@style/TextviewLeftStyle"
+            android:text="个人简介" />
+
+        <TextView
+            style="@style/TextviewshowStyle"
+            android:text="图图的耳朵很大很神奇,你们看动耳神功"
+            />
+
+        <TextView
+            style="@style/TextviewRightStyle"
+            android:text=">" />
+    </LinearLayout>
 
 </LinearLayout>

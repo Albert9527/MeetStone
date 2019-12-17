@@ -31,7 +31,7 @@ public class MakeTeamActivity extends BaseActivity {
 
     public void getMartchName(){
         if (getIntent() != null){
-        String name = getIntent().getStringExtra("martchname");
+            String name = getIntent().getStringExtra("martchname");
             et_teamIntro.setText(name);
         }
     }

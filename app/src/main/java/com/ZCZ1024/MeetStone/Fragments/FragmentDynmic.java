@@ -49,8 +49,8 @@ public class FragmentDynmic extends Fragment {
 
         viewAdapter.setOnItemClickListener(listener);
 
-        //全屏水滴刷新
 
+        //全屏水滴样式刷新实现
         RefreshUtil.refresh(getContext(), view, R.id.refresh_dynmic,
                 new OnRefreshListener() {
             @Override

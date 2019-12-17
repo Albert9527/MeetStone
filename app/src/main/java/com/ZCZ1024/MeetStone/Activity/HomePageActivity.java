@@ -196,6 +196,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     /**
      * 侧滑栏菜单点击事件响应
+     * 根据对应菜单选项跳转到对应页面
      */
 
     public NavigationView.OnNavigationItemSelectedListener navViewclicklisener() {
@@ -213,8 +214,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                                 .toString(), Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.userinfo:
-                        Toast.makeText(HomePageActivity.this, menuItem.getTitle()
-                                .toString(), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getBaseContext(),UpdateUserInfo.class));
                         break;
                     default:
                         break;
@@ -289,6 +289,10 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         transaction.commit();
     }
 
+    /**
+     * 初始化底部导航按钮的样式（未点击状态）
+     *
+     */
     private void initbottomNvaStyle() {
         TextView textView1 = findViewById(R.id.tv_fragment_martch);
         TextView textView2 = findViewById(R.id.tv_fragment_allteam);
