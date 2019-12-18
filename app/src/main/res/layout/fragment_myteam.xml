@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:context="Fragments.FragmentMyTeam">
 
@@ -52,6 +52,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_member_remove"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -59,24 +60,19 @@
             android:textSize="15sp" />
 
         <Button
+            android:id="@+id/btn_member_outTeam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="退出队伍"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_member_change_Captain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="转让队长"
-            android:textSize="15sp" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="退出队伍"
-            android:textSize="15sp" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="退出队伍"
             android:textSize="15sp" />
     </LinearLayout>
 

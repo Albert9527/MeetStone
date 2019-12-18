@@ -77,4 +77,21 @@ public class FragmentMyTeam extends Fragment {
     public static interface OnItemClickListener{
         void itemClick(int position, View view);
     }
+
+    public void myTeanmClick(View view){
+        switch (view.getId()){
+            case R.id.btn_member_remove:
+                break;
+
+            case R.id.btn_member_outTeam:
+                break;
+
+            case R.id.btn_member_change_Captain:
+                break;
+
+            default:
+                break;
+        }
+
+    }
 }
