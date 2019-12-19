@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/take"
-        android:title="拍照"/>
+        android:id="@+id/member_menu_remove"
+        android:title="移出队伍"/>
     <item
-        android:id="@+id/choose"
-        android:title="相册"/>
+        android:id="@+id/member_menu_becaptain"
+        android:title="提升队长"/>
     <item
-        android:id="@+id/exit"
-        android:title="取消"/>
+        android:id="@+id/member_menu_updateocp"
+        android:title="修改职务"/>
 </menu>
