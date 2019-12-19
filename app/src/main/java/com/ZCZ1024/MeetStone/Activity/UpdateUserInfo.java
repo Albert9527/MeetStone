@@ -1,14 +1,11 @@
 package com.ZCZ1024.MeetStone.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.ZCZ1024.MeetStone.R;
 
-public class UpdateUserInfo extends AppCompatActivity {
+public class UpdateUserInfo extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

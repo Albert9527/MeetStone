@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import com.ZCZ1024.MeetStone.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private EditText editText;
     private Context context;

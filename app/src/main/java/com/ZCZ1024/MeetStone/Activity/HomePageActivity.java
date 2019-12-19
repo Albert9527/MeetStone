@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomePageActivity extends BaseActivity implements View.OnClickListener {
 
     private FragmentAllTeam fragmentAllTeam;
     private FragmentMartch fragmentMartch;

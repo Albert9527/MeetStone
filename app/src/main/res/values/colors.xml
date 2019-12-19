@@ -6,6 +6,7 @@
 
     <color name="defulttub">#8a8a8a</color>
     <color name="click">#EE3B3B</color>
+    <color name="home_footer">#CD8162</color>
     <color name="windowBackground">@android:color/white</color>
 
     <color name="white">#FFFFFF</color>
