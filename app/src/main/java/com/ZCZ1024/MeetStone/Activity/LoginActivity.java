@@ -88,12 +88,8 @@ public class LoginActivity extends BaseActivity {
         startActivity(new Intent(this, RegisterActivity.class));
     }
 
-    public Acount getAount() {
-
-        acount = new Acount();
-        acount.setUserName(et_username.getText().toString());
-        acount.setUserPsd(et_password.getText().toString());
-        return acount;
+    public void updatePswd(View view){
+        startActivity(new Intent(this,UpdatePswdActivity.class));
     }
 
     public void onfailue() {
@@ -105,7 +101,7 @@ public class LoginActivity extends BaseActivity {
         AcuntInfo.setUserSPf(this,userid);
         Toast.makeText(this, "登陆成功",
                 Toast.LENGTH_SHORT).show();
-
-
     }
+
+
 }

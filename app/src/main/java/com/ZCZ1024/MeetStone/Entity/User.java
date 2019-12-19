@@ -3,6 +3,8 @@ package com.ZCZ1024.MeetStone.Entity;
 public class User {
     private String uname;
     private String touxiang;
+    private String intro;
+
 
     public User(String uname) {
         this.uname = uname;

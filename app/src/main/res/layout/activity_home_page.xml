@@ -5,17 +5,16 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.HomePageActivity"
-    android:background="@drawable/nva_bg">
+    tools:context=".Activity.HomePageActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:gravity="center">
 
             <LinearLayout
@@ -28,7 +27,8 @@
                 <TextView
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
-                    android:text=">>" />
+                    android:text="》"
+                    android:textSize="30sp"/>
 
                 <com.liji.circleimageview.CircleImageView
                     android:id="@+id/img_usertx"
@@ -37,6 +37,7 @@
                     android:layout_centerInParent="true"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/ic_launcher_round"
+                    android:layout_margin="5dp"
                     />
             </LinearLayout>
 
@@ -47,29 +48,36 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="标题"
-                android:visibility="gone"/>
+                android:textSize="20sp"
+                android:visibility="gone"
+                android:textColor="#000000"/>
 
             <LinearLayout
                 android:id="@+id/ly_search"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:visibility="visible">
 
                 <EditText
+                    android:background="@drawable/et_boder"
                     android:id="@+id/et_search"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="30dp"
                     android:layout_weight="1"
-                    android:gravity="center" />
+                    android:maxWidth="150dp"
+                    android:gravity="center"
+                    android:layout_margin="5dp"/>
 
                 <Button
                     android:id="@+id/bt_search"
                     android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_height="20dp"
                     android:text="搜索"
-                    android:textSize="5sp" />
+                    android:textSize="5sp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/selector_bt_bg_compose_red"/>
             </LinearLayout>
 
             <ImageView
@@ -77,28 +85,25 @@
                 android:layout_height="30dp"
                 android:gravity="center"
                 android:src="@drawable/msg_on"
-                android:layout_margin="20dp"/>
+                android:layout_margin="10dp"/>
         </LinearLayout>
 
         <FrameLayout
             android:id="@+id/fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
+
             <LinearLayout
                 android:id="@+id/fragment_martch"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                style="@style/homepage_footer">
                 <ImageView
                     android:id="@+id/fragment_img_martch"
                     android:layout_width="wrap_content"
@@ -116,12 +121,7 @@
 
             <LinearLayout
                 android:id="@+id/fragment_allteam"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                style="@style/homepage_footer">
                 <ImageView
                     android:id="@+id/fragment_img_alltem"
                     android:layout_width="wrap_content"
@@ -140,12 +140,7 @@
 
             <LinearLayout
                 android:id="@+id/fragment_myteam"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                style="@style/homepage_footer">
                 <ImageView
                     android:id="@+id/fragment_img_myteam"
                     android:layout_width="wrap_content"
@@ -163,12 +158,7 @@
 
             <LinearLayout
                 android:id="@+id/fragment_dynmic"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                style="@style/homepage_footer">
 
                 <ImageView
                     android:id="@+id/fragment_img_dynmic"

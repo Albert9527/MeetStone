@@ -4,7 +4,8 @@
         <item
             android:id="@+id/favorite"
             android:icon="@drawable/main"
-            android:title="关注和粉丝">
+            android:title="关注和粉丝"
+            >
             <menu>
                 <item
                     android:id="@+id/fans"

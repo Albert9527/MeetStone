@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,43 +12,47 @@
 
         <com.liji.circleimageview.CircleImageView
             android:id="@+id/img_tx"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerInParent="true"
+            android:layout_margin="5dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher_round" />
+            android:src="@drawable/cat" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="5dp">
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="用户名"
-                android:textSize="12sp"
                 android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                />
+                android:text="用户名"
+                android:textSize="15sp" />
+
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="时间"
-                android:textSize="8sp"
-                android:id="@+id/tv_time"
-                />
+                android:textSize="10sp" />
 
         </LinearLayout>
 
     </LinearLayout>
+
     <TextView
+        android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:text="内容"
-        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
         android:maxLines="4"
-        android:id="@+id/tv_content"/>
+        android:padding="5dp"
+        android:text="内容"
+        android:textSize="20sp" />
 
 </LinearLayout>

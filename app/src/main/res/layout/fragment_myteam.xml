@@ -22,8 +22,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:maxLines="10"
+            android:ellipsize="end"
+            android:maxLines="6"
+            android:minLines="4"
+            android:padding="5dp"
             android:text="队伍简介"
             android:textSize="15sp" />
 
@@ -53,27 +55,20 @@
 
         <Button
             android:id="@+id/btn_member_remove"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/MyteamButtonStyle"
             android:text="移出队员"
-            android:textSize="15sp" />
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/btn_member_outTeam"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="退出队伍"
-            android:textSize="15sp" />
+            style="@style/MyteamButtonStyle"
+            android:text="退出队伍" />
 
         <Button
             android:id="@+id/btn_member_change_Captain"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/MyteamButtonStyle"
             android:text="转让队长"
-            android:textSize="15sp"/>
+            android:visibility="gone"/>
     </LinearLayout>
 
 </LinearLayout>

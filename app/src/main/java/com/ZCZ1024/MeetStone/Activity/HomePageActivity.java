@@ -76,8 +76,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.nav);
-        LinearLayout linearLayout = findViewById(R.id.snavbar);
-        layouts.add(linearLayout);
 
         textViewtitle = findViewById(R.id.tv_title);
         linearLayoutseach = findViewById(R.id.ly_search);
@@ -91,6 +89,21 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         //侧滑栏菜单响应事件
         navigationView.setNavigationItemSelectedListener(navViewclicklisener());
+
+        /*
+         * 侧滑栏弹出事件
+         * */
+        LinearLayout linearLayout = findViewById(R.id.snavbar);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawerLayout.isDrawerOpen(navigationView)) {
+                    drawerLayout.closeDrawer(navigationView);
+                } else {
+                    drawerLayout.openDrawer(navigationView);
+                }
+            }
+        });
 
         getUser();
 
@@ -142,12 +155,14 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                 setFragmentColor(R.id.fragment_img_martch, R.id.tv_fragment_martch);
                 setTabSelection(0);
                 break;
+
             case R.id.fragment_allteam:
                 textViewtitle.setVisibility(View.GONE);
                 linearLayoutseach.setVisibility(View.VISIBLE);
                 setFragmentColor(R.id.fragment_img_alltem, R.id.tv_fragment_allteam);
                 setTabSelection(1);
                 break;
+
             case R.id.fragment_myteam:
                 textViewtitle.setVisibility(View.VISIBLE);
                 linearLayoutseach.setVisibility(View.GONE);
@@ -155,6 +170,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                 textViewtitle.setText("我的队伍");
                 setTabSelection(2);
                 break;
+
             case R.id.fragment_dynmic:
                 textViewtitle.setVisibility(View.VISIBLE);
                 linearLayoutseach.setVisibility(View.GONE);
@@ -163,16 +179,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                 setTabSelection(3);
                 break;
 
-            /*
-             * 侧滑栏弹出事件
-             * */
-            case R.id.snavbar:
-                if (drawerLayout.isDrawerOpen(navigationView)) {
-                    drawerLayout.closeDrawer(navigationView);
-                } else {
-                    drawerLayout.openDrawer(navigationView);
-                }
-                break;
             default:
                 break;
         }

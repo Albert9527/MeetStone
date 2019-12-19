@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -61,7 +62,7 @@ public class MemberViewAdpter extends RecyclerView.Adapter<MemberViewAdpter.List
         holder.tv_member_name.setText(member.getUname());
         holder.tv_member_tx.setOnClickListener(viewlistener);
         holder.tv_member_more.setOnClickListener(viewlistener);
-        holder.tv_member_content.setText(member.getContent());
+        //holder.tv_member_content.setText(member.getContent());
     }
 
     @Override
@@ -70,7 +71,7 @@ public class MemberViewAdpter extends RecyclerView.Adapter<MemberViewAdpter.List
     }
 
     public class ListviewAdpter extends RecyclerView.ViewHolder {
-        TextView tv_member_name,tv_member_more,tv_member_content;
+        TextView tv_member_name,tv_member_more,tv_member_content,tv_member_teamrole;
         CircleImageView tv_member_tx;
 
         public ListviewAdpter(@NonNull View itemView) {
@@ -80,6 +81,7 @@ public class MemberViewAdpter extends RecyclerView.Adapter<MemberViewAdpter.List
             tv_member_tx = itemView.findViewById(R.id.img_member_tx);
             tv_member_more = itemView.findViewById(R.id.tv_member_more);
             tv_member_content = itemView.findViewById(R.id.tv_member_content);
+            tv_member_teamrole = itemView.findViewById(R.id.tv_member_teamrole);
 
         }
 

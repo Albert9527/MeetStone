@@ -1,6 +1,7 @@
 package com.ZCZ1024.MeetStone.Fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,6 +52,7 @@ public class FragmentMyTeam extends Fragment implements View.OnClickListener {
             public void itemClick(int position, View view) {
                 switch (view.getId()) {
                     case R.id.tv_member_more:
+                        PopupMenulisener(view);
                         Toast.makeText(view.getContext(), "btn_member_outteam被点击", Toast.LENGTH_LONG).show();
                         break;
 
@@ -132,6 +135,28 @@ public class FragmentMyTeam extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void PopupMenulisener(View view){
+        final PopupMenu popupMenu = new PopupMenu(getContext(),view);
+        popupMenu.getMenuInflater().inflate(R.menu.menber_menu,popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.member_menu_remove:
+                        Toast.makeText(getContext(), "member_remove被点击", Toast.LENGTH_LONG).show();
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                popupMenu.dismiss();
+            }
+        },3000);
+    }
     public static interface OnItemClickListener {
         void itemClick(int position, View view);
     }

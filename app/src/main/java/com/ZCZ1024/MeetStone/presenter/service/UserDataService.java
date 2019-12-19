@@ -23,6 +23,10 @@ public interface UserDataService {
     @GET("Get/Test")
     Flowable<List<Acount>> getAcount();
 
+    //获取队员集合
+    @POST("Get/Member")
+    Flowable<List<Acount>> getMember(@Path("teamId") String teamid);
+
 
     //注册接口请求，返回一个map，包含一个success（true和false）和error(状态码)
     @FormUrlEncoded
@@ -32,4 +36,5 @@ public interface UserDataService {
     @FormUrlEncoded
     @POST("Acount/API/signup")
     Flowable<String> LoginTest(@FieldMap Map<String,String> acount);
+
 }
