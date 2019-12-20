@@ -57,11 +57,11 @@ public class FragmentAllTeam extends Fragment {
                         Toast.makeText(view.getContext(), position + "被点击", Toast.LENGTH_LONG).show();
                         break;
                     case R.id.bt_teamapply:
-                        if(AcuntInfo.getUserId(getContext()) == null)
+                        if(AcuntInfo.geteditInfo(getContext(),"userid") == null)
                         startActivity(new Intent(getContext(), LoginActivity.class));
                         else{
                             showEditDialog();
-                            creatDialogUtil.tv_Apply_user.setText(AcuntInfo.getUserId(getContext()));
+                            creatDialogUtil.tv_Apply_user.setText(AcuntInfo.geteditInfo(getContext(),"userid"));
                             creatDialogUtil.tv_Apply_group.setText(teams.get(position).getName());
                         }
                         break;
@@ -89,7 +89,6 @@ public class FragmentAllTeam extends Fragment {
         recyclerView.setAdapter(viewAdapter);
 
         initData();
-
         return view;
     }
 

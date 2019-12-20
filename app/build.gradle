@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.mob.sdk'
 
 android {
     compileSdkVersion 28
@@ -16,6 +17,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+}
+
+MobSDK{
+    appKey "2d8bf8edf2816"
+    appSecret "c4c60a5cb68fb9193a888340ab883e26"
+    SMSSDK {
+        gui false
     }
 }
 

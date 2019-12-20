@@ -7,7 +7,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class AcuntInfo {
 
-    public static void setUserSPf(Context context, String userid) {
+    public static void seteditInfo(Context context,String key, String userid) {
 
         //获取SharedPreferences对象
         SharedPreferences sharedPreferences = context
@@ -18,20 +18,21 @@ public class AcuntInfo {
 
 
         //设置参数
-        editor.putString("userid", userid);
+        editor.putString(key, userid);
 
         //提交
         editor.commit();
 
     }
 
-    public static String getUserId(Context context) {
+    public static String geteditInfo(Context context,String key) {
         SharedPreferences sharedPre = context.getSharedPreferences("config", MODE_PRIVATE);
-        String userid = sharedPre.getString("userid", null);
+        String userid = sharedPre.getString(key, null);
         return userid;
     }
 
     public static void cleanUserId(Context context){
-        setUserSPf(context,null);
+        SharedPreferences sharedPre = context.getSharedPreferences("config", MODE_PRIVATE);
+        sharedPre.edit().clear();
     }
 }

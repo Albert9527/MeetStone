@@ -34,7 +34,11 @@ public interface UserDataService {
     Flowable<Map<String,String>> regist(@FieldMap Map<String,String> registinfo);
 
     @FormUrlEncoded
-    @POST("Acount/API/signup")
+    @POST("login")
     Flowable<String> LoginTest(@FieldMap Map<String,String> acount);
+
+    @FormUrlEncoded
+    @POST("updatePswd")
+    Flowable<String> updatePswd(@FieldMap Map<String,String> newpswd);
 
 }

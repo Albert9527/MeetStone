@@ -28,17 +28,16 @@
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:text="》"
-                    android:textSize="30sp"/>
+                    android:textSize="30sp" />
 
                 <com.liji.circleimageview.CircleImageView
                     android:id="@+id/img_usertx"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher_round"
                     android:layout_margin="5dp"
-                    />
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_launcher_round" />
             </LinearLayout>
 
             <TextView
@@ -48,9 +47,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="标题"
+                android:textColor="#000000"
                 android:textSize="20sp"
-                android:visibility="gone"
-                android:textColor="#000000"/>
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/ly_search"
@@ -61,99 +60,93 @@
                 android:visibility="visible">
 
                 <EditText
-                    android:background="@drawable/et_boder"
                     android:id="@+id/et_search"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:maxWidth="150dp"
+                    android:background="@drawable/et_boder"
                     android:gravity="center"
-                    android:layout_margin="5dp"/>
+                    android:maxWidth="150dp" />
 
                 <Button
                     android:id="@+id/bt_search"
                     android:layout_width="40dp"
                     android:layout_height="20dp"
-                    android:text="搜索"
-                    android:textSize="5sp"
                     android:layout_margin="5dp"
-                    android:background="@drawable/selector_bt_bg_compose_red"/>
+                    android:background="@drawable/selector_bt_bg_compose_red"
+                    android:text="搜索"
+                    android:textSize="5sp" />
             </LinearLayout>
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_margin="10dp"
                 android:gravity="center"
-                android:src="@drawable/msg_on"
-                android:layout_margin="10dp"/>
+                android:src="@drawable/msg_on" />
         </LinearLayout>
 
         <FrameLayout
             android:id="@+id/fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/fragment_martch"
                 style="@style/homepage_footer">
+
                 <ImageView
                     android:id="@+id/fragment_img_martch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/all_team_on"/>
+                    android:src="@drawable/martch_on" />
+
                 <TextView
                     android:id="@+id/tv_fragment_martch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/homepage_footer_tb"
                     android:text="赛事推荐"
-                    android:textColor="@color/click"
-                    android:textStyle="bold"
-                    android:textSize="15sp"/>
+                    android:textColor="@color/home_footer" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/fragment_allteam"
                 style="@style/homepage_footer">
+
                 <ImageView
                     android:id="@+id/fragment_img_alltem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/all_team_off"/>
+                    android:src="@drawable/team_off" />
+
                 <TextView
                     android:id="@+id/tv_fragment_allteam"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="组队大厅"
-                    android:textColor="#8a8a8a"
-                    android:textStyle="bold"
-                    android:textSize="15sp"/>
+                    style="@style/homepage_footer_tb"
+                    android:text="组队大厅" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/fragment_myteam"
                 style="@style/homepage_footer">
+
                 <ImageView
                     android:id="@+id/fragment_img_myteam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/all_team_off"/>
+                    android:src="@drawable/myteam_off" />
+
                 <TextView
                     android:id="@+id/tv_fragment_myteam"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="我的队伍"
-                    android:textColor="#8a8a8a"
-                    android:textStyle="bold"
-                    android:textSize="15sp"/>
+                    style="@style/homepage_footer_tb"
+                    android:text="我的队伍" />
             </LinearLayout>
 
             <LinearLayout
@@ -164,21 +157,17 @@
                     android:id="@+id/fragment_img_dynmic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/all_team_off" />
+                    android:src="@drawable/dynmic_off" />
+
                 <TextView
                     android:id="@+id/tv_fragment_dynmic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="动态"
-                    android:textColor="#8a8a8a"
-                    android:textStyle="bold"
-                    android:textSize="15sp"/>
+                    style="@style/homepage_footer_tb"
+                    android:text="动态" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.google.android.material.navigation.NavigationView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/nav"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

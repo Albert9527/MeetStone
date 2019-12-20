@@ -20,7 +20,6 @@ public class MakeTeamActivity extends BaseActivity {
         initview();
        getMartchName();
 
-
     }
 
     private void initview(){

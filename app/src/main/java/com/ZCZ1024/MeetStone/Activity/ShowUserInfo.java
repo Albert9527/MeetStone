@@ -48,9 +48,9 @@ public class ShowUserInfo extends BaseActivity{
                                 {
                                     Log.d("acount",acount.toString());
                                     textView.setText(acount.getUserName());
-                                    //AcuntInfo.setUserSPf(getBaseContext(),acount.getUserName());
+                                    AcuntInfo.seteditInfo(getBaseContext(),"userid",acount.getUserName());
                                     //Md5Util.encrypt(acount.getUserName());
-                                    AcuntInfo.cleanUserId(getBaseContext());
+                                    //AcuntInfo.cleanUserId(getBaseContext());
                                 }
                             }
                         }, new Consumer<Throwable>() {

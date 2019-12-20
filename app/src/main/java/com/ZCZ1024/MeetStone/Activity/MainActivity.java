@@ -12,7 +12,6 @@ import com.ZCZ1024.MeetStone.R;
 
 public class MainActivity extends BaseActivity {
 
-    private EditText editText;
     private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

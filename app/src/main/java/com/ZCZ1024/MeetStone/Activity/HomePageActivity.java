@@ -121,12 +121,6 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         return user = new User();
     }
 
-    private void setFragmentColor(int imagId, int textvid) {
-        imgfragment = findViewById(imagId);
-        tvfragmentname = findViewById(textvid);
-        imgfragment.setImageResource(R.drawable.all_team_on);
-        tvfragmentname.setTextColor(Color.parseColor("#EE3B3B"));
-    }
 
     //设置当前用户所有页面头像
     private List<CircleImageView> initheadpic() {
@@ -193,7 +187,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     public void Nvaclick(View view) {
 
         //设置侧滑栏头像点击响应
-        if (user.getUname() == null) {
+        if (user.getUname() != null) {
             startActivity(new Intent(this, LoginActivity.class));
         } else {
             startActivity(new Intent(this, ShowUserInfo.class));
@@ -220,7 +214,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                                 .toString(), Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.userinfo:
-                        startActivity(new Intent(getBaseContext(),UpdateUserInfo.class));
+                        startActivity(new Intent(getBaseContext(), UpdateUserInfo.class));
                         break;
                     default:
                         break;
@@ -297,7 +291,6 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
     /**
      * 初始化底部导航按钮的样式（未点击状态）
-     *
      */
     private void initbottomNvaStyle() {
         TextView textView1 = findViewById(R.id.tv_fragment_martch);
@@ -305,19 +298,46 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         TextView textView3 = findViewById(R.id.tv_fragment_myteam);
         TextView textView4 = findViewById(R.id.tv_fragment_dynmic);
 
-        ImageView image1 = findViewById(R.id.fragment_img_martch);
-        ImageView image2 = findViewById(R.id.fragment_img_alltem);
-        ImageView image3 = findViewById(R.id.fragment_img_myteam);
-        ImageView image4 = findViewById(R.id.fragment_img_dynmic);
+        ImageView martch = findViewById(R.id.fragment_img_martch);
+        ImageView team = findViewById(R.id.fragment_img_alltem);
+        ImageView myteam = findViewById(R.id.fragment_img_myteam);
+        ImageView dynmic = findViewById(R.id.fragment_img_dynmic);
 
         textView1.setTextColor(Color.parseColor("#8a8a8a"));
         textView2.setTextColor(Color.parseColor("#8a8a8a"));
         textView3.setTextColor(Color.parseColor("#8a8a8a"));
         textView4.setTextColor(Color.parseColor("#8a8a8a"));
-        image1.setImageResource(R.drawable.all_team_off);
-        image2.setImageResource(R.drawable.all_team_off);
-        image3.setImageResource(R.drawable.all_team_off);
-        image4.setImageResource(R.drawable.all_team_off);
+        martch.setImageResource(R.drawable.martch_off);
+        team.setImageResource(R.drawable.team_off);
+        myteam.setImageResource(R.drawable.myteam_off);
+        dynmic.setImageResource(R.drawable.dynmic_off);
+    }
+
+    private void setFragmentColor(int imagId, int textvid) {
+        imgfragment = findViewById(imagId);
+        tvfragmentname = findViewById(textvid);
+        tvfragmentname.setTextColor(getColor(R.color.home_footer));
+
+        switch (imagId) {
+            case R.id.fragment_img_martch:
+                imgfragment.setImageResource(R.drawable.martch_on);
+                break;
+
+            case R.id.fragment_img_alltem:
+                imgfragment.setImageResource(R.drawable.team_on);
+                break;
+
+            case R.id.fragment_img_myteam:
+                imgfragment.setImageResource(R.drawable.myteam_on);
+                break;
+
+            case R.id.fragment_img_dynmic:
+                imgfragment.setImageResource(R.drawable.dynmic_on);
+                break;
+
+            default:
+                break;
+        }
     }
 
 }

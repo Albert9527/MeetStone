@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ZCZ1024.MeetStone.Entity.Acount;
 import com.ZCZ1024.MeetStone.R;
 import com.ZCZ1024.MeetStone.Util.AcuntInfo;
 import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
@@ -23,7 +22,6 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class LoginActivity extends BaseActivity {
-    private Acount acount;
     private EditText et_username;
     private EditText et_password;
 
@@ -98,7 +96,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void loginsuccese(String userid) {
-        AcuntInfo.setUserSPf(this,userid);
+        AcuntInfo.seteditInfo(this,"userid",userid);
         Toast.makeText(this, "登陆成功",
                 Toast.LENGTH_SHORT).show();
     }
