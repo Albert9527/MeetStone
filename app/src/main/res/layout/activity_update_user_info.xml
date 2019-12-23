@@ -4,16 +4,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.UpdateUserInfo">
+    tools:context=".Activity.UserInfoActivity">
 
-    <Button
-        android:layout_width="60dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="《-"
-        android:textSize="15sp"
-        android:layout_marginLeft="10dp"
-        android:onClick="RePrivedActivity"/>
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="《-"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            android:onClick="Btn_user_info"
+            android:id="@+id/btn_preActivity"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="详细资料"
+            android:textSize="20sp"
+            android:gravity="center"/>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="修改"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            android:onClick="Btn_user_info"
+            android:id="@+id/Btn_ToUpdate"/>
+    </LinearLayout>
 
     <LinearLayout
         style="@style/LinearLayoutStyle"

@@ -20,7 +20,7 @@ android {
     }
 }
 
-MobSDK{
+MobSDK {
     appKey "2d8bf8edf2816"
     appSecret "c4c60a5cb68fb9193a888340ab883e26"
     SMSSDK {

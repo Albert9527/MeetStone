@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.ShowUserInfo">
+    tools:context=".Activity.ShowUserPage">
 
     <LinearLayout
         android:layout_width="match_parent"

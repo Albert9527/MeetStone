@@ -20,7 +20,7 @@ import com.ZCZ1024.MeetStone.Util.UserPortraitDialog;
 
 import java.io.FileNotFoundException;
 
-public class UpdateUserInfo extends BaseActivity implements View.OnClickListener {
+public class UserInfoActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +34,19 @@ public class UpdateUserInfo extends BaseActivity implements View.OnClickListener
         layout.setOnClickListener(this);
     }
 
-    public void RePrivedActivity(View view){
-        this.finish();
+    public void Btn_user_info(View view){
+        switch (view.getId()){
+            case R.id.btn_preActivity:
+                this.finish();
+                break;
+
+            case R.id.Btn_ToUpdate:
+                startActivity(new Intent(this,UpdateUserInfoAcitivity.class));
+
+            default:
+                break;
+        }
+
     }
 
     @Override
@@ -108,7 +119,6 @@ public class UpdateUserInfo extends BaseActivity implements View.OnClickListener
 
                     //字符串和bitmap互转
                     String imgstr = BitMapUtil.bitToStr(bitmap);
-                    Bitmap bitmap1 = BitMapUtil.strToBit(imgstr);
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

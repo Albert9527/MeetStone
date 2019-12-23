@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ZCZ1024.MeetStone.Activity.UpdateUserInfo;
 import com.ZCZ1024.MeetStone.R;
 
 public class UserPortraitDialog extends Dialog {

@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.MenuItem;
 import android.view.View;
@@ -190,7 +189,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         if (user.getUname() != null) {
             startActivity(new Intent(this, LoginActivity.class));
         } else {
-            startActivity(new Intent(this, ShowUserInfo.class));
+            startActivity(new Intent(this, ShowUserPage.class));
         }
     }
 
@@ -214,7 +213,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                                 .toString(), Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.userinfo:
-                        startActivity(new Intent(getBaseContext(), UpdateUserInfo.class));
+                        startActivity(new Intent(getBaseContext(), UserInfoActivity.class));
                         break;
                     default:
                         break;
