@@ -1,13 +1,14 @@
 package com.ZCZ1024.MeetStone.presenter.service;
 
-import com.ZCZ1024.MeetStone.Entity.Dynamic;
+import com.ZCZ1024.MeetStone.Entity.Member;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
 
-public interface DynamicDataService {
+public interface MemberDataService {
+
     @GET()
-    Flowable<List<Dynamic>> getAllDynmic();
+    Flowable<List<Member>> getMembers();
 }

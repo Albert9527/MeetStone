@@ -99,7 +99,8 @@ public class RegisterActivity extends BaseActivity {
                                                     public void accept(Throwable throwable) throws Exception {
                                                         Log.e("errow", throwable.toString());
                                                     }
-                                                }));
+                                                })
+                                );
                             }
                         });
                     } else if (event == SMSSDK.EVENT_GET_VOICE_VERIFICATION_CODE) {

@@ -3,6 +3,7 @@ package com.ZCZ1024.MeetStone.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -63,19 +64,26 @@ public class LoginActivity extends BaseActivity {
                         //切换到UI线程执行UI操作
                         .observeOn(AndroidSchedulers.mainThread())
                         // 返回请求数据
-                        .subscribe(new Consumer<String>() {
+                        .subscribe(new Consumer<Map<String, String>>() {
                             @Override
-                            public void accept(String code) throws Exception {
-                                if (code.equals("200")) {
-                                    onfailue();
-                                } else {
-                                    loginsuccese(code);
+                            public void accept(Map<String, String> resultmap) throws Exception {
+                                if (resultmap.get("success").equals("true")) {
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }, 2500);
+                                } else if (resultmap.get("success").equals("false")) {
+
+                                    Toast.makeText(LoginActivity.this, resultmap.get("Error"), Toast.LENGTH_SHORT).show();
                                 }
+
                             }
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
-                                onfailue();
                                 Log.e("errow", throwable.toString());
                             }
                         }));

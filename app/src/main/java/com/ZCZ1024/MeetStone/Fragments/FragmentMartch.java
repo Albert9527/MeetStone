@@ -32,7 +32,7 @@ import io.reactivex.schedulers.Schedulers;
 public class FragmentMartch extends BaseFragment{
     private List<Martch> martches;
     private RecyclerView recyclerView;
-    private MartchViewAdpter viewAdpter;
+    private MartchViewAdpter viewAdapter;
 
     @Nullable
     @Override
@@ -43,7 +43,7 @@ public class FragmentMartch extends BaseFragment{
         recyclerView = view.findViewById(R.id.recyclerview_martch);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        viewAdpter = new MartchViewAdpter(null);
+        viewAdapter = new MartchViewAdpter(null);
         FragmentMartch.OnItemClickListener listener = new OnItemClickListener() {
             @Override
             public void itemClick(int position, View view) {
@@ -55,7 +55,7 @@ public class FragmentMartch extends BaseFragment{
             }
         };
 
-        viewAdpter.setOnItemClickListener(listener);
+        viewAdapter.setOnItemClickListener(listener);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration
                 (getContext(),DividerItemDecoration.VERTICAL);
@@ -67,48 +67,41 @@ public class FragmentMartch extends BaseFragment{
                 new OnRefreshListener() {
                     @Override
                     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                        initData();
+                        loadData();
                         refreshLayout.finishRefresh(1500);
                     }
                 });
 
-       /* final SwipeRefreshLayout refreshLayout = view.findViewById(R.id.refresh_martch);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //创建线程
-                *//*new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //todo
-                    }
-                }).start();*//*
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        initData();
-                        refreshLayout.setRefreshing(false);
-                    }
-                },2000);
-            }
-        });*/
 
+        recyclerView.setAdapter(viewAdapter);
 
-        recyclerView.setAdapter(viewAdpter);
-
-        initData();
+        loadData();
 
         return view;
     }
 
-    private void initData() {
-        martches = new ArrayList<>();
-        for (int i = 0;i<5;i++){
-            Martch martch = new Martch("index"+i);
-            martches.add(martch);
-        }
-        viewAdpter.setMartches(martches);
+    private void loadData() {
+        addDisposable(
+                RetrofitFactory.getRetrofit()
+                        .create(MartchDataService.class)
+                        .getMartches()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<List<Martch>>() {
+                            @Override
+                            public void accept(List<Martch> dynamics) throws Exception {
+
+                                viewAdapter.setMartches(dynamics);
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+
+                            }
+                        })
+        );
     }
+
 
     private void getMartchData(){
         addDisposable(
@@ -120,7 +113,7 @@ public class FragmentMartch extends BaseFragment{
                 .subscribe(new Consumer<List<Martch>>() {
                     @Override
                     public void accept(List<Martch> martches) throws Exception {
-                        viewAdpter.setMartches(martches);
+                        viewAdapter.setMartches(martches);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

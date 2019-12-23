@@ -16,16 +16,21 @@ import com.ZCZ1024.MeetStone.Adapter.DynamicViewAdpter;
 import com.ZCZ1024.MeetStone.Entity.Dynamic;
 import com.ZCZ1024.MeetStone.R;
 import com.ZCZ1024.MeetStone.Util.RefreshUtil;
+import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
+import com.ZCZ1024.MeetStone.presenter.service.DynamicDataService;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentDynmic extends Fragment {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
+public class FragmentDynmic extends BaseFragment {
     public RecyclerView recyclerView;
     public DynamicViewAdpter viewAdapter;
-    public List<Dynamic> dynamics;
 
     @Nullable
     @Override
@@ -43,7 +48,7 @@ public class FragmentDynmic extends Fragment {
         FragmentDynmic.OnItemClickListener listener = new FragmentDynmic.OnItemClickListener() {
             @Override
             public void itemClick(int position, View view) {
-                Toast.makeText(view.getContext(),position+"被点击",Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(), position + "被点击", Toast.LENGTH_LONG).show();
             }
         };
 
@@ -53,33 +58,44 @@ public class FragmentDynmic extends Fragment {
         //全屏水滴样式刷新实现
         RefreshUtil.refresh(getContext(), view, R.id.refresh_dynmic,
                 new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                initData();
-                refreshLayout.finishRefresh(1000);
-            }
-        });
+                    @Override
+                    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                        loadData();
+                        refreshLayout.finishRefresh(1000);
+                    }
+                });
 
         recyclerView.setAdapter(viewAdapter);
 
-        initData();
+        loadData();
 
         return view;
     }
 
-    private void initData() {
-        dynamics = new ArrayList<>();
-        for (int i = 0; i < 4; i++)
-        {
-            Dynamic dynamic = new Dynamic("index" + i);
-            dynamics.add(dynamic);
-        }
+    private void loadData() {
+        addDisposable(
+                RetrofitFactory.getRetrofit()
+                        .create(DynamicDataService.class)
+                        .getAllDynmic()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<List<Dynamic>>() {
+                            @Override
+                            public void accept(List<Dynamic> dynamics) throws Exception {
 
-        viewAdapter.setDynamics(dynamics);
+                                viewAdapter.setDynamics(dynamics);
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+
+                            }
+                        })
+        );
     }
 
 
-    public static interface OnItemClickListener{
+    public static interface OnItemClickListener {
         void itemClick(int position, View view);
     }
 }

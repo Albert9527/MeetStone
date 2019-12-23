@@ -22,16 +22,22 @@ import com.ZCZ1024.MeetStone.Adapter.MemberViewAdpter;
 import com.ZCZ1024.MeetStone.Entity.Member;
 import com.ZCZ1024.MeetStone.R;
 import com.ZCZ1024.MeetStone.Util.RefreshUtil;
+import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
+import com.ZCZ1024.MeetStone.presenter.service.MemberDataService;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentMyTeam extends Fragment implements View.OnClickListener {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
+public class FragmentMyTeam extends BaseFragment implements View.OnClickListener {
     private List<Member> members;
     private RecyclerView recyclerView;
-    private MemberViewAdpter viewAdpter;
+    private MemberViewAdpter viewAdapter;
     private Button btn_member_remove, btn_member_outTeam, btn_member_change_Captain;
 
     @Nullable
@@ -46,7 +52,7 @@ public class FragmentMyTeam extends Fragment implements View.OnClickListener {
         recyclerView = view.findViewById(R.id.recyclerview_member);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        viewAdpter = new MemberViewAdpter(null);
+        viewAdapter = new MemberViewAdpter(null);
         FragmentMyTeam.OnItemClickListener listener = new OnItemClickListener() {
             @Override
             public void itemClick(int position, View view) {
@@ -73,7 +79,7 @@ public class FragmentMyTeam extends Fragment implements View.OnClickListener {
             }
         };
 
-        viewAdpter.setOnItemClickListener(listener);
+        viewAdapter.setOnItemClickListener(listener);
 
 
         //实现recyclerView全屏水滴刷新
@@ -81,14 +87,14 @@ public class FragmentMyTeam extends Fragment implements View.OnClickListener {
                 new OnRefreshListener() {
                     @Override
                     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                        initData();
+                        loadData();
                         refreshLayout.finishRefresh(1500);
                     }
                 });
 
-        recyclerView.setAdapter(viewAdpter);
+        recyclerView.setAdapter(viewAdapter);
 
-        initData();
+        loadData();
 
         return view;
     }
@@ -103,13 +109,26 @@ public class FragmentMyTeam extends Fragment implements View.OnClickListener {
         btn_member_change_Captain.setOnClickListener(this);
     }
 
-    private void initData() {
-        members = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            Member member = new Member("index" + i);
-            members.add(member);
-        }
-        viewAdpter.setMember(members);
+    private void loadData() {
+        addDisposable(
+                RetrofitFactory.getRetrofit()
+                        .create(MemberDataService.class)
+                        .getMembers()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<List<Member>>() {
+                            @Override
+                            public void accept(List<Member> members) throws Exception {
+
+                                viewAdapter.setMember(members);
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+
+                            }
+                        })
+        );
     }
 
     @Override

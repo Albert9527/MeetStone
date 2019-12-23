@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".Activity.ApplyCheckActivity"></activity>
-        <activity android:name=".MakeDynmicActivity" />
+        <activity android:name=".Activity.MakeDynmicActivity" />
         <activity android:name=".Activity.UpdateUserInfoAcitivity" />
         <activity android:name=".Activity.UpdatePswdActivity" />
         <activity

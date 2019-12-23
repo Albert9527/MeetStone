@@ -9,7 +9,6 @@ import com.ZCZ1024.MeetStone.Fragments.FragmentAllTeam;
 import com.ZCZ1024.MeetStone.Fragments.FragmentDynmic;
 import com.ZCZ1024.MeetStone.Fragments.FragmentMartch;
 import com.ZCZ1024.MeetStone.Fragments.FragmentMyTeam;
-import com.ZCZ1024.MeetStone.MakeDynmicActivity;
 import com.ZCZ1024.MeetStone.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
@@ -188,7 +187,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         switch (view.getId()){
             case R.id.nav_headpt:
                 //设置侧滑栏头像点击响应
-                if (user.getUname() != null) {
+                if (user.getUname() == null) {
                     startActivity(new Intent(this, LoginActivity.class));
                 } else {
                     startActivity(new Intent(this, ShowUserPage.class));

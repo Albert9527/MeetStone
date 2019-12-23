@@ -1,9 +1,7 @@
 package com.ZCZ1024.MeetStone.Fragments;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,13 +19,18 @@ import com.ZCZ1024.MeetStone.R;
 import com.ZCZ1024.MeetStone.Util.AcuntInfo;
 import com.ZCZ1024.MeetStone.Util.CreatDialogUtil;
 import com.ZCZ1024.MeetStone.Util.RefreshUtil;
+import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
+import com.ZCZ1024.MeetStone.presenter.service.TeamDataService;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.util.ArrayList;
 import java.util.List;
+import io.reactivex.functions.Consumer;
 
-public class FragmentAllTeam extends Fragment {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
+public class FragmentAllTeam extends BaseFragment {
     private RecyclerView recyclerView;
     private AllteamViewAdapter viewAdapter;
     private List<Team> teams;
@@ -81,25 +83,41 @@ public class FragmentAllTeam extends Fragment {
                 new OnRefreshListener() {
                     @Override
                     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                        initData();
+                        loadData();
                         refreshLayout.finishRefresh(1000);
                     }
                 });
 
         recyclerView.setAdapter(viewAdapter);
 
-        initData();
+        loadData();
         return view;
     }
 
-    private void initData() {
-        teams = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            Team team = new Team("index" + i);
-            teams.add(team);
-        }
+    /**
+     * 设置数据
+     *
+     */
+    private void loadData() {
+        addDisposable(
+                RetrofitFactory.getRetrofit()
+                        .create(TeamDataService.class)
+                        .getAllTeam()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<List<Team>>() {
+                            @Override
+                            public void accept(List<Team> teams) throws Exception{
 
-        viewAdapter.setAllTeamData(teams);
+                                viewAdapter.setAllTeamData(teams);
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+
+                            }
+                        })
+        );
     }
 
 
