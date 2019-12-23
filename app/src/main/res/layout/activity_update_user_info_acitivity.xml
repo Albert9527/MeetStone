@@ -140,7 +140,7 @@
                 android:id="@+id/et_update_user_intro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:minLines="4"
                 android:maxLines="4"
                 android:gravity="top"/>

@@ -47,7 +47,7 @@ public class FragmentMyTeam extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         viewAdpter = new MemberViewAdpter(null);
-        FragmentMyTeam.OnItemClickListener listener = new FragmentMyTeam.OnItemClickListener() {
+        FragmentMyTeam.OnItemClickListener listener = new OnItemClickListener() {
             @Override
             public void itemClick(int position, View view) {
                 switch (view.getId()) {

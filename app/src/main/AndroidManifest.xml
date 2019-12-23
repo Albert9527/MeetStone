@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.UpdateUserInfoAcitivity"></activity>
+        <activity android:name=".Activity.ApplyCheckActivity"></activity>
+        <activity android:name=".MakeDynmicActivity" />
+        <activity android:name=".Activity.UpdateUserInfoAcitivity" />
         <activity android:name=".Activity.UpdatePswdActivity" />
         <activity
             android:name=".Activity.UserInfoActivity"

@@ -21,7 +21,6 @@
                 android:id="@+id/snavbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onClick"
                 android:orientation="horizontal">
 
                 <TextView
@@ -76,15 +75,32 @@
                     android:layout_margin="5dp"
                     android:background="@drawable/selector_bt_bg_compose_red"
                     android:text="搜索"
-                    android:textSize="5sp" />
+                    android:textSize="5sp"
+                    android:onClick="TopNavbar"/>
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:src="@drawable/msg_on" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/img_homepage_msg"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/msg_on"
+                    android:onClick="TopNavbar"/>
+                <ImageView
+                    android:id="@+id/img_homepage_add_dynmic"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/add_dynmic"
+                    android:visibility="gone"
+                    android:onClick="TopNavbar"/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <FrameLayout

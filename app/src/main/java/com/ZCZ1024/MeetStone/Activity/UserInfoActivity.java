@@ -22,6 +22,8 @@ import java.io.FileNotFoundException;
 
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener {
 
+    private UserPortraitDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,12 +81,15 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 }
             }
         };
-        new UserPortraitDialog(this,0,listener).show();
+        dialog = new UserPortraitDialog(this,0,listener);
+        dialog.show();
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        dialog.dismiss();
         if (resultCode  != RESULT_OK){
             Log.d("errer", "canceled or other exception!");
             return;
@@ -112,7 +117,6 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                     bitmap = BitMapUtil.getBitmap(this, bitmap);
                     bitmap = BitMapUtil.getZoomImage(bitmap, 20.00);
 
-                    Log.d("test","运行到此步");
                     //将图片显示在图片控件中
                     ImageView img = findViewById(R.id.img_info_tx);
                     img.setImageBitmap(bitmap);
@@ -124,6 +128,11 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                     e.printStackTrace();
                 }
             }
+
         }
+    }
+
+    private void ColseWindow(){
+        new UserPortraitDialog(this).closeDialog();
     }
 }

@@ -16,7 +16,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
-                android:onClick="Nvaclick"
+                android:onClick="TopNavbar"
                 android:src="@drawable/cat" />
 
             <TextView

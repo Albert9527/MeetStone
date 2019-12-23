@@ -9,6 +9,7 @@ import com.ZCZ1024.MeetStone.Fragments.FragmentAllTeam;
 import com.ZCZ1024.MeetStone.Fragments.FragmentDynmic;
 import com.ZCZ1024.MeetStone.Fragments.FragmentMartch;
 import com.ZCZ1024.MeetStone.Fragments.FragmentMyTeam;
+import com.ZCZ1024.MeetStone.MakeDynmicActivity;
 import com.ZCZ1024.MeetStone.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
@@ -28,7 +29,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class HomePageActivity extends BaseActivity implements View.OnClickListener {
 
@@ -84,7 +84,6 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         for (LinearLayout layout : layouts) {
             layout.setOnClickListener(this);
         }
-
 
         //侧滑栏菜单响应事件
         navigationView.setNavigationItemSelectedListener(navViewclicklisener());
@@ -181,16 +180,35 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     /* 侧滑栏头像点击事件
      * 如果用户未登录，跳转到登陆界面
      * 如果用户已登录，跳转到用户主页
+     *
+     * 顶部图标点击事件
      * */
 
-    public void Nvaclick(View view) {
+    public void TopNavbar(View view) {
+        switch (view.getId()){
+            case R.id.nav_headpt:
+                //设置侧滑栏头像点击响应
+                if (user.getUname() != null) {
+                    startActivity(new Intent(this, LoginActivity.class));
+                } else {
+                    startActivity(new Intent(this, ShowUserPage.class));
+                }
+                break;
+            case R.id.bt_search:
+                break;
 
-        //设置侧滑栏头像点击响应
-        if (user.getUname() != null) {
-            startActivity(new Intent(this, LoginActivity.class));
-        } else {
-            startActivity(new Intent(this, ShowUserPage.class));
+            case R.id.img_homepage_msg:
+                startActivity(new Intent(this,ApplyCheckActivity.class));
+                break;
+
+            case R.id.img_homepage_add_dynmic:
+                startActivity(new Intent(this, MakeDynmicActivity.class));
+                break;
+
+            default:
+                break;
         }
+
     }
 
     /**
@@ -312,11 +330,19 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         dynmic.setImageResource(R.drawable.dynmic_off);
     }
 
+
+    /**
+     *设置底部导航栏对应点击样式
+     */
     private void setFragmentColor(int imagId, int textvid) {
         imgfragment = findViewById(imagId);
         tvfragmentname = findViewById(textvid);
         tvfragmentname.setTextColor(getColor(R.color.home_footer));
+        ImageView img_msg = findViewById(R.id.img_homepage_msg);
+        ImageView img_add_dynmic = findViewById(R.id.img_homepage_add_dynmic);
 
+        img_msg.setVisibility(View.VISIBLE);
+        img_add_dynmic.setVisibility(View.GONE);
         switch (imagId) {
             case R.id.fragment_img_martch:
                 imgfragment.setImageResource(R.drawable.martch_on);
@@ -332,6 +358,8 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
             case R.id.fragment_img_dynmic:
                 imgfragment.setImageResource(R.drawable.dynmic_on);
+                img_msg.setVisibility(View.GONE);
+                img_add_dynmic.setVisibility(View.VISIBLE);
                 break;
 
             default:

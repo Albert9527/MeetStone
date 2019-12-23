@@ -61,10 +61,14 @@ public class UserPortraitDialog extends Dialog {
         cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserPortraitDialog.this.dismiss();
+                closeDialog();
             }
         });
         this.setCancelable(true);
+    }
+
+    public void closeDialog(){
+        UserPortraitDialog.this.dismiss();
     }
 
 }
