@@ -5,12 +5,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.ZCZ1024.MeetStone.Entity.User;
+import com.ZCZ1024.MeetStone.EntityVo.UserVo;
 import com.ZCZ1024.MeetStone.Fragments.FragmentAllTeam;
 import com.ZCZ1024.MeetStone.Fragments.FragmentDynmic;
 import com.ZCZ1024.MeetStone.Fragments.FragmentMartch;
 import com.ZCZ1024.MeetStone.Fragments.FragmentMyTeam;
 import com.ZCZ1024.MeetStone.R;
-import com.bumptech.glide.Glide;
+import com.ZCZ1024.MeetStone.Util.AcuntInfo;
+import com.ZCZ1024.MeetStone.Util.BitMapUtil;
+import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
+import com.ZCZ1024.MeetStone.presenter.service.UserDataService;
 import com.google.android.material.navigation.NavigationView;
 import com.liji.circleimageview.CircleImageView;
 
@@ -19,6 +23,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,6 +34,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
 public class HomePageActivity extends BaseActivity implements View.OnClickListener {
 
     private FragmentAllTeam fragmentAllTeam;
@@ -36,7 +45,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     private FragmentMyTeam fragmentMyTeam;
     private FragmentDynmic fragmentDynmic;
     private FragmentManager fragmentManager;
-    private TextView textViewtitle;
+    private TextView textViewtitle, tv_nickname, tv_intro;
     private LinearLayout linearLayoutseach;
 
     private ImageView imgfragment;
@@ -60,6 +69,9 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void init() {
+
+        tv_nickname = findViewById(R.id.nav_nickname);
+        tv_intro = findViewById(R.id.nav_userintro);
 
         layouts = new ArrayList<>();
         LinearLayout layout_allteam = findViewById(R.id.fragment_allteam);
@@ -102,25 +114,48 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
             }
         });
 
-        getUser();
-
-        if (user.getTouxiang() == null) {
-            for (CircleImageView circleImageView : initheadpic())
-                //加载网络图片
-                Glide.with(HomePageActivity.this.getBaseContext())
-                        .load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575460315770&di=543181b2a7da1b5f045c4b41988d103e&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20111024%2FImg323139260.jpg")
-                        .into(circleImageView);
-        }
+        getUserinfo();
 
     }
 
-    public User getUser() {
-        return user = new User();
+    public User getUserinfo() {
+        /*String userid = AcuntInfo.geteditInfo(this, "userid");*/
+        String userid = "ff88dc16a6f74b9dae4b97644cab5d16";
+                Log.d("error",userid);
+        if (userid != null)
+            addDisposable(
+                    RetrofitFactory.getRetrofit()
+                            .create(UserDataService.class)
+                            .getUser(userid)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<UserVo>() {
+                                @Override
+                                public void accept(UserVo userVo) throws Exception {
+                                    if (userVo.getSuccess().equals("true")){
+                                        user = userVo.getUser();
+                                        initheadpic();
+                                    }
+                                    else {
+                                        if (userVo.getError().equals("200"))
+                                            Toast.makeText(getBaseContext(), "信息更新出错", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }, new Consumer<Throwable>() {
+                                @Override
+                                public void accept(Throwable throwable) throws Exception {
+                                    Log.e("error",throwable.getMessage());
+                                }
+                            })
+            );
+        else
+            user = new User();
+        return user;
     }
 
 
-    //设置当前用户所有页面头像
-    private List<CircleImageView> initheadpic() {
+    //设置当前用户主页信息
+    private void initheadpic() {
         List<CircleImageView> imageViews = new ArrayList<>();
         View headerView = navigationView.getHeaderView(0);
         CircleImageView circleView_headpt = headerView.findViewById(R.id.nav_headpt);
@@ -129,8 +164,27 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         CircleImageView img_usertx = findViewById(R.id.img_usertx);
 
         imageViews.add(img_usertx);
+        /*Log.v("x",user.getImgurl());
+        if (user.getImgurl() != null) {
+            for (ImageView imageView : imageViews) {
 
-        return imageViews;
+                imageView.setImageBitmap(BitMapUtil.strToBit(user.getImgurl()));
+            }
+        }*/
+
+        if (AcuntInfo.geteditInfo(this, "userid") != null) {
+            if (user.getNickname() != null)
+                tv_nickname.setText(user.getNickname());
+            else
+                tv_nickname.setText(AcuntInfo.geteditInfo(this, "acount"));
+
+            if (user.getIntro() != null)
+                tv_intro.setText(user.getIntro());
+            else
+                tv_intro.setText("这个人很懒，什么都没有写。。。");
+        }
+
+
     }
 
     //Fragment
@@ -184,10 +238,10 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
      * */
 
     public void TopNavbar(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.nav_headpt:
                 //设置侧滑栏头像点击响应
-                if (user.getUname() == null) {
+                if (user.getNickname() == null) {
                     startActivity(new Intent(this, LoginActivity.class));
                 } else {
                     startActivity(new Intent(this, ShowUserPage.class));
@@ -197,7 +251,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                 break;
 
             case R.id.img_homepage_msg:
-                startActivity(new Intent(this,ApplyCheckActivity.class));
+                startActivity(new Intent(this, ApplyCheckActivity.class));
                 break;
 
             case R.id.img_homepage_add_dynmic:
@@ -231,6 +285,10 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                         break;
                     case R.id.userinfo:
                         startActivity(new Intent(getBaseContext(), UserInfoActivity.class));
+                        break;
+
+                    case R.id.myapply:
+                        startActivity(new Intent(getBaseContext(), ApplyCheckActivity.class));
                         break;
                     default:
                         break;
@@ -331,7 +389,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
 
     /**
-     *设置底部导航栏对应点击样式
+     * 设置底部导航栏对应点击样式
      */
     private void setFragmentColor(int imagId, int textvid) {
         imgfragment = findViewById(imagId);

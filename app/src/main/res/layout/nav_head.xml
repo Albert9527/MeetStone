@@ -20,11 +20,11 @@
                 android:src="@drawable/cat" />
 
             <TextView
-                android:id="@+id/nav_username"
+                android:id="@+id/nav_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:text="用户名"
+                android:text="游客"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -35,7 +35,8 @@
             android:text="用户简介"
             android:padding="10dp"
             android:maxLines="2"
-            android:ellipsize="end"/>
+            android:ellipsize="end"
+            android:id="@+id/nav_userintro"/>
 
 
 </LinearLayout>

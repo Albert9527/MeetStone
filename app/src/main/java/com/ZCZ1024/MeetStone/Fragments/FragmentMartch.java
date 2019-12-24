@@ -67,7 +67,7 @@ public class FragmentMartch extends BaseFragment{
                 new OnRefreshListener() {
                     @Override
                     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                        loadData();
+                        initData();
                         refreshLayout.finishRefresh(1500);
                     }
                 });
@@ -75,9 +75,18 @@ public class FragmentMartch extends BaseFragment{
 
         recyclerView.setAdapter(viewAdapter);
 
-        loadData();
+        initData();
 
         return view;
+    }
+
+    private void  initData(){
+        martches = new ArrayList<>();
+        for (int i=0;i<8;i++){
+            Martch martch = new Martch("动态内容"+i);
+            martches.add(martch);
+        }
+        viewAdapter.setMartches(martches);
     }
 
     private void loadData() {
@@ -89,14 +98,15 @@ public class FragmentMartch extends BaseFragment{
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Consumer<List<Martch>>() {
                             @Override
-                            public void accept(List<Martch> dynamics) throws Exception {
-
-                                viewAdapter.setMartches(dynamics);
+                            public void accept(List<Martch> remartches) throws Exception {
+                                martches = remartches;
+                                viewAdapter.setMartches(martches);
                             }
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
-
+                                martches = new ArrayList<>();
+                                viewAdapter.setMartches(martches);
                             }
                         })
         );

@@ -87,14 +87,14 @@ public class FragmentMyTeam extends BaseFragment implements View.OnClickListener
                 new OnRefreshListener() {
                     @Override
                     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                        loadData();
+                        initData();
                         refreshLayout.finishRefresh(1500);
                     }
                 });
 
         recyclerView.setAdapter(viewAdapter);
 
-        loadData();
+        initData();
 
         return view;
     }
@@ -109,6 +109,16 @@ public class FragmentMyTeam extends BaseFragment implements View.OnClickListener
         btn_member_change_Captain.setOnClickListener(this);
     }
 
+    private void  initData(){
+        members = new ArrayList<>();
+        for (int i=0;i<8;i++){
+            Member member = new Member("动态内容"+i);
+            members.add(member);
+        }
+        viewAdapter.setMember(members);
+    }
+
+
     private void loadData() {
         addDisposable(
                 RetrofitFactory.getRetrofit()
@@ -118,14 +128,17 @@ public class FragmentMyTeam extends BaseFragment implements View.OnClickListener
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Consumer<List<Member>>() {
                             @Override
-                            public void accept(List<Member> members) throws Exception {
+                            public void accept(List<Member> remembers) throws Exception {
 
+                                members = remembers;
                                 viewAdapter.setMember(members);
                             }
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
 
+                                members = new ArrayList<>();
+                                viewAdapter.setMember(members);
                             }
                         })
         );

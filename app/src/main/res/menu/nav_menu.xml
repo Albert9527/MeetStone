@@ -19,6 +19,12 @@
             </menu>
         </item>
 
+
+            <item
+                android:id="@+id/myapply"
+                android:title="    查看申请"
+                android:icon="@drawable/main"
+                />
         <item
             android:id="@+id/userinfo"
             android:title="    账号信息"

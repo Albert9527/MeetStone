@@ -31,6 +31,7 @@ import io.reactivex.schedulers.Schedulers;
 public class FragmentDynmic extends BaseFragment {
     public RecyclerView recyclerView;
     public DynamicViewAdpter viewAdapter;
+    private List<Dynamic> dynamics;
 
     @Nullable
     @Override
@@ -60,19 +61,28 @@ public class FragmentDynmic extends BaseFragment {
                 new OnRefreshListener() {
                     @Override
                     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                        loadData();
+                        initData();
                         refreshLayout.finishRefresh(1000);
                     }
                 });
 
         recyclerView.setAdapter(viewAdapter);
 
-        loadData();
+        initData();
 
         return view;
     }
 
-    private void loadData() {
+    private void  initData(){
+        dynamics = new ArrayList<>();
+        for (int i=0;i<8;i++){
+            Dynamic dynamic = new Dynamic("动态内容"+i);
+            dynamics.add(dynamic);
+        }
+        viewAdapter.setDynamics(dynamics);
+    }
+
+    /*private void loadData() {
         addDisposable(
                 RetrofitFactory.getRetrofit()
                         .create(DynamicDataService.class)
@@ -88,11 +98,12 @@ public class FragmentDynmic extends BaseFragment {
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
-
+                                dynamics = new ArrayList<>();
+                                viewAdapter.setDynamics(dynamics);
                             }
                         })
         );
-    }
+    }*/
 
 
     public static interface OnItemClickListener {

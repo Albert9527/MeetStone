@@ -36,7 +36,7 @@ public class LoginActivity extends BaseActivity {
 
     public void login(View view) {
         //登陆验证
-        String username = et_username.getText().toString();
+        final String username = et_username.getText().toString();
         String password = et_password.getText().toString();
 
         if (TextUtils.isEmpty(username)) {
@@ -66,15 +66,16 @@ public class LoginActivity extends BaseActivity {
                         // 返回请求数据
                         .subscribe(new Consumer<Map<String, String>>() {
                             @Override
-                            public void accept(Map<String, String> resultmap) throws Exception {
+                            public void accept(final Map<String, String> resultmap) throws Exception {
                                 if (resultmap.get("success").equals("true")) {
+                                    loginsuccese(resultmap.get("id"),username);
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-
+                                            startActivity(new Intent(getBaseContext(),HomePageActivity.class));
+                                            finish();
                                         }
-                                    }, 2500);
+                                    }, 1500);
                                 } else if (resultmap.get("success").equals("false")) {
 
                                     Toast.makeText(LoginActivity.this, resultmap.get("Error"), Toast.LENGTH_SHORT).show();
@@ -86,7 +87,8 @@ public class LoginActivity extends BaseActivity {
                             public void accept(Throwable throwable) throws Exception {
                                 Log.e("errow", throwable.toString());
                             }
-                        }));
+                        })
+        );
 
 }
 
@@ -103,11 +105,13 @@ public class LoginActivity extends BaseActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-    public void loginsuccese(String userid) {
+    public void loginsuccese(String userid,String username) {
         AcuntInfo.seteditInfo(this,"userid",userid);
-        Toast.makeText(this, "登陆成功",
+        AcuntInfo.seteditInfo(this,"acount",username);
+        Toast.makeText(this, "用户 < "+username+" > 登陆成功",
                 Toast.LENGTH_SHORT).show();
     }
+
 
 
 }

@@ -24,7 +24,9 @@ import com.ZCZ1024.MeetStone.presenter.service.TeamDataService;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import io.reactivex.functions.Consumer;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -83,15 +85,24 @@ public class FragmentAllTeam extends BaseFragment {
                 new OnRefreshListener() {
                     @Override
                     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                        loadData();
+                        initData();
                         refreshLayout.finishRefresh(1000);
                     }
                 });
 
         recyclerView.setAdapter(viewAdapter);
 
-        loadData();
+        initData();
         return view;
+    }
+
+    private void  initData(){
+        teams = new ArrayList<>(teams);
+        for (int i=0;i<8;i++){
+            Team team = new Team("队伍名"+i);
+            teams.add(team);
+        }
+        viewAdapter.setAllTeamData(teams);
     }
 
     /**
@@ -135,5 +146,6 @@ public class FragmentAllTeam extends BaseFragment {
         creatDialogUtil = new CreatDialogUtil(this.getActivity(),R.style.ownColorbyZD,clicklistener);
         creatDialogUtil.show();
     }
+
 
 }

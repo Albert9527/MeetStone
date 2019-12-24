@@ -1,6 +1,8 @@
 package com.ZCZ1024.MeetStone.Entity;
 
-public class UserInfo {
+import java.io.Serializable;
+
+public class UserInfo implements Serializable {
 
     private String name;
     private String sex;
@@ -57,4 +59,6 @@ public class UserInfo {
     public void setOcpt(String ocpt) {
         this.ocpt = ocpt;
     }
+
+
 }

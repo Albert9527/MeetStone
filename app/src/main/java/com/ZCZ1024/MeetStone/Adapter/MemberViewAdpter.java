@@ -59,7 +59,7 @@ public class MemberViewAdpter extends RecyclerView.Adapter<MemberViewAdpter.List
             }
         };
         Member member = members.get(position);
-        holder.tv_member_name.setText(member.getUname());
+        holder.tv_member_name.setText(member.getNickname());
         holder.tv_member_tx.setOnClickListener(viewlistener);
         holder.tv_member_more.setOnClickListener(viewlistener);
         //holder.tv_member_content.setText(member.getContent());

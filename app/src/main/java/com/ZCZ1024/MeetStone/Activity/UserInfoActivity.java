@@ -1,6 +1,5 @@
 package com.ZCZ1024.MeetStone.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,7 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.ZCZ1024.MeetStone.Entity.UserInfo;
-import com.ZCZ1024.MeetStone.Entity.UserInfoVo;
+import com.ZCZ1024.MeetStone.EntityVo.UserInfoVo;
 import com.ZCZ1024.MeetStone.R;
 import com.ZCZ1024.MeetStone.Util.BitMapUtil;
 import com.ZCZ1024.MeetStone.Util.UserPortraitDialog;
@@ -28,12 +27,12 @@ import java.io.FileNotFoundException;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
 
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener {
 
     private UserPortraitDialog dialog;
     private TextView tv_uname, tv_uacount, tv_sex, tv_age, tv_address, tv_ocpt, tv_intro;
+    private UserInfo userinfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +65,8 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                             @Override
                             public void accept(UserInfoVo userInfoVo) throws Exception {
                                 if (userInfoVo.getSuccess().equals(true)) {
-                                    setViewValue(userInfoVo.getUserInfo());
+                                    userinfo = userInfoVo.getUserInfo();
+                                    setViewValue(userinfo);
                                 }
                             }
                         }, new Consumer<Throwable>() {
@@ -94,7 +94,11 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 break;
 
             case R.id.Btn_ToUpdate:
-                startActivity(new Intent(this, UpdateUserInfoAcitivity.class));
+                Intent intent = new Intent(this, UpdateUserInfoAcitivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("userinfo",userinfo);
+                intent.putExtra("unseinfoBundle",bundle);
+                startActivity(intent);
 
             default:
                 break;

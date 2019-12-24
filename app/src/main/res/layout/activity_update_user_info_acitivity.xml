@@ -55,7 +55,7 @@
                 android:text="性别"
                 android:textSize="20sp"/>
             <RadioGroup
-                android:id="@+id/update_info_sex"
+                android:id="@+id/rag_update_sex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

@@ -1,44 +1,46 @@
 package com.ZCZ1024.MeetStone.Entity;
 
 public class User {
-    private String uname;
-    private String touxiang;
+    private String nickname;
+    private String contact;
     private String intro;
-
-
-    public User(String uname) {
-        this.uname = uname;
-    }
+    private String imgurl;
 
     public User() {
-
+    }
+    public User(String nickname){
+        this.nickname = nickname;
     }
 
-    public User(String name, String tou) {
-        this.uname = name;
-        this.touxiang = tou;
+    public String getNickname() {
+        return nickname;
     }
 
-    public String getTouxiang() {
-        return touxiang;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public void setTouxiang(String touxiang) {
-        this.touxiang = touxiang;
+    public String getContact() {
+        return contact;
     }
 
-    public String getUname() {
-        return uname;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
-    public void setUname(String uname) {
-        this.uname = uname;
+    public String getIntro() {
+        return intro;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "uname='" + uname + '\'' +
-                '}';
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 }
