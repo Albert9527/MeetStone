@@ -5,30 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.MakeDynmicActivity">
+    tools:context=".Activity.MakeDynmicActivity"
+    android:background="#50E6CEAC">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="#50ffffff">
         <Button
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:text="取消" />
+            style="@style/btn_finish_ac"
+            android:onClick="closeActivity"
+            android:layout_margin="10dp"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="新增动态"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            style="@style/head_nav_textview"
+            android:text="新增动态" />
 
         <Button
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:text="发布" />
+            android:text="发布"
+            android:id="@+id/btn_dynmic_send"/>
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -41,21 +41,22 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
+            android:background="@drawable/fillet_boder"
             android:gravity="top"
             android:hint="输入内容。。。"
-            android:maxLines="6"
+            android:maxLines="8"
             android:minLines="6"
             android:textColor="#000000"
             android:textSize="15sp" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="添加图片"
             android:textSize="20sp"
             android:layout_marginLeft="10dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,12 +65,14 @@
             android:padding="5dp">
 
             <ImageView
+                android:background="@drawable/fillet_boder"
                 android:layout_width="120dp"
                 android:layout_height="100dp" />
 
             <Button
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_marginLeft="5dp"
                 android:text="十"
                 android:textSize="50sp"/>
         </LinearLayout>

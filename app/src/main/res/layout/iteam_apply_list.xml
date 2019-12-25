@@ -69,14 +69,14 @@
                     android:id="@+id/btn_apply_agree_item"
                     android:layout_width="40dp"
                     android:layout_height="20dp"
-                    android:src="@color/click"
+                    android:src="@drawable/agree"
                     android:layout_margin="5dp"/>
 
                 <ImageView
                     android:id="@+id/btn_apply_refuse_item"
                     android:layout_width="40dp"
                     android:layout_height="20dp"
-                    android:src="@color/click"
+                    android:src="@drawable/refuse"
                     android:layout_margin="5dp"/>
 
             </LinearLayout>

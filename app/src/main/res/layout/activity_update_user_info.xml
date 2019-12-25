@@ -8,25 +8,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="#50D6D5B7">
         <Button
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="《-"
-            android:textSize="15sp"
-            android:layout_marginLeft="10dp"
-            android:onClick="Btn_user_info"
-            android:id="@+id/btn_preActivity"/>
+            style="@style/btn_finish_ac"
+            android:id="@+id/btn_preActivity"
+            android:layout_margin="10dp"/>
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/head_nav_textview"
             android:text="详细资料"
-            android:textSize="20sp"
-            android:gravity="center"/>
+            />
         <Button
             android:layout_width="60dp"
             android:layout_height="wrap_content"
@@ -36,6 +29,7 @@
             android:layout_marginLeft="10dp"
             android:onClick="Btn_user_info"
             android:id="@+id/Btn_ToUpdate"/>
+
     </LinearLayout>
 
     <LinearLayout

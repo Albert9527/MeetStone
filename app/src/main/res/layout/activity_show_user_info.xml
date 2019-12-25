@@ -5,30 +5,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.ShowUserPage">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="#50D6D5B7">
+        <Button
+            style="@style/btn_finish_ac"
+            android:onClick="closeActivity"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            style="@style/head_nav_textview"
+            android:text="用户主页"
+            />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="40dp"
-                android:layout_margin="8dp"
-                android:gravity="center"
-                android:text="《"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="用户主页"
-                android:gravity="center"
-                android:textSize="25sp"
-                android:layout_margin="10dp"
-                android:paddingRight="60dp"/>
-        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

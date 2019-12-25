@@ -5,7 +5,8 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.HomePageActivity">
+    tools:context=".Activity.HomePageActivity"
+    android:background="#80E6CEAC">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="#50D6D5B7">
 
             <LinearLayout
                 android:id="@+id/snavbar"
@@ -113,7 +115,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <LinearLayout
                 android:id="@+id/fragment_martch"

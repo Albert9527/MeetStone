@@ -10,13 +10,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ownColorbyZD" >
+    <style name="ownColorbyZD" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:layout_width">120dp</item>
         <item name="android:layout_height">30dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">#FFFAF0</item>
-        <item name="android:background">@drawable/selector_bt_bg_compose_red</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#19CAAD</item>
+        <item name="android:background">@drawable/fillet_boder</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="textSize20sp" >
@@ -98,6 +98,29 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="regist_et_boder">
+        <item name="android:layout_width">250dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/fillet_boder</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="btn_finish_ac">
+        <item name="android:layout_width">40dp</item>>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:background">@drawable/btn_return</item>
+    </style>
+    <style name="head_nav_textview">
+        android:paddingLeft="10dp"
+        android:textStyle="bold"
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

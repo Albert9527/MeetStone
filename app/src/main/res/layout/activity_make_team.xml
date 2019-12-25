@@ -6,28 +6,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.MakeTeamActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:gravity="center"
-        android:background="@drawable/selector_bt_bg_compose_red">
+        android:background="#50ffffff">
         <Button
-            android:layout_width="60dp"
-            android:layout_height="35dp"
-            android:text="返回"
-            android:gravity="center">
+            style="@style/btn_finish_ac"
+            android:onClick="closeActivity"
+            android:layout_margin="10dp"/>
 
-        </Button>
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="创建队伍"
-            android:textSize="25sp"
-            android:gravity="center"
-            android:layout_marginRight="60dp"
-            />
+            style="@style/head_nav_textview"
+            android:text="创建队伍"/>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

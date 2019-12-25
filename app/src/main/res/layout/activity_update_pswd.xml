@@ -5,8 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.UpdatePswdActivity">
+    tools:context=".Activity.UpdatePswdActivity"
+    android:background="@drawable/selector_bt_bg_compose_red">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="#50D6D5B7">
+        <Button
+            style="@style/btn_finish_ac"
+            android:onClick="closeActivity"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            style="@style/head_nav_textview"
+            android:text="修改密码"
+            />
+
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,22 +33,19 @@
         android:orientation="vertical">
 
         <EditText
+            style="@style/regist_et_boder"
             android:id="@+id/et_username"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
             android:hint="手机号" />
 
         <EditText
             android:id="@+id/et_pswd"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
+            style="@style/regist_et_boder"
             android:layout_marginTop="20dp"
             android:hint="密码" />
 
         <EditText
             android:id="@+id/et_surepswd"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
+            style="@style/regist_et_boder"
             android:layout_marginTop="20dp"
             android:hint="确认密码" />
 
@@ -43,11 +58,13 @@
 
             <EditText
                 android:id="@+id/et_testcode"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
+                style="@style/regist_et_boder"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
                 android:hint="验证码" />
 
             <Button
+                style="@style/ownColorbyZD"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
@@ -57,13 +74,14 @@
     </LinearLayout>
 
     <Button
+        style="@style/ownColorbyZD"
         android:id="@+id/bt_regist"
-        android:layout_width="100dp"
+        android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:onClick="updatePswd"
-        android:text="确认修改" />
+        android:text="确   认   修   改" />
 
 
 </LinearLayout>
