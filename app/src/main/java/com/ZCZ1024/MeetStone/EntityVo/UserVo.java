@@ -6,7 +6,7 @@ public class UserVo {
     private String success;
     private String error;
 
-    private User user;
+    private User data;
 
     public String getSuccess() {
         return success;
@@ -25,10 +25,12 @@ public class UserVo {
     }
 
     public User getUser() {
-        return user;
+        return data;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(User data) {
+        this.data = data;
     }
+
+
 }

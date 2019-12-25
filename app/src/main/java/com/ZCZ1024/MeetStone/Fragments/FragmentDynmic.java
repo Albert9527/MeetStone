@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,17 +15,11 @@ import com.ZCZ1024.MeetStone.Adapter.DynamicViewAdpter;
 import com.ZCZ1024.MeetStone.Entity.Dynamic;
 import com.ZCZ1024.MeetStone.R;
 import com.ZCZ1024.MeetStone.Util.RefreshUtil;
-import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
-import com.ZCZ1024.MeetStone.presenter.service.DynamicDataService;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class FragmentDynmic extends BaseFragment {
     public RecyclerView recyclerView;

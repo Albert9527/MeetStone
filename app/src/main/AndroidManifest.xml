@@ -12,24 +12,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.ApplyCheckActivity"></activity>
-        <activity android:name=".Activity.MakeDynmicActivity" />
-        <activity android:name=".Activity.UpdateUserInfoAcitivity" />
-        <activity android:name=".Activity.UpdatePswdActivity" />
+        <activity android:name=".Activity.ApplyCheckActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Activity.MakeDynmicActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Activity.UpdateUserInfoAcitivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Activity.UpdatePswdActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Activity.UserInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.ShowUserPage"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.MakeTeamActivity" />
         <activity
             android:name=".Activity.LoginActivity"
             android:label="@string/login"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.HomePageActivity"
             android:label="@string/title_activity_home_page"

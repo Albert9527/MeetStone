@@ -97,7 +97,7 @@ public class FragmentAllTeam extends BaseFragment {
     }
 
     private void  initData(){
-        teams = new ArrayList<>(teams);
+        teams = new ArrayList<>();
         for (int i=0;i<8;i++){
             Team team = new Team("队伍名"+i);
             teams.add(team);
@@ -109,7 +109,7 @@ public class FragmentAllTeam extends BaseFragment {
      * 设置数据
      *
      */
-    private void loadData() {
+    /*private void loadData() {
         addDisposable(
                 RetrofitFactory.getRetrofit()
                         .create(TeamDataService.class)
@@ -129,7 +129,7 @@ public class FragmentAllTeam extends BaseFragment {
                             }
                         })
         );
-    }
+    }*/
 
 
     public static interface OnItemClickListener {
