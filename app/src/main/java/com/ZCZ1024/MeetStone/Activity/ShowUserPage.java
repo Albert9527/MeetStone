@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.ZCZ1024.MeetStone.Entity.Acount;
 import com.ZCZ1024.MeetStone.R;
 import com.ZCZ1024.MeetStone.Util.AcuntInfo;
-import com.ZCZ1024.MeetStone.Util.Md5Util;
 import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
 import com.ZCZ1024.MeetStone.presenter.service.UserDataService;
 

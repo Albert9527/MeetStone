@@ -181,4 +181,8 @@ public class RegisterActivity extends BaseActivity {
             SMSSDK.submitVerificationCode("86", username, captcha);
         }
     }
+
+    public void closeActivity(View view){
+        this.finish();
+    }
 }

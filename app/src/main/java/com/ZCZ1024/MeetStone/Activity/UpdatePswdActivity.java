@@ -89,6 +89,10 @@ public class UpdatePswdActivity extends BaseActivity {
         }
     }
 
+    public void closeActivity(View view){
+        this.finish();
+    }
+
     private void updatefailue(){
         Toast.makeText(this, "密码修改失败",
                 Toast.LENGTH_SHORT).show();

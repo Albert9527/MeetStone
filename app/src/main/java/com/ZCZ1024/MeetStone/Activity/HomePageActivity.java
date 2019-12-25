@@ -12,7 +12,6 @@ import com.ZCZ1024.MeetStone.Fragments.FragmentMartch;
 import com.ZCZ1024.MeetStone.Fragments.FragmentMyTeam;
 import com.ZCZ1024.MeetStone.R;
 import com.ZCZ1024.MeetStone.Util.AcuntInfo;
-import com.ZCZ1024.MeetStone.Util.BitMapUtil;
 import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
 import com.ZCZ1024.MeetStone.presenter.service.UserDataService;
 import com.google.android.material.navigation.NavigationView;
@@ -46,7 +45,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     private FragmentDynmic fragmentDynmic;
     private FragmentManager fragmentManager;
     private TextView textViewtitle, tv_nickname, tv_intro;
-    private LinearLayout linearLayoutseach;
+    private LinearLayout linearLayoutseach,layout_nav_head;
 
     private ImageView imgfragment;
     private TextView tvfragmentname;
@@ -69,9 +68,6 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void init() {
-
-        tv_nickname = findViewById(R.id.nav_nickname);
-        tv_intro = findViewById(R.id.nav_userintro);
 
         layouts = new ArrayList<>();
         LinearLayout layout_allteam = findViewById(R.id.fragment_allteam);
@@ -115,6 +111,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         });
 
         getUserinfo();
+        initheadpic();
 
     }
 
@@ -156,9 +153,14 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
     //设置当前用户主页信息
     private void initheadpic() {
+        user = new User();
         List<CircleImageView> imageViews = new ArrayList<>();
         View headerView = navigationView.getHeaderView(0);
         CircleImageView circleView_headpt = headerView.findViewById(R.id.nav_headpt);
+        layout_nav_head = headerView.findViewById(R.id.nav_head);
+        tv_nickname = headerView.findViewById(R.id.nav_nickname);
+        tv_intro = headerView.findViewById(R.id.nav_userintro);
+        layout_nav_head.setBackground(getDrawable(R.drawable.cat));
         imageViews.add(circleView_headpt);
 
         CircleImageView img_usertx = findViewById(R.id.img_usertx);

@@ -2,6 +2,7 @@ package com.ZCZ1024.MeetStone.Activity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
