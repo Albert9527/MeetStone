@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,6 +58,11 @@ public class ApplyCheckActivity extends BaseActivity implements View.OnClickList
             }
         };
 
+        DividerItemDecoration itemDecoration = new DividerItemDecoration
+                (this,DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(getResources().getDrawable(R.drawable.item_divider));
+        recyclerView.addItemDecoration(itemDecoration);
+
         Viewadapter.setListener(listener);
 
         recyclerView.setAdapter(Viewadapter);
@@ -80,5 +86,9 @@ public class ApplyCheckActivity extends BaseActivity implements View.OnClickList
 
     public static interface OnItemClickListener {
         void itemClick(int position, View view);
+    }
+
+    public void closeActivity(View view){
+        this.finish();
     }
 }

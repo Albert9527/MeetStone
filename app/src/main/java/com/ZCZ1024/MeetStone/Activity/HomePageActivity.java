@@ -12,8 +12,10 @@ import com.ZCZ1024.MeetStone.Fragments.FragmentMartch;
 import com.ZCZ1024.MeetStone.Fragments.FragmentMyTeam;
 import com.ZCZ1024.MeetStone.R;
 import com.ZCZ1024.MeetStone.Util.AcuntInfo;
+import com.ZCZ1024.MeetStone.Util.BitMapUtil;
 import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
 import com.ZCZ1024.MeetStone.presenter.service.UserDataService;
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.liji.circleimageview.CircleImageView;
 
@@ -85,8 +87,6 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
         textViewtitle = findViewById(R.id.tv_title);
         linearLayoutseach = findViewById(R.id.ly_search);
-        textViewtitle.setVisibility(View.GONE);
-        linearLayoutseach.setVisibility(View.VISIBLE);
 
         for (LinearLayout layout : layouts) {
             layout.setOnClickListener(this);
@@ -111,14 +111,14 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         });
 
         getUserinfo();
-        initheadpic();
+        //initheadpic(user);
 
     }
 
     public User getUserinfo() {
-        /*String userid = AcuntInfo.geteditInfo(this, "userid");*/
-        String userid = "ff88dc16a6f74b9dae4b97644cab5d16";
-                Log.d("error",userid);
+        String userid = AcuntInfo.geteditInfo(this, "userid");
+      /*  String userid = "ff88dc16a6f74b9dae4b97644cab5d16";*/
+              /*  Log.d("error",userid);*/
         if (userid != null)
             addDisposable(
                     RetrofitFactory.getRetrofit()
@@ -130,11 +130,11 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                                 @Override
                                 public void accept(UserVo userVo) throws Exception {
                                     if (userVo.getSuccess().equals("true")){
-                                        user = userVo.getUser();
-                                        initheadpic();
+                                        user = userVo.getData();
+                                        initheadpic(user);
                                     }
                                     else {
-                                        if (userVo.getError().equals("200"))
+                                        if (userVo.getError()==1)
                                             Toast.makeText(getBaseContext(), "信息更新出错", Toast.LENGTH_SHORT).show();
                                     }
                                 }
@@ -152,8 +152,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
 
     //设置当前用户主页信息
-    private void initheadpic() {
-        user = new User();
+    private void initheadpic(User user) {
         List<CircleImageView> imageViews = new ArrayList<>();
         View headerView = navigationView.getHeaderView(0);
         CircleImageView circleView_headpt = headerView.findViewById(R.id.nav_headpt);
@@ -166,13 +165,15 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         CircleImageView img_usertx = findViewById(R.id.img_usertx);
 
         imageViews.add(img_usertx);
-        /*Log.v("x",user.getImgurl());
-        if (user.getImgurl() != null) {
+     /*   Log.v("x",user.getImgurl());*/
+        if (!user.getImgurl().equals("")) {
             for (ImageView imageView : imageViews) {
-
-                imageView.setImageBitmap(BitMapUtil.strToBit(user.getImgurl()));
+                //加载网络图片
+                Glide.with(getBaseContext())
+                        .load("http://dmimg.5054399.com/allimg/pkm/pk/22.jpg")
+                        .into(imageView);
             }
-        }*/
+        }
 
         if (AcuntInfo.geteditInfo(this, "userid") != null) {
             if (user.getNickname() != null)
@@ -197,21 +198,20 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
         switch (v.getId()) {
             case R.id.fragment_martch:
-                textViewtitle.setVisibility(View.GONE);
                 linearLayoutseach.setVisibility(View.VISIBLE);
                 setFragmentColor(R.id.fragment_img_martch, R.id.tv_fragment_martch);
+                textViewtitle.setText("赛事浏览");
                 setTabSelection(0);
                 break;
 
             case R.id.fragment_allteam:
-                textViewtitle.setVisibility(View.GONE);
                 linearLayoutseach.setVisibility(View.VISIBLE);
                 setFragmentColor(R.id.fragment_img_alltem, R.id.tv_fragment_allteam);
+                textViewtitle.setText("队伍大厅");
                 setTabSelection(1);
                 break;
 
             case R.id.fragment_myteam:
-                textViewtitle.setVisibility(View.VISIBLE);
                 linearLayoutseach.setVisibility(View.GONE);
                 setFragmentColor(R.id.fragment_img_myteam, R.id.tv_fragment_myteam);
                 textViewtitle.setText("我的队伍");
@@ -219,7 +219,6 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                 break;
 
             case R.id.fragment_dynmic:
-                textViewtitle.setVisibility(View.VISIBLE);
                 linearLayoutseach.setVisibility(View.GONE);
                 setFragmentColor(R.id.fragment_img_dynmic, R.id.tv_fragment_dynmic);
                 textViewtitle.setText("动态");
@@ -243,7 +242,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         switch (view.getId()) {
             case R.id.nav_headpt:
                 //设置侧滑栏头像点击响应
-                if (user.getNickname() == null) {
+                if (AcuntInfo.geteditInfo(this,"userid") == null) {
                     startActivity(new Intent(this, LoginActivity.class));
                 } else {
                     startActivity(new Intent(this, ShowUserPage.class));
@@ -345,7 +344,6 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                     transaction.show(fragmentDynmic);
                 }
                 break;
-
         }
     }
 

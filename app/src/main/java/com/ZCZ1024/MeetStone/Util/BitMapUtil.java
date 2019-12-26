@@ -4,15 +4,25 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.os.Environment;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class BitMapUtil {
+    static int pindex = 0;
+
     public static Bitmap getBitmap(Activity context, Bitmap original) {
         Bitmap bitmap = null;
         try {
@@ -49,25 +59,23 @@ public class BitMapUtil {
     }
 
     //bitmap转为字符串
-    public static String bitToStr(Bitmap bitmap){
+    public static String bitToStr(Bitmap bitmap) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();// outputstream
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] appicon = baos.toByteArray();// 转为byte数组
         return Base64.encodeToString(appicon, Base64.DEFAULT);
     }
+
     //字符串转为bitmap
-    public static Bitmap strToBit(String str){
+    public static Bitmap strToBit(String str) {
         Bitmap bitmap = null;
-        try
-        {
+        try {
             byte[] bitmapArray;
             bitmapArray = Base64.decode(str, Base64.DEFAULT);
             bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
             return bitmap;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return null;
         }
     }
@@ -163,5 +171,35 @@ public class BitMapUtil {
 
         }
         return result;
+    }
+
+    public static File bitmapTofile(Bitmap bitmap, String fileName) {
+        String path = "data/app/com.ZCZ1024/";
+        Log.d("filexxx","执行到此1");
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        File myCaptureFile = new File(path + fileName);
+        BufferedOutputStream bos = null;
+        try {
+            Log.d("filexxx","执行到此2");
+            bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+            Log.d("filexxx","执行到此2");
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+            Log.d("filexxx","执行到此3");
+            bos.flush();
+            bos.close();
+            return myCaptureFile;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("filexxx",e.getMessage());
+            return null;
+        }
+    }
+
+    public static Bitmap fileToBit(File file) {
+        Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
+        return bitmap;
     }
 }

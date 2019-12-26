@@ -5,11 +5,15 @@ import com.ZCZ1024.MeetStone.Entity.UserInfo;
 import com.ZCZ1024.MeetStone.EntityVo.UserInfoVo;
 import com.ZCZ1024.MeetStone.EntityVo.UserVo;
 
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -36,17 +40,41 @@ public interface UserDataService {
     Flowable<Map<String,String>> regist(@FieldMap Map<String,String> registinfo);
 
 
-    //登陆接口请求。返回状态码
+    /**
+     * 登陆接口请求。返回状态码
+     * @param acount 用户账户{username，password}
+     * @return
+     */
     @FormUrlEncoded
     @POST("Acount/API/login")
     Flowable<Map<String,String>> LoginTest(@FieldMap Map<String,String> acount);
 
+
+    /**
+     * 修改密码
+     * @param newpswd 新密码
+     * @return 返回码，
+     */
     @FormUrlEncoded
     @POST("updatePswd")
     Flowable<String> updatePswd(@FieldMap Map<String,String> newpswd);
 
+    /**
+     * 修改用户信息
+     * @param userid 用户id
+     * @param userInfo 用户新的信息
+     * @return
+     */
     @FormUrlEncoded
     @POST("updateUinfo")
     Flowable<Map<String,String>> updateUinfo(@Path("userid") String userid,@Body UserInfo userInfo);
 
+    /**
+     * 上传用户头像文件
+     * @param photo
+     * @return
+     */
+
+    @POST("putphoto")
+    Flowable<Map<String,String>> putUserHeadpit(@Query("photo") String photo);
 }

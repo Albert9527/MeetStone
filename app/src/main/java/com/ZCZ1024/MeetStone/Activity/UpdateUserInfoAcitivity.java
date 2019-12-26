@@ -29,7 +29,7 @@ public class UpdateUserInfoAcitivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_user_info_acitivity);
         iniview();
-        setViewValue();
+        //setViewValue();
     }
 
     private void iniview() {
@@ -91,5 +91,9 @@ public class UpdateUserInfoAcitivity extends BaseActivity {
                     }
                 })
         );
+    }
+
+    public void closeActivity(View view){
+        this.finish();
     }
 }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -21,8 +22,13 @@ import com.ZCZ1024.MeetStone.Util.BitMapUtil;
 import com.ZCZ1024.MeetStone.Util.UserPortraitDialog;
 import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
 import com.ZCZ1024.MeetStone.presenter.service.UserDataService;
+import com.bumptech.glide.Glide;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -37,7 +43,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_user_info);
+        setContentView(R.layout.activity_show_user_info);
         initView();
     }
 
@@ -53,6 +59,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         tv_intro = findViewById(R.id.tv_info_intro);
     }
 
+    /**
+     * 通过网络请求初始化用户信息数据
+     */
     private void initData() {
         final String userid = "ff88dc16a6f74b9dae4b97644cab5d16";
         addDisposable(
@@ -78,6 +87,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         );
     }
 
+    /**
+     * 根据获取到的userinfo设置用户资料界面的值
+     * @param userInfo
+     */
     private void setViewValue(UserInfo userInfo) {
         tv_uname.setText(userInfo.getName());
         tv_sex.setText(userInfo.getSex());
@@ -95,9 +108,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
             case R.id.Btn_ToUpdate:
                 Intent intent = new Intent(this, UpdateUserInfoAcitivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("userinfo",userinfo);
-                intent.putExtra("unseinfoBundle",bundle);
+                /*Bundle bundle = new Bundle();
+                bundle.putSerializable("userinfo", userinfo);
+                intent.putExtra("unseinfoBundle", bundle);*/
                 startActivity(intent);
 
             default:
@@ -150,14 +163,15 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             return;
         }
 
+        Bitmap bitmap = null;
+        final ImageView img = findViewById(R.id.img_info_tx);
+
         //启用相机返回图片
         if (requestCode == 1) {
             if (data != null) {
-                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                bitmap = (Bitmap) data.getExtras().get("data");
                 bitmap = BitMapUtil.getBitmap(this, bitmap);
                 bitmap = BitMapUtil.getZoomImage(bitmap, 20.00);
-                ImageView img = findViewById(R.id.img_info_tx);
-                img.setImageBitmap(bitmap);
             }
         }
 
@@ -167,17 +181,13 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 //获取图片定位符
                 Uri uri = data.getData();
                 try {
-                    Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+                    bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
 
                     bitmap = BitMapUtil.getBitmap(this, bitmap);
                     bitmap = BitMapUtil.getZoomImage(bitmap, 20.00);
 
                     //将图片显示在图片控件中
-                    ImageView img = findViewById(R.id.img_info_tx);
-                    img.setImageBitmap(bitmap);
-
-                    //字符串和bitmap互转
-                    String imgstr = BitMapUtil.bitToStr(bitmap);
+                    /* img.setImageBitmap(bitmap);*/
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -185,6 +195,41 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             }
 
         }
-    }
 
+        String photo = null;
+        try {
+            photo = new JSONObject(BitMapUtil.bitToStr(bitmap)).toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (photo != null) {
+            addDisposable(
+                    RetrofitFactory.getRetrofit()
+                            .create(UserDataService.class)
+                            .putUserHeadpit(photo)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<Map<String, String>>() {
+                                @Override
+                                public void accept(Map<String, String> map) throws Exception {
+                                    if (map.get("succsse").equals("true"))
+                                        //加载网络图片
+                                        Glide.with(getBaseContext())
+                                                .load(map.get("headfile"))
+                                                .into(img);
+                                    else if (map.get("succse").equals(false)) {
+                                        Toast.makeText(getBaseContext(), "图片加载错误", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }, new Consumer<Throwable>() {
+                                @Override
+                                public void accept(Throwable throwable) throws Exception {
+                                    Log.e("error", throwable.getMessage());
+                                }
+                            })
+            );
+
+        }
+
+    }
 }
