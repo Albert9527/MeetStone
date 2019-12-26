@@ -86,15 +86,18 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:layout_weight="1"
                 android:src="@drawable/cat" />
 
             <Button
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
                 android:text="去组队"
-                android:textSize="20dp"
+                android:textSize="15sp"
+                android:layout_margin="10dp"
+                android:background="@drawable/selector_btn_mainpage"
                 android:id="@+id/bt_tomaketeam"/>
         </LinearLayout>
     </LinearLayout>

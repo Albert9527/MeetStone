@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
-        android:background="#50ffffff">
+        android:background="#50D6D5B7">
         <Button
             style="@style/btn_finish_ac"
             android:onClick="closeActivity"
@@ -30,14 +30,14 @@
 
         <TextView
             style="@style/textSize20sp"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="队伍名称" />
 
         <EditText
             android:id="@+id/et_teamname"
-            style="@style/textSize20sp"
-            android:layout_width="200dp"
+            style="@style/et_update_user_info"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="" />
     </LinearLayout>
@@ -50,16 +50,16 @@
 
         <TextView
             style="@style/textSize20sp"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="队伍简介" />
 
         <EditText
-            android:id="@+id/tv_teamintro"
+            android:id="@+id/et_teamintro"
             style="@style/textSize20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint=""
+            android:background="@drawable/tv_boder_gray"
             android:minLines="4"
             android:gravity="top"/>
     </LinearLayout>
@@ -71,16 +71,18 @@
 
         <TextView
             style="@style/textSize20sp"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="招募人数" />
 
         <EditText
             android:id="@+id/et_teamnum"
             style="@style/textSize20sp"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="" />
+            android:hint="输入范围1-30"
+            android:inputType="number"
+            android:background="@drawable/tv_boder_gray"/>
     </LinearLayout>
 
     <LinearLayout
@@ -90,15 +92,17 @@
 
         <TextView
             style="@style/textSize20sp"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="发布时间" />
 
-        <EditText
+        <TextView
+            android:id="@+id/tv_maketeam_time"
             style="@style/textSize20sp"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="" />
+            android:hint=""
+            android:background="@drawable/tv_boder_gray"/>
     </LinearLayout>
 
     <LinearLayout
@@ -108,24 +112,27 @@
 
         <TextView
             style="@style/textSize20sp"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="队伍标签" />
 
         <EditText
+            android:id="@+id/et_teamlable"
             style="@style/textSize20sp"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="" />
+            android:hint=""
+            android:background="@drawable/tv_boder_gray"/>
     </LinearLayout>
 
     <Button
         android:id="@+id/bt_maketeam"
         style="@style/ownColorbyZD"
-        android:layout_width="200dp"
+        android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_10"
-        android:text="创建"
-        android:textSize="20sp" />
+        android:text="创  建"
+        android:onClick="makeNewTeam"
+        android:textSize="15sp" />
 </LinearLayout>

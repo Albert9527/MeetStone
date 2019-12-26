@@ -21,6 +21,7 @@
 
     <style name="textSize20sp" >
         <item name="android:textSize">20sp</item>
+        <item name="android:padding">10dp</item>
     </style>
 
     <style name="TextviewLeftStyle" >
@@ -42,6 +43,7 @@
         <item name="android:gravity">center</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginRight">@dimen/dp_10</item>
     </style>
 
     <style name="TextviewRightStyle" >
@@ -70,7 +72,7 @@
         <item name="android:layout_weight">1</item>
         <item name="android:maxWidth">150dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/selector_bt_bg_compose_red</item>
+        <item name="android:background">@drawable/selector_bt_bg_compose_blue</item>
     </style>
 
     <style name="homepage_footer" >
@@ -94,8 +96,23 @@
     <style name="update_user_info">
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="et_update_user_info">
+        <item name="android:background">@drawable/tv_boder_gray</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="layout_update_user_info">
+        <item name="android:background">#ffffff</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
     </style>
 
     <style name="regist_et_boder">
@@ -107,18 +124,17 @@
 
     <style name="btn_finish_ac">
         <item name="android:layout_width">40dp</item>>
-        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:background">@drawable/btn_return</item>
+        <item name="android:padding">5dp</item>
     </style>
     <style name="head_nav_textview">
-        android:paddingLeft="10dp"
-        android:textStyle="bold"
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:layout_marginRight">50dp</item>
-        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingLeft">2dp</item>
         <item name="android:textStyle">bold</item>
     </style>
 

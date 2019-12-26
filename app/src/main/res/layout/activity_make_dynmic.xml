@@ -4,29 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#50E6CEAC"
     android:orientation="vertical"
-    tools:context=".Activity.MakeDynmicActivity"
-    android:background="#50E6CEAC">
+    tools:context=".Activity.MakeDynmicActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:gravity="center"
-        android:background="#50ffffff">
+        android:background="#50D6D5B7"
+        android:gravity="center">
+
         <Button
             style="@style/btn_finish_ac"
-            android:onClick="closeActivity"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:onClick="closeActivity" />
 
         <TextView
             style="@style/head_nav_textview"
             android:text="新增动态" />
 
         <Button
+            android:id="@+id/btn_dynmic_send"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:text="发布"
-            android:id="@+id/btn_dynmic_send"/>
+            android:text="发布" />
 
 
     </LinearLayout>
@@ -39,6 +40,7 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/et_dynamic_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/fillet_boder"
@@ -46,17 +48,18 @@
             android:hint="输入内容。。。"
             android:maxLines="8"
             android:minLines="6"
+            android:padding="5dp"
             android:textColor="#000000"
             android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:text="添加图片"
             android:textSize="20sp"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,16 +68,33 @@
             android:padding="5dp">
 
             <ImageView
-                android:background="@drawable/fillet_boder"
+                android:id="@+id/img_dynmic_1"
                 android:layout_width="120dp"
-                android:layout_height="100dp" />
+                android:layout_height="100dp"
+                android:visibility="gone"
+                android:onClick="imgviewclick"/>
+
+            <ImageView
+                android:id="@+id/img_dynmic_2"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:visibility="gone"
+                android:onClick="imgviewclick"/>
+
+            <ImageView
+                android:id="@+id/img_dynmic_3"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:visibility="gone"
+                android:onClick="imgviewclick"/>
 
             <Button
+                android:id="@+id/btn_dynmic_addimg"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="5dp"
                 android:text="十"
-                android:textSize="50sp"/>
+                android:textSize="50sp" />
         </LinearLayout>
     </LinearLayout>
 

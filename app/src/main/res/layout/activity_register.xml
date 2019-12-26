@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.RegisterActivity"
-    android:background="@drawable/selector_bt_bg_compose_red">
+    android:background="@drawable/selector_bt_bg_compose_blue">
 
     <LinearLayout
         android:layout_width="match_parent"
