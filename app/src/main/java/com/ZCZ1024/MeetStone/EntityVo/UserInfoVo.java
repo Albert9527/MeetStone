@@ -3,32 +3,39 @@ package com.ZCZ1024.MeetStone.EntityVo;
 import com.ZCZ1024.MeetStone.Entity.UserInfo;
 
 public class UserInfoVo {
-    private String success;
-    private String error;
 
-    private UserInfo userInfo;
+    /**
+     * data : {"imgurl":"fabbf261-e1ea-4022-a482-b6872f88a9f7.png","address":"3","sex":"nan","intro":"呵呵","nickname":"ZingZhou","age":"18"}
+     * success : true
+     * error : -1
+     */
 
-    public String getSuccess() {
+    private UserInfo data;
+    private boolean success;
+    private int error;
+
+
+    public boolean isSuccess() {
         return success;
     }
 
-    public void setSuccess(String success) {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 
-    public String getError() {
+    public int getError() {
         return error;
     }
 
-    public void setError(String error) {
+    public void setError(int error) {
         this.error = error;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
+    public UserInfo getData() {
+        return data;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public void setData(UserInfo data) {
+        this.data = data;
     }
 }

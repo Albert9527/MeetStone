@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.ZCZ1024.MeetStone.Entity.User;
+import com.ZCZ1024.MeetStone.Entity.UserInfo;
 import com.ZCZ1024.MeetStone.EntityVo.UserVo;
 import com.ZCZ1024.MeetStone.Fragments.FragmentAllTeam;
 import com.ZCZ1024.MeetStone.Fragments.FragmentDynmic;
@@ -110,8 +111,18 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
             }
         });
 
+
+        getUserinfo();
+      /*  Log.d("xxx","xxx");
         getUserinfo();
         //initheadpic(user);
+        UserInfo userInfo = new UserInfo("name");
+        AcuntInfo.setObject(this,"userinfo",userInfo);
+        UserInfo uin = new UserInfo();
+        UserInfo userInfo1 = (UserInfo) AcuntInfo.getObject(this,"userinfo",uin);
+        Log.d("userxxx",userInfo1.getName());
+        Log.d("xxx","xxx");*/
+
 
     }
 
@@ -159,7 +170,6 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         layout_nav_head = headerView.findViewById(R.id.nav_head);
         tv_nickname = headerView.findViewById(R.id.nav_nickname);
         tv_intro = headerView.findViewById(R.id.nav_userintro);
-        layout_nav_head.setBackground(getDrawable(R.drawable.cat));
         imageViews.add(circleView_headpt);
 
         CircleImageView img_usertx = findViewById(R.id.img_usertx);
@@ -174,6 +184,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                         .into(imageView);
             }
         }
+        layout_nav_head.setBackground(circleView_headpt.getDrawable());
 
         if (AcuntInfo.geteditInfo(this, "userid") != null) {
             if (user.getNickname() != null)

@@ -3,6 +3,11 @@ package com.ZCZ1024.MeetStone.Util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class AcuntInfo {
@@ -29,6 +34,31 @@ public class AcuntInfo {
         SharedPreferences sharedPre = context.getSharedPreferences("config", MODE_PRIVATE);
         String userid = sharedPre.getString(key, null);
         return userid;
+    }
+
+    /**
+     * 使用SharedPreferences存储对象
+     * @param context
+     * @param key
+     * @param object
+     */
+    public static void setObject(Context context,String key, Object object) {
+        SharedPreferences sharedPreferences = context
+                .getSharedPreferences("config", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String value = gson.toJson(object);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key,value);
+        editor.commit();
+    }
+
+
+    public static Object getObject(Context context,String key,Object object){
+        SharedPreferences shared = context
+                .getSharedPreferences("config", MODE_PRIVATE);
+        String value = shared.getString(key,null);
+        Gson gson = new Gson();
+        return gson.fromJson(value,object.getClass());
     }
 
     public static void cleanUserId(Context context){

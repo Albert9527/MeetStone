@@ -19,7 +19,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class UpdateUserInfoAcitivity extends BaseActivity {
-    private EditText et_name, et_age, et_address, et_ocpt, et_intro;
+    private EditText et_name, et_age, et_address, et_intro;
     private RadioGroup radioGroup;
     private RadioButton man, women;
     private UserInfo userInfo;
@@ -37,11 +37,20 @@ public class UpdateUserInfoAcitivity extends BaseActivity {
         et_name = findViewById(R.id.et_update_info_mininame);
         et_age = findViewById(R.id.et_update_info_age);
         et_address = findViewById(R.id.et_update_info_address);
-        et_ocpt = findViewById(R.id.et_update_info_occupation);
         et_intro = findViewById(R.id.et_update_user_intro);
         radioGroup = findViewById(R.id.rag_update_sex);
         man = findViewById(R.id.rbtn_man);
         women = findViewById(R.id.rbtn_women);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (man.isChecked())
+                    userInfo.setSex("nan");
+                else if (women.isChecked())
+                    userInfo.setSex("women");
+            }
+        });
     }
 
     private void setViewValue() {
@@ -49,12 +58,11 @@ public class UpdateUserInfoAcitivity extends BaseActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("unseinfoBundle");
         userInfo = (UserInfo) bundle.get("userinfo");
-        et_name.setText(userInfo.getName());
+        et_name.setText(userInfo.getNickname());
         et_age.setText(userInfo.getAge());
         et_address.setText(userInfo.getAddress());
-        et_ocpt.setText(userInfo.getOcpt());
         et_intro.setText(userInfo.getIntro());
-        if (userInfo.getSex().equals(1)){
+        if (userInfo.getSex().equals("nan")){
             man.setChecked(true);
         }
         else
@@ -63,10 +71,9 @@ public class UpdateUserInfoAcitivity extends BaseActivity {
     }
 
     private UserInfo getnewUserinfo(){
-        userInfo.setName(et_name.getText().toString());
+        userInfo.setNickname(et_name.getText().toString());
         userInfo.setAge(et_age.getText().toString());
         userInfo.setAddress(et_address.getText().toString());
-        userInfo.setOcpt(et_ocpt.getText().toString());
         userInfo.setIntro(et_intro.getText().toString());
         return userInfo;
     }

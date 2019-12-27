@@ -2,22 +2,23 @@ package com.ZCZ1024.MeetStone.presenter.service;
 
 import com.ZCZ1024.MeetStone.Entity.Acount;
 import com.ZCZ1024.MeetStone.Entity.UserInfo;
+import com.ZCZ1024.MeetStone.EntityVo.FileVo;
 import com.ZCZ1024.MeetStone.EntityVo.UserInfoVo;
 import com.ZCZ1024.MeetStone.EntityVo.UserVo;
-
-import org.json.JSONObject;
-
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Flowable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -30,8 +31,8 @@ public interface UserDataService {
     Flowable<List<Acount>> getAcount();
 
     //获取队员集合
-    @POST("Acount/API")
-    Flowable<UserInfoVo> getuinfo(@Path("id") String userid);
+    @GET("Acount/API/getuau")
+    Flowable<UserInfoVo> getuinfo(@Query("id") String userid);
 
 
     //注册接口请求，返回一个map，包含一个success（true和false）和error(状态码)
@@ -71,10 +72,11 @@ public interface UserDataService {
 
     /**
      * 上传用户头像文件
-     * @param photo
+     * @param pic
      * @return
      */
+    @Multipart
+    @POST("Acount/API/uploadimg")
+    Flowable<FileVo> putUserHeadpit(@Part MultipartBody.Part pic, @Part("id") RequestBody id);
 
-    @POST("putphoto")
-    Flowable<Map<String,String>> putUserHeadpit(@Query("photo") String photo);
 }

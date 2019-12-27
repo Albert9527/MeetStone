@@ -1,11 +1,14 @@
 package com.ZCZ1024.MeetStone.Activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,25 +17,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.ZCZ1024.MeetStone.Entity.UserInfo;
+import com.ZCZ1024.MeetStone.EntityVo.FileVo;
 import com.ZCZ1024.MeetStone.EntityVo.UserInfoVo;
 import com.ZCZ1024.MeetStone.R;
+import com.ZCZ1024.MeetStone.Util.AcuntInfo;
 import com.ZCZ1024.MeetStone.Util.BitMapUtil;
+import com.ZCZ1024.MeetStone.Util.PhoneNumUtil;
 import com.ZCZ1024.MeetStone.Util.UserPortraitDialog;
 import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
 import com.ZCZ1024.MeetStone.presenter.service.UserDataService;
 import com.bumptech.glide.Glide;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.FileNotFoundException;
-import java.util.Map;
+import java.io.File;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener {
 
@@ -45,11 +51,14 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_user_info);
         initView();
+        initData();
     }
 
     private void initView() {
         LinearLayout layout = findViewById(R.id.update_userinfo_tx);
+        LinearLayout ly_update_pswd = findViewById(R.id.ly_update_pswd);
         layout.setOnClickListener(this);
+        ly_update_pswd.setOnClickListener(this);
         tv_uname = findViewById(R.id.tv_info_name);
         tv_uacount = findViewById(R.id.tv_info_acount);
         tv_sex = findViewById(R.id.tv_info_sex);
@@ -73,15 +82,18 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                         .subscribe(new Consumer<UserInfoVo>() {
                             @Override
                             public void accept(UserInfoVo userInfoVo) throws Exception {
-                                if (userInfoVo.getSuccess().equals(true)) {
-                                    userinfo = userInfoVo.getUserInfo();
+                                if (userInfoVo.isSuccess()==true) {
+                                    userinfo = userInfoVo.getData();
                                     setViewValue(userinfo);
+                                }
+                                else{
+                                    Log.e("error","错误代码"+userInfoVo.getError());
                                 }
                             }
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
-
+                                Log.e("error","错误代码"+throwable.getMessage());
                             }
                         })
         );
@@ -89,14 +101,28 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     /**
      * 根据获取到的userinfo设置用户资料界面的值
+     *
      * @param userInfo
      */
     private void setViewValue(UserInfo userInfo) {
-        tv_uname.setText(userInfo.getName());
+        String acount = PhoneNumUtil.dealPhoneNumber(AcuntInfo.geteditInfo(this,"acount"));
+        if (userInfo.getNickname()!=null)
+        tv_uname.setText(userInfo.getNickname());
+        else
+            tv_uname.setText(acount);
+
+        tv_uacount.setText(acount);
+
+        if (userInfo.getSex()!=null)
         tv_sex.setText(userInfo.getSex());
+
+        if (userInfo.getAge()!=null)
         tv_age.setText(userInfo.getAge());
+
+        if (userInfo.getAddress()!=null)
         tv_address.setText(userInfo.getAddress());
-        tv_ocpt.setText(userInfo.getOcpt());
+
+        if (userInfo.getIntro()!=null)
         tv_intro.setText(userInfo.getIntro());
     }
 
@@ -123,7 +149,22 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.update_userinfo_tx:
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                        || ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.CAMERA,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            1);
+                }
                 showPortraitDialog();
+                break;
+
+            case R.id.ly_update_pswd:
+                startActivity(new Intent(this,UpdatePswdActivity.class));
                 break;
 
             default:
@@ -172,64 +213,61 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 bitmap = (Bitmap) data.getExtras().get("data");
                 bitmap = BitMapUtil.getBitmap(this, bitmap);
                 bitmap = BitMapUtil.getZoomImage(bitmap, 20.00);
+
+                /*img.setImageBitmap(bitmap);*/
+
+                File file = BitMapUtil.getFile(this, bitmap, bitmap.toString());
             }
         }
+
 
         //启用相册返回图片
         if (requestCode == 2) {
             if (data != null) {
                 //获取图片定位符
                 Uri uri = data.getData();
-                try {
-                    bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
 
-                    bitmap = BitMapUtil.getBitmap(this, bitmap);
-                    bitmap = BitMapUtil.getZoomImage(bitmap, 20.00);
+                Log.d("url", uri.toString());
+                File file = new File(BitMapUtil.getRealPathFromUri(this, uri));
 
-                    //将图片显示在图片控件中
-                    /* img.setImageBitmap(bitmap);*/
+                if (file != null) {
 
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                    String id = "ff88dc16a6f74b9dae4b97644cab5d16";
+                    RequestBody requestId = RequestBody.create(null, id);
+                    String s = requestId.toString();
+                    RequestBody requestFile = RequestBody.create(MediaType.parse("application/octet-stream"), file);
+                    MultipartBody.Part body = MultipartBody.Part.createFormData("pic", file.getName(), requestFile);
+
+                    Log.d("file+id",body+">>>>"+requestId);
+                    addDisposable(
+                            RetrofitFactory.getRetrofit()
+                                    .create(UserDataService.class)
+                                    .putUserHeadpit(body, requestId)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new Consumer<FileVo>() {
+                                        @Override
+                                        public void accept(FileVo fileVo) throws Exception {
+                                            if (fileVo.isSuccess()==true)
+                                                //加载网络图片
+                                                Glide.with(getBaseContext())
+                                                        .load("http://120.55.47.24:8080/img/" + fileVo.getData())
+                                                        .into(img);
+                                            else if (fileVo.isSuccess()==false) {
+                                                Toast.makeText(getBaseContext(), "图片加载错误", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }, new Consumer<Throwable>() {
+                                        @Override
+                                        public void accept(Throwable throwable) throws Exception {
+                                            Log.e("error", throwable.getMessage());
+                                        }
+                                    })
+                    );
                 }
             }
-
         }
-
-        String photo = null;
-        try {
-            photo = new JSONObject(BitMapUtil.bitToStr(bitmap)).toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (photo != null) {
-            addDisposable(
-                    RetrofitFactory.getRetrofit()
-                            .create(UserDataService.class)
-                            .putUserHeadpit(photo)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Consumer<Map<String, String>>() {
-                                @Override
-                                public void accept(Map<String, String> map) throws Exception {
-                                    if (map.get("succsse").equals("true"))
-                                        //加载网络图片
-                                        Glide.with(getBaseContext())
-                                                .load(map.get("headfile"))
-                                                .into(img);
-                                    else if (map.get("succse").equals(false)) {
-                                        Toast.makeText(getBaseContext(), "图片加载错误", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }, new Consumer<Throwable>() {
-                                @Override
-                                public void accept(Throwable throwable) throws Exception {
-                                    Log.e("error", throwable.getMessage());
-                                }
-                            })
-            );
-
-        }
-
     }
+
+
 }

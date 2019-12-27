@@ -9,6 +9,15 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:background="@drawable/et_boder"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
+        android:id="@+id/tv_main_time"/>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,14 +30,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:gravity="right">
+
         <Button
+            android:id="@+id/btn_main_jump"
+            android:background="@drawable/et_boder"
             android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:text="跳过"
+            android:layout_height="30dp"
             android:layout_marginRight="30dp"
-            />
+            android:text="跳过"
+            android:textSize="15sp"/>
     </LinearLayout>
 
 </LinearLayout>

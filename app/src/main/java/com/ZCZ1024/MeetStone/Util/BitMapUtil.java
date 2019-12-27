@@ -1,10 +1,14 @@
 package com.ZCZ1024.MeetStone.Util;
 
 import android.app.Activity;
+import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
@@ -173,33 +177,45 @@ public class BitMapUtil {
         return result;
     }
 
-    public static File bitmapTofile(Bitmap bitmap, String fileName) {
-        String path = "data/app/com.ZCZ1024/";
-        Log.d("filexxx","执行到此1");
-        File file = new File(path);
+    public static File getFile(Context context,Bitmap bmp,String filename) {
+        String defaultPath = context.getFilesDir()
+                .getAbsolutePath() + "/defaultGoodInfo";
+        File file = new File(defaultPath);
         if (!file.exists()) {
-            file.mkdir();
+            file.mkdirs();
         }
-        File myCaptureFile = new File(path + fileName);
-        BufferedOutputStream bos = null;
+        String defaultImgPath = defaultPath + filename;
+        file = new File(defaultImgPath);
         try {
-            Log.d("filexxx","执行到此2");
-            bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
-            Log.d("filexxx","执行到此2");
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
-            Log.d("filexxx","执行到此3");
-            bos.flush();
-            bos.close();
-            return myCaptureFile;
-        } catch (IOException e) {
+            file.createNewFile();
+            FileOutputStream fOut = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.PNG, 20, fOut);
+            fOut.flush();
+            fOut.close();
+        } catch (Exception e) {
             e.printStackTrace();
-            Log.d("filexxx",e.getMessage());
-            return null;
         }
+
+        return file;
     }
 
     public static Bitmap fileToBit(File file) {
         Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
         return bitmap;
+    }
+
+    public static String getRealPathFromUri(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = {MediaStore.Images.Media.DATA};
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 }
