@@ -24,8 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:text="游客"
-                android:textSize="20sp" />
+                android:text="点击头像登陆"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <TextView

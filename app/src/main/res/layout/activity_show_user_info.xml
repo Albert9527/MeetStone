@@ -9,109 +9,201 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:gravity="center"
-        android:background="#50D6D5B7">
+        android:background="#50D6D5B7"
+        android:gravity="center">
+
         <Button
-            style="@style/btn_finish_ac"
             android:id="@+id/btn_preActivity"
+            style="@style/btn_finish_ac"
             android:layout_margin="10dp"
-            android:onClick="Btn_user_info"/>
+            android:onClick="Btn_user_info" />
 
         <TextView
             style="@style/head_nav_textview"
-            android:text="详细资料"
-            />
+            android:text="详细资料" />
+
         <Button
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/Btn_ToUpdate"
+            style="@style/btn_finish_ac"
+            android:layout_marginRight="20dp"
             android:background="@drawable/btn_update"
-            android:textSize="15sp"
-            android:layout_marginRight="10dp"
-            android:onClick="Btn_user_info"
-            android:id="@+id/Btn_ToUpdate"/>
+            android:onClick="Btn_user_info"/>
 
     </LinearLayout>
 
     <LinearLayout
-        style="@style/LinearLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/update_userinfo_tx">
+            style="@style/LinearLayoutStyle"
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/update_userinfo_tx"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:text="头像"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                />
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-            <com.liji.circleimageview.CircleImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginRight="10dp"
-                android:layout_gravity="right"
-                android:src="@drawable/cat"
-                android:id="@+id/img_info_tx"/>
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text=">"
-                android:textStyle="bold"
-                android:textSize="40sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="头像"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <com.liji.circleimageview.CircleImageView
+                    android:id="@+id/img_info_tx"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/cat" />
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text=">"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/LinearLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <TextView
+                    style="@style/TextviewLeftStyle"
+                    android:text="用户昵称" />
+
+                <TextView
+                    android:id="@+id/tv_info_name"
+                    style="@style/TextviewshowStyle"
+                    android:text="胡图图" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    style="@style/TextviewLeftStyle"
+                    android:text="账号" />
+
+                <TextView
+                    android:id="@+id/tv_info_acount"
+                    style="@style/TextviewshowStyle"
+                    android:text="152****9847" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ly_update_pswd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    style="@style/TextviewLeftStyle"
+                    android:text="修改密码" />
+
+                <TextView
+                    style="@style/TextviewRightStyle"
+                    android:text=">" />
+            </LinearLayout>
         </LinearLayout>
-
 
         <LinearLayout
             style="@style/LinearLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:orientation="vertical">
 
-            <TextView
-                style="@style/TextviewLeftStyle"
-                android:text="用户昵称"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-            <TextView
-                style="@style/TextviewshowStyle"
-                android:id="@+id/tv_info_name"
-                android:text="胡图图"/>
+                <TextView
+                    style="@style/TextviewLeftStyle"
+                    android:text="性别" />
 
+                <TextView
+                    android:id="@+id/tv_info_sex"
+                    style="@style/TextviewshowStyle"
+                    android:text="男" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    style="@style/TextviewLeftStyle"
+                    android:text="年龄" />
+
+                <TextView
+                    android:id="@+id/tv_info_age"
+                    style="@style/TextviewshowStyle"
+                    android:text="22" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    style="@style/TextviewLeftStyle"
+                    android:text="地址" />
+
+                <TextView
+                    android:id="@+id/tv_info_address"
+                    style="@style/TextviewshowStyle"
+                    android:text="翻斗花园二号楼一零零一室" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    style="@style/TextviewLeftStyle"
+                    android:text="职业" />
+
+                <TextView
+                    android:id="@+id/tv_info_occupation"
+                    style="@style/TextviewshowStyle"
+                    android:text="演员" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <TextView
-                style="@style/TextviewLeftStyle"
-                android:text="账号" />
-
-            <TextView
-                style="@style/TextviewshowStyle"
-                android:text="152****9847"
-                android:id="@+id/tv_info_acount"
-               />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/LinearLayoutStyle"
             android:gravity="center"
-            android:id="@+id/ly_update_pswd">
+            android:orientation="horizontal">
 
             <TextView
                 style="@style/TextviewLeftStyle"
-                android:text="修改密码"/>
+                android:text="个人简介" />
+
+            <TextView
+                android:id="@+id/tv_info_intro"
+                style="@style/TextviewshowStyle"
+                android:text="图图的耳朵很大很神奇,你们看动耳神功" />
 
             <TextView
                 style="@style/TextviewRightStyle"
@@ -119,93 +211,14 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        style="@style/LinearLayoutStyle"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <TextView
-                style="@style/TextviewLeftStyle"
-                android:text="性别" />
-
-            <TextView
-                style="@style/TextviewshowStyle"
-                android:text="男"
-                android:id="@+id/tv_info_sex"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <TextView
-                style="@style/TextviewLeftStyle"
-                android:text="年龄"/>
-
-            <TextView
-                style="@style/TextviewshowStyle"
-                android:text="22"
-                android:id="@+id/tv_info_age"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <TextView
-                style="@style/TextviewLeftStyle"
-                android:text="地址" />
-
-            <TextView
-                style="@style/TextviewshowStyle"
-                android:text="翻斗花园二号楼一零零一室"
-                android:id="@+id/tv_info_address"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <TextView
-                style="@style/TextviewLeftStyle"
-                android:text="职业" />
-
-            <TextView
-                style="@style/TextviewshowStyle"
-                android:text="演员"
-                android:id="@+id/tv_info_occupation"
-                />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/LinearLayoutStyle"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <TextView
-            style="@style/TextviewLeftStyle"
-            android:text="个人简介" />
-
-        <TextView
-            style="@style/TextviewshowStyle"
-            android:text="图图的耳朵很大很神奇,你们看动耳神功"
-            android:id="@+id/tv_info_intro"/>
-
-        <TextView
-            style="@style/TextviewRightStyle"
-            android:text=">"/>
-    </LinearLayout>
+    <Button
+        style="@style/ownColorbyZD"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:text="退     出   登   陆"
+        android:textColor="#50000000"
+        android:id="@+id/btn_logout"
+        android:onClick="Btn_user_info"/>
 
 </LinearLayout>

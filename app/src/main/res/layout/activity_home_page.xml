@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.HomePageActivity"
-    android:background="#80E6CEAC">
+    android:background="#50ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 <TextView
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
-                    android:text="》"
+                    android:text=">"
                     android:textSize="30sp" />
 
                 <com.liji.circleimageview.CircleImageView
@@ -56,16 +56,16 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/img_homepage_msg"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_margin="10dp"
                     android:gravity="center"
-                    android:src="@drawable/msg_off"
+                    android:src="@drawable/apply_check_off"
                     android:onClick="TopNavbar"/>
                 <ImageView
                     android:id="@+id/img_homepage_add_dynmic"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_margin="10dp"
                     android:gravity="center"
                     android:src="@drawable/add_dynmic"
