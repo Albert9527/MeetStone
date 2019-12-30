@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,7 +42,8 @@ public class FragmentMartch extends BaseFragment{
                              @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_martch, container, false);
         recyclerView = view.findViewById(R.id.recyclerview_martch);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this.getActivity().getBaseContext(), 2));
 
         viewAdapter = new MartchViewAdpter(null);
         FragmentMartch.OnItemClickListener listener = new OnItemClickListener() {

@@ -31,6 +31,8 @@ import com.ZCZ1024.MeetStone.Util.UserPortraitDialog;
 import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
 import com.ZCZ1024.MeetStone.presenter.service.UserDataService;
 import com.bumptech.glide.Glide;
+import com.liji.circleimageview.CircleImageView;
+
 import java.io.File;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -45,6 +47,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     private UserPortraitDialog dialog;
     private TextView tv_uname, tv_uacount, tv_sex, tv_age, tv_address, tv_ocpt, tv_intro;
     private UserInfo userinfo;
+    private CircleImageView img_tx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,37 +69,41 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         tv_address = findViewById(R.id.tv_info_address);
         tv_ocpt = findViewById(R.id.tv_info_occupation);
         tv_intro = findViewById(R.id.tv_info_intro);
+        img_tx = findViewById(R.id.img_info_tx);
     }
 
     /**
      * 通过网络请求初始化用户信息数据
      */
     private void initData() {
-        final String userid = "ff88dc16a6f74b9dae4b97644cab5d16";
-        addDisposable(
-                RetrofitFactory.getRetrofit()
-                        .create(UserDataService.class)
-                        .getuinfo(userid)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Consumer<UserInfoVo>() {
-                            @Override
-                            public void accept(UserInfoVo userInfoVo) throws Exception {
-                                if (userInfoVo.isSuccess()==true) {
-                                    userinfo = userInfoVo.getData();
-                                    setViewValue(userinfo);
+        final String userid = AcuntInfo.geteditInfo(this,"userid");
+        if (userid != null) {
+            addDisposable(
+                    RetrofitFactory.getRetrofit()
+                            .create(UserDataService.class)
+                            .getuinfo(userid)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<UserInfoVo>() {
+                                @Override
+                                public void accept(UserInfoVo userInfoVo) throws Exception {
+                                    if (userInfoVo.isSuccess() == true) {
+                                        userinfo = userInfoVo.getData();
+                                        setViewValue(userinfo);
+                                    } else {
+                                        Log.e("error", "错误代码" + userInfoVo.getError());
+                                    }
                                 }
-                                else{
-                                    Log.e("error","错误代码"+userInfoVo.getError());
+                            }, new Consumer<Throwable>() {
+                                @Override
+                                public void accept(Throwable throwable) throws Exception {
+                                    Log.e("error", "错误代码" + throwable.getMessage());
                                 }
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                Log.e("error","错误代码"+throwable.getMessage());
-                            }
-                        })
-        );
+                            })
+            );
+        }
+        else
+            setViewValue(null);
     }
 
     /**
@@ -105,25 +112,33 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
      * @param userInfo
      */
     private void setViewValue(UserInfo userInfo) {
-        String acount = PhoneNumUtil.dealPhoneNumber(AcuntInfo.geteditInfo(this,"acount"));
-        if (userInfo.getNickname()!=null)
-        tv_uname.setText(userInfo.getNickname());
-        else
-            tv_uname.setText(acount);
+        String acount = PhoneNumUtil.dealPhoneNumber(AcuntInfo.geteditInfo(this, "acount"));
+        if (acount != null) {
+            if (userInfo.getNickname() != null)
+                tv_uname.setText(userInfo.getNickname());
+            else
+                tv_uname.setText(acount);
 
-        tv_uacount.setText(acount);
+            tv_uacount.setText(acount);
 
-        if (userInfo.getSex()!=null)
-        tv_sex.setText(userInfo.getSex());
+            if (userInfo.getSex() != null)
+                tv_sex.setText(userInfo.getSex());
 
-        if (userInfo.getAge()!=null)
-        tv_age.setText(userInfo.getAge());
+            if (userInfo.getAge() != null)
+                tv_age.setText(userInfo.getAge());
 
-        if (userInfo.getAddress()!=null)
-        tv_address.setText(userInfo.getAddress());
+            if (userInfo.getAddress() != null)
+                tv_address.setText(userInfo.getAddress());
 
-        if (userInfo.getIntro()!=null)
-        tv_intro.setText(userInfo.getIntro());
+            if (userInfo.getIntro() != null)
+                tv_intro.setText(userInfo.getIntro());
+
+            if (userInfo.getImgurl()!=null)
+                Glide.with(getBaseContext())
+                        .load("http://120.55.47.24:8080/img/" + userInfo.getImgurl())
+                        .into(img_tx);
+
+        }
     }
 
     public void Btn_user_info(View view) {
@@ -134,10 +149,17 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
             case R.id.Btn_ToUpdate:
                 Intent intent = new Intent(this, UpdateUserInfoAcitivity.class);
-                /*Bundle bundle = new Bundle();
+                Bundle bundle = new Bundle();
                 bundle.putSerializable("userinfo", userinfo);
-                intent.putExtra("unseinfoBundle", bundle);*/
+                intent.putExtra("unseinfoBundle", bundle);
                 startActivity(intent);
+                break;
+            case R.id.btn_logout:
+                AcuntInfo.seteditInfo(this,"userid",null);
+                AcuntInfo.seteditInfo(this,"acount",null);
+                AcuntInfo.setObject(this,"user",null);
+                startActivity(new Intent(this,LoginActivity.class));
+                this.finish();
 
             default:
                 break;
@@ -205,7 +227,6 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         }
 
         Bitmap bitmap = null;
-        final ImageView img = findViewById(R.id.img_info_tx);
 
         //启用相机返回图片
         if (requestCode == 1) {
@@ -231,12 +252,16 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 File file = new File(BitMapUtil.getRealPathFromUri(this, uri));
 
                 if (file != null) {
+                    //String id = AcuntInfo.geteditInfo(this,"userid");
 
                     String id = "ff88dc16a6f74b9dae4b97644cab5d16";
+
+                   //将参数封装成RequestBody
                     RequestBody requestId = RequestBody.create(null, id);
                     String s = requestId.toString();
                     RequestBody requestFile = RequestBody.create(MediaType.parse("application/octet-stream"), file);
                     MultipartBody.Part body = MultipartBody.Part.createFormData("pic", file.getName(), requestFile);
+
 
                     Log.d("file+id",body+">>>>"+requestId);
                     addDisposable(
@@ -252,7 +277,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                                                 //加载网络图片
                                                 Glide.with(getBaseContext())
                                                         .load("http://120.55.47.24:8080/img/" + fileVo.getData())
-                                                        .into(img);
+                                                        .into(img_tx);
                                             else if (fileVo.isSuccess()==false) {
                                                 Toast.makeText(getBaseContext(), "图片加载错误", Toast.LENGTH_SHORT).show();
                                             }

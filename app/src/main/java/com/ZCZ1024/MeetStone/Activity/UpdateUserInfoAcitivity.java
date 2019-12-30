@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
 import com.ZCZ1024.MeetStone.Entity.UserInfo;
 import com.ZCZ1024.MeetStone.R;
 import com.ZCZ1024.MeetStone.Util.AcuntInfo;
@@ -29,7 +30,7 @@ public class UpdateUserInfoAcitivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_user_info_acitivity);
         iniview();
-        //setViewValue();
+        setViewValue();
     }
 
     private void iniview() {
@@ -45,10 +46,14 @@ public class UpdateUserInfoAcitivity extends BaseActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (man.isChecked())
-                    userInfo.setSex("nan");
-                else if (women.isChecked())
-                    userInfo.setSex("women");
+                switch (checkedId) {
+                    case R.id.rbtn_man:
+                        userInfo.setSex("nan");
+                        break;
+                    case R.id.rbtn_women:
+                        userInfo.setSex("women");
+                        break;
+                }
             }
         });
     }
@@ -62,15 +67,14 @@ public class UpdateUserInfoAcitivity extends BaseActivity {
         et_age.setText(userInfo.getAge());
         et_address.setText(userInfo.getAddress());
         et_intro.setText(userInfo.getIntro());
-        if (userInfo.getSex().equals("nan")){
+        if (userInfo.getSex().equals("nan")) {
             man.setChecked(true);
-        }
-        else
+        } else
             women.setChecked(false);
 
     }
 
-    private UserInfo getnewUserinfo(){
+    private UserInfo getnewUserinfo() {
         userInfo.setNickname(et_name.getText().toString());
         userInfo.setAge(et_age.getText().toString());
         userInfo.setAddress(et_address.getText().toString());
@@ -78,29 +82,29 @@ public class UpdateUserInfoAcitivity extends BaseActivity {
         return userInfo;
     }
 
-    public void UpdateUserInfo(View view){
-        String userid = AcuntInfo.geteditInfo(this,"userid");
+    public void UpdateUserInfo(View view) {
+        String userid = AcuntInfo.geteditInfo(this, "userid");
         addDisposable(
                 RetrofitFactory.getRetrofit()
-                .create(UserDataService.class)
-                .updateUinfo(userid,userInfo)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Map<String,String>>() {
-                    @Override
-                    public void accept(Map<String,String> result) throws Exception {
+                        .create(UserDataService.class)
+                        .updateUinfo(userid, userInfo)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<Map<String, String>>() {
+                            @Override
+                            public void accept(Map<String, String> result) throws Exception {
 
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
 
-                    }
-                })
+                            }
+                        })
         );
     }
 
-    public void closeActivity(View view){
+    public void closeActivity(View view) {
         this.finish();
     }
 }

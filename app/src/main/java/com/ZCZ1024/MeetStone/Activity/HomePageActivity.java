@@ -70,6 +70,12 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         setTabSelection(0);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUserinfo();
+    }
+
     private void init() {
 
         layouts = new ArrayList<>();
@@ -180,8 +186,9 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
             for (ImageView imageView : imageViews) {
                 //加载网络图片
                 Glide.with(getBaseContext())
-                        .load("http://dmimg.5054399.com/allimg/pkm/pk/22.jpg")
+                        .load("http://120.55.47.24:8080/img/" +user.getImgurl())
                         .into(imageView);
+                layout_nav_head.setBackground(imageView.getDrawable());
             }
         }
         layout_nav_head.setBackground(circleView_headpt.getDrawable());

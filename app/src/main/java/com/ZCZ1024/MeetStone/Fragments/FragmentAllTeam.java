@@ -9,7 +9,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ZCZ1024.MeetStone.Activity.LoginActivity;
@@ -49,7 +50,7 @@ public class FragmentAllTeam extends BaseFragment {
 
         recyclerView = view.findViewById(R.id.recyclerview_allteam);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this.getActivity().getBaseContext(), 2));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //设置适配器
         viewAdapter = new AllteamViewAdapter(null);
@@ -79,6 +80,11 @@ public class FragmentAllTeam extends BaseFragment {
         };
 
         viewAdapter.setOnItemClickListener(listener);
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration
+                (getContext(),DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(getResources().getDrawable(R.drawable.item_divider));
+        recyclerView.addItemDecoration(itemDecoration);
 
         //全屏水滴刷新
         RefreshUtil.refresh(getContext(), view, R.id.refresh_allteam,

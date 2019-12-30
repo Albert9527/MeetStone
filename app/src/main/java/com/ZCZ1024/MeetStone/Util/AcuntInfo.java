@@ -3,6 +3,7 @@ package com.ZCZ1024.MeetStone.Util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.ZCZ1024.MeetStone.Entity.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -12,11 +13,18 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class AcuntInfo {
 
+    /**
+     * 本地保存用户信息
+     * @param context
+     * @param key
+     * @param userid
+     */
     public static void seteditInfo(Context context,String key, String userid) {
 
         //获取SharedPreferences对象
         SharedPreferences sharedPreferences = context
                 .getSharedPreferences("config", MODE_PRIVATE);
+
 
         //获取Editor对象
         SharedPreferences.Editor editor = sharedPreferences.edit();

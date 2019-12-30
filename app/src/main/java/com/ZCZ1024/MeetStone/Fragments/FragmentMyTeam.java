@@ -80,14 +80,14 @@ public class FragmentMyTeam extends BaseFragment implements View.OnClickListener
 
 
         //实现recyclerView全屏水滴刷新
-        RefreshUtil.refresh(getContext(), view, R.id.refresh_member,
+   /*     RefreshUtil.refresh(getContext(), view, R.id.refresh_member,
                 new OnRefreshListener() {
                     @Override
                     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                         initData();
                         refreshLayout.finishRefresh(1500);
                     }
-                });
+                });*/
 
         recyclerView.setAdapter(viewAdapter);
 
