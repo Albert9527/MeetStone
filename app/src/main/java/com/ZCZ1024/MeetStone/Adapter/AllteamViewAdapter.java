@@ -57,6 +57,22 @@ public class AllteamViewAdapter extends RecyclerView.Adapter<AllteamViewAdapter.
     public void onBindViewHolder(@NonNull ListViewHolder holder, final int position) {
 
         Team team = allTeamData.get(position);
+        if (team.getTime()!=null)
+            holder.textViewMadetime.setText(team.getTime());
+        if (team.getName()!=null)
+            holder.textViewTname.setText(team.getName());
+
+        if (team.getCtgy()!=null)
+            holder.textViewCtgy.setText(team.getCtgy());
+
+        if (team.getIntro()!=null)
+            holder.textViewTintro.setText(team.getIntro());
+
+        if (team.getCaptain()!=null)
+            holder.textViewTcaptain.setText(team.getCaptain());
+
+        if (team.getMax()!=null&&team.getQuota()!=null)
+            holder.textViewQuota.setText(Integer.parseInt(team.getMax())-Integer.parseInt(team.getQuota())+"");
         holder.textViewTname.setText(team.getName());
         holder.textViewTname.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +94,10 @@ public class AllteamViewAdapter extends RecyclerView.Adapter<AllteamViewAdapter.
 
     @Override
     public int getItemCount() {
-        return allTeamData.size();
+        if (allTeamData!=null)
+            return allTeamData.size();
+        else
+            return 0;
     }
 
     static class ListViewHolder extends RecyclerView.ViewHolder {
@@ -100,7 +119,7 @@ public class AllteamViewAdapter extends RecyclerView.Adapter<AllteamViewAdapter.
             textViewMadetime = itemView.findViewById(R.id.tv_teammadetime);
             textViewQuota = itemView.findViewById(R.id.tv_teamquota);
             button = itemView.findViewById(R.id.bt_teamapply);
-
+            textViewCtgy = itemView.findViewById(R.id.tv_teamctgy);
 
         }
     }

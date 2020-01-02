@@ -12,7 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ZCZ1024.MeetStone.Entity.Apply;
 import com.ZCZ1024.MeetStone.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreatDialogUtil extends Dialog {
     Activity context;
@@ -40,8 +44,8 @@ public class CreatDialogUtil extends Dialog {
 
         //指定布局
         this.setContentView(R.layout.activity_apply_team);
-        tv_Apply_user = findViewById(R.id.et_applyuname);
-        tv_Apply_group = findViewById(R.id.et_applytname);
+        tv_Apply_user = findViewById(R.id.tv_applyuname);
+        tv_Apply_group = findViewById(R.id.tv_applytname);
         et_Apply_reason = findViewById(R.id.et_applyteamreason);
 
 
@@ -77,8 +81,14 @@ public class CreatDialogUtil extends Dialog {
         this.setCancelable(true);
     }
 
-    public void showinfo() {
-        Toast.makeText(this.context,tv_Apply_user.getText().toString(),Toast.LENGTH_SHORT).show();
+    public Map<String,String> getApplymap(String teama) {
+       Map<String,String> map = new HashMap<>();
+       if (et_Apply_reason.getText().toString()!=null){
+       map.put("reson",et_Apply_reason.getText().toString());
+       map.put("team",teama);
+       map.put("user",AcuntInfo.geteditInfo(context,"userid"));
+       }
+       return map;
     }
 
 }

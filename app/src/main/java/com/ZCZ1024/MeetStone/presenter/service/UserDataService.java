@@ -5,6 +5,9 @@ import com.ZCZ1024.MeetStone.Entity.UserInfo;
 import com.ZCZ1024.MeetStone.EntityVo.FileVo;
 import com.ZCZ1024.MeetStone.EntityVo.UserInfoVo;
 import com.ZCZ1024.MeetStone.EntityVo.UserVo;
+
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Map;
 
@@ -24,18 +27,36 @@ import retrofit2.http.Query;
 
 public interface UserDataService {
 
+    /**
+     * 根据用户id获取用户基本信息
+     * @param id
+     * @return
+     */
     @GET("Acount/API/getuser")
     Flowable<UserVo> getUser(@Query("id") String id);
 
-    @GET("Get/Test")
-    Flowable<List<Acount>> getAcount();
-
-    //获取队员集合
+    /**
+     * 根据用户id获取用户详细信息
+     * @param userid
+     * @return
+     */
     @GET("Acount/API/getuau")
     Flowable<UserInfoVo> getuinfo(@Query("id") String userid);
 
+    /**
+     * 根据用户id获取用户队伍状态
+     * @param id
+     * @return
+     */
+    @GET("/Acount/API/getuat")
+    Flowable<Map<String,String>> getuserTeamRole(@Query("id") String id);
 
-    //注册接口请求，返回一个map，包含一个success（true和false）和error(状态码)
+
+    /**
+     * 注册接口请求，返回一个map，包含一个success（true和false）和error(状态码)
+     * @param registinfo
+     * @return
+     */
     @FormUrlEncoded
     @POST("Acount/API/signup")
     Flowable<Map<String,String>> regist(@FieldMap Map<String,String> registinfo);
@@ -62,13 +83,12 @@ public interface UserDataService {
 
     /**
      * 修改用户信息
-     * @param userid 用户id
-     * @param userInfo 用户新的信息
+     * @param map
      * @return
      */
     @FormUrlEncoded
-    @POST("updateUinfo")
-    Flowable<Map<String,String>> updateUinfo(@Path("userid") String userid,@Body UserInfo userInfo);
+    @POST("Acount/API/filluau")
+    Flowable<Map<String,String>> updateUinfo(@FieldMap Map<String,String> map);
 
     /**
      * 上传用户头像文件
@@ -78,5 +98,6 @@ public interface UserDataService {
     @Multipart
     @POST("Acount/API/uploadimg")
     Flowable<FileVo> putUserHeadpit(@Part MultipartBody.Part pic, @Part("id") RequestBody id);
+
 
 }

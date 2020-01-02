@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -48,7 +49,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     private FragmentDynmic fragmentDynmic;
     private FragmentManager fragmentManager;
     private TextView textViewtitle, tv_nickname, tv_intro;
-    private LinearLayout linearLayoutseach,layout_nav_head;
+    private LinearLayout linearLayoutseach, layout_nav_head;
 
     private ImageView imgfragment;
     private TextView tvfragmentname;
@@ -74,6 +75,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     protected void onResume() {
         super.onResume();
         getUserinfo();
+        getUserTeamRole();
     }
 
     private void init() {
@@ -119,23 +121,14 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
 
         getUserinfo();
-      /*  Log.d("xxx","xxx");
-        getUserinfo();
-        //initheadpic(user);
-        UserInfo userInfo = new UserInfo("name");
-        AcuntInfo.setObject(this,"userinfo",userInfo);
-        UserInfo uin = new UserInfo();
-        UserInfo userInfo1 = (UserInfo) AcuntInfo.getObject(this,"userinfo",uin);
-        Log.d("userxxx",userInfo1.getName());
-        Log.d("xxx","xxx");*/
-
+        getUserTeamRole();
 
     }
 
     public User getUserinfo() {
         String userid = AcuntInfo.geteditInfo(this, "userid");
-      /*  String userid = "ff88dc16a6f74b9dae4b97644cab5d16";*/
-              /*  Log.d("error",userid);*/
+        /*  String userid = "ff88dc16a6f74b9dae4b97644cab5d16";*/
+        /*  Log.d("error",userid);*/
         if (userid != null)
             addDisposable(
                     RetrofitFactory.getRetrofit()
@@ -146,25 +139,54 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                             .subscribe(new Consumer<UserVo>() {
                                 @Override
                                 public void accept(UserVo userVo) throws Exception {
-                                    if (userVo.getSuccess().equals("true")){
+                                    if (userVo.getSuccess().equals("true")) {
                                         user = userVo.getData();
                                         initheadpic(user);
-                                    }
-                                    else {
-                                        if (userVo.getError()==1)
+                                    } else {
+                                        if (userVo.getError() == 1)
                                             Toast.makeText(getBaseContext(), "信息更新出错", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }, new Consumer<Throwable>() {
                                 @Override
                                 public void accept(Throwable throwable) throws Exception {
-                                    Log.e("error",throwable.getMessage());
+                                    Log.e("error", throwable.getMessage());
                                 }
                             })
             );
         else
             user = new User();
         return user;
+    }
+
+    private void getUserTeamRole() {
+        String userid = AcuntInfo.geteditInfo(this, "userid");
+        /*  String userid = "ff88dc16a6f74b9dae4b97644cab5d16";*/
+        /*  Log.d("error",userid);*/
+        if (userid != null)
+            addDisposable(
+                    RetrofitFactory.getRetrofit()
+                            .create(UserDataService.class)
+                            .getuserTeamRole(userid)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<Map<String, String>>() {
+                                @Override
+                                public void accept(Map<String, String> result) throws Exception {
+                                    if (result.get("success").equals("true")) {
+                                        AcuntInfo.seteditInfo(getBaseContext(), "utRole", result.get("data"));
+                                    } else {
+                                        Toast.makeText(getBaseContext(), "信息更新出错>>" + result.get("error"), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }, new Consumer<Throwable>() {
+                                @Override
+                                public void accept(Throwable throwable) throws Exception {
+                                    Log.e("error", throwable.getMessage());
+                                    Toast.makeText(getBaseContext(), "信息更新出错", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+            );
     }
 
 
@@ -181,12 +203,13 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         CircleImageView img_usertx = findViewById(R.id.img_usertx);
 
         imageViews.add(img_usertx);
-     /*   Log.v("x",user.getImgurl());*/
+        /*   Log.v("x",user.getImgurl());*/
         if (!user.getImgurl().equals("")) {
             for (ImageView imageView : imageViews) {
                 //加载网络图片
                 Glide.with(getBaseContext())
-                        .load("http://120.55.47.24:8080/img/" +user.getImgurl())
+                        /* .load("http://120.55.47.24:8080/img/" +user.getImgurl())*/
+                        .load("http://192.168.10.120:8080/img/" + user.getImgurl())
                         .into(imageView);
                 layout_nav_head.setBackground(imageView.getDrawable());
             }
@@ -194,11 +217,13 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         layout_nav_head.setBackground(circleView_headpt.getDrawable());
 
         if (AcuntInfo.geteditInfo(this, "userid") != null) {
-            if (user.getNickname() != null)
+            if (user.getNickname() != null) {
                 tv_nickname.setText(user.getNickname());
-            else
+                AcuntInfo.seteditInfo(this, "nickname", user.getNickname());
+            } else {
                 tv_nickname.setText(AcuntInfo.geteditInfo(this, "acount"));
-
+                AcuntInfo.seteditInfo(this, "nickname", user.getNickname());
+            }
             if (user.getIntro() != null)
                 tv_intro.setText(user.getIntro());
             else
@@ -260,7 +285,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         switch (view.getId()) {
             case R.id.nav_headpt:
                 //设置侧滑栏头像点击响应
-                if (AcuntInfo.geteditInfo(this,"userid") == null) {
+                if (AcuntInfo.geteditInfo(this, "userid") == null) {
                     startActivity(new Intent(this, LoginActivity.class));
                 } else {
                     startActivity(new Intent(this, ShowUserPage.class));

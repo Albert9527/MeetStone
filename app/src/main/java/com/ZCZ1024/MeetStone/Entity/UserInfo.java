@@ -19,6 +19,7 @@ public class UserInfo implements Serializable {
     private String intro;
     private String nickname;
     private String age;
+    private String ocpt;
 
     public String getImgurl() {
         return imgurl;
@@ -66,5 +67,13 @@ public class UserInfo implements Serializable {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public String getOcpt() {
+        return ocpt;
+    }
+
+    public void setOcpt(String ocpt) {
+        this.ocpt = ocpt;
     }
 }

@@ -57,6 +57,12 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         initData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+    }
+
     private void initView() {
         LinearLayout layout = findViewById(R.id.update_userinfo_tx);
         LinearLayout ly_update_pswd = findViewById(R.id.ly_update_pswd);
@@ -76,7 +82,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
      * 通过网络请求初始化用户信息数据
      */
     private void initData() {
-        final String userid = AcuntInfo.geteditInfo(this,"userid");
+        final String userid = AcuntInfo.geteditInfo(this, "userid");
         if (userid != null) {
             addDisposable(
                     RetrofitFactory.getRetrofit()
@@ -97,14 +103,14 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                             }, new Consumer<Throwable>() {
                                 @Override
                                 public void accept(Throwable throwable) throws Exception {
-                                    Log.e("error", "错误代码" + throwable.getMessage());
+                                    Log.d("error", throwable.getMessage());
+                                    Toast.makeText(getBaseContext(), "数据获取失败,错误原因：" + throwable.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             })
             );
-        }
-        else
+        } else
             setViewValue(null);
-    }
+        }
 
     /**
      * 根据获取到的userinfo设置用户资料界面的值
@@ -133,10 +139,13 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             if (userInfo.getIntro() != null)
                 tv_intro.setText(userInfo.getIntro());
 
-            if (userInfo.getImgurl()!=null)
+            if (userInfo.getImgurl() != null)
                 Glide.with(getBaseContext())
-                        .load("http://120.55.47.24:8080/img/" + userInfo.getImgurl())
+                       /* .load("http://120.55.47.24:8080/img/" + userInfo.getImgurl())*/
+                        .load(" http://192.168.10.120:8080/img/" + userInfo.getImgurl())
                         .into(img_tx);
+            if (userInfo.getOcpt()!=null)
+                tv_ocpt.setText(userInfo.getOcpt());
 
         }
     }
@@ -155,10 +164,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 startActivity(intent);
                 break;
             case R.id.btn_logout:
-                AcuntInfo.seteditInfo(this,"userid",null);
-                AcuntInfo.seteditInfo(this,"acount",null);
-                AcuntInfo.setObject(this,"user",null);
-                startActivity(new Intent(this,LoginActivity.class));
+                AcuntInfo.seteditInfo(this, "userid", null);
+                AcuntInfo.seteditInfo(this, "acount", null);
+                startActivity(new Intent(this, LoginActivity.class));
                 this.finish();
 
             default:
@@ -186,7 +194,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 break;
 
             case R.id.ly_update_pswd:
-                startActivity(new Intent(this,UpdatePswdActivity.class));
+                startActivity(new Intent(this, UpdatePswdActivity.class));
                 break;
 
             default:
@@ -252,18 +260,18 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 File file = new File(BitMapUtil.getRealPathFromUri(this, uri));
 
                 if (file != null) {
-                    //String id = AcuntInfo.geteditInfo(this,"userid");
+                    String id = AcuntInfo.geteditInfo(this,"userid");
 
-                    String id = "ff88dc16a6f74b9dae4b97644cab5d16";
+                   /* String id = "ff88dc16a6f74b9dae4b97644cab5d16";*/
 
-                   //将参数封装成RequestBody
+                    //将参数封装成RequestBody
                     RequestBody requestId = RequestBody.create(null, id);
                     String s = requestId.toString();
                     RequestBody requestFile = RequestBody.create(MediaType.parse("application/octet-stream"), file);
                     MultipartBody.Part body = MultipartBody.Part.createFormData("pic", file.getName(), requestFile);
 
 
-                    Log.d("file+id",body+">>>>"+requestId);
+                    Log.d("file+id", body + ">>>>" + requestId);
                     addDisposable(
                             RetrofitFactory.getRetrofit()
                                     .create(UserDataService.class)
@@ -273,19 +281,23 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                                     .subscribe(new Consumer<FileVo>() {
                                         @Override
                                         public void accept(FileVo fileVo) throws Exception {
-                                            if (fileVo.isSuccess()==true)
+                                            if (fileVo.isSuccess() == true){
+                                                Log.e("errorx",fileVo.getData());
+                                                Log.e("errorx",fileVo.getError()+"");
                                                 //加载网络图片
                                                 Glide.with(getBaseContext())
-                                                        .load("http://120.55.47.24:8080/img/" + fileVo.getData())
+                                                       /* .load("http://120.55.47.24:8080/img/" + fileVo.getData())*/
+                                                        .load("http://192.168.10.120:8080/img/" +fileVo.getData())
                                                         .into(img_tx);
-                                            else if (fileVo.isSuccess()==false) {
+                                            }
+                                            else if (fileVo.isSuccess() == false) {
                                                 Toast.makeText(getBaseContext(), "图片加载错误", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     }, new Consumer<Throwable>() {
                                         @Override
                                         public void accept(Throwable throwable) throws Exception {
-                                            Log.e("error", throwable.getMessage());
+                                            Log.e("errorx", throwable.getMessage());
                                         }
                                     })
                     );

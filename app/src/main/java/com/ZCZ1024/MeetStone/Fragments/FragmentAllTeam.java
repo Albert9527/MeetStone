@@ -2,6 +2,7 @@ package com.ZCZ1024.MeetStone.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ZCZ1024.MeetStone.Activity.LoginActivity;
 import com.ZCZ1024.MeetStone.Adapter.AllteamViewAdapter;
 import com.ZCZ1024.MeetStone.Entity.Team;
+import com.ZCZ1024.MeetStone.Entity.UserInfo;
+import com.ZCZ1024.MeetStone.EntityVo.CodeVo;
+import com.ZCZ1024.MeetStone.EntityVo.TeamVo;
 import com.ZCZ1024.MeetStone.R;
 import com.ZCZ1024.MeetStone.Util.AcuntInfo;
 import com.ZCZ1024.MeetStone.Util.CreatDialogUtil;
+import com.ZCZ1024.MeetStone.Util.DiaoLogUtil;
 import com.ZCZ1024.MeetStone.Util.RefreshUtil;
 import com.ZCZ1024.MeetStone.presenter.NetWorkData.RetrofitFactory;
 import com.ZCZ1024.MeetStone.presenter.service.TeamDataService;
@@ -27,6 +32,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.functions.Consumer;
 
@@ -54,6 +60,7 @@ public class FragmentAllTeam extends BaseFragment {
 
         //设置适配器
         viewAdapter = new AllteamViewAdapter(null);
+
         listener = new OnItemClickListener() {
             @Override
             public void itemClick(int position, View view) {
@@ -65,13 +72,14 @@ public class FragmentAllTeam extends BaseFragment {
                         if(AcuntInfo.geteditInfo(getContext(),"userid") == null)
                         startActivity(new Intent(getContext(), LoginActivity.class));
                         else{
-                            showEditDialog();
-                            creatDialogUtil.tv_Apply_user.setText(AcuntInfo.geteditInfo(getContext(),"userid"));
+                            showEditDialog(teams.get(position));
+                            String uname = AcuntInfo.geteditInfo(getContext(),"nickname");
+                            if (uname!=null)
+                            creatDialogUtil.tv_Apply_user.setText(uname);
+                            else
+                                creatDialogUtil.tv_Apply_user.setText(AcuntInfo.geteditInfo(getContext(),"acount"));
                             creatDialogUtil.tv_Apply_group.setText(teams.get(position).getName());
                         }
-                        break;
-                    case R.id.bt_applyteam:
-                        creatDialogUtil.showinfo();
                         break;
                     default:
                         break;
@@ -91,41 +99,50 @@ public class FragmentAllTeam extends BaseFragment {
                 new OnRefreshListener() {
                     @Override
                     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                        initData();
+                        loadData();
                         refreshLayout.finishRefresh(1000);
                     }
                 });
 
         recyclerView.setAdapter(viewAdapter);
 
-        initData();
+        loadData();
         return view;
     }
 
-    private void  initData(){
+  /*  private void  initData(){
         teams = new ArrayList<>();
         for (int i=0;i<8;i++){
             Team team = new Team("队伍名"+i);
             teams.add(team);
         }
         viewAdapter.setAllTeamData(teams);
-    }
+    }*/
 
     /**
      * 设置数据
      *
      */
-    /*private void loadData() {
+    private void loadData() {
         addDisposable(
                 RetrofitFactory.getRetrofit()
                         .create(TeamDataService.class)
                         .getAllTeam()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Consumer<List<Team>>() {
+                        .subscribe(new Consumer<TeamVo>() {
                             @Override
-                            public void accept(List<Team> teams) throws Exception{
+                            public void accept(TeamVo teamvo) throws Exception{
 
+                                if (teamvo.isSuccess()== true) {
+                                    teams = teamvo.getData();
+                                    if (teams!=null)
+                                        viewAdapter.setAllTeamData(teams);
+                                    else
+                                        Toast.makeText(getContext(),"没有获取到数据",Toast.LENGTH_LONG).show();
+                                }
+                                else
+                                    Toast.makeText(getContext(),teamvo.getError()+"数据获取失败",Toast.LENGTH_LONG).show();
                                 viewAdapter.setAllTeamData(teams);
                             }
                         }, new Consumer<Throwable>() {
@@ -135,22 +152,51 @@ public class FragmentAllTeam extends BaseFragment {
                             }
                         })
         );
-    }*/
+    }
 
 
     public static interface OnItemClickListener {
         void itemClick(int position, View view);
     }
 
-    public void showEditDialog() {
+    public void showEditDialog(final Team team) {
         clicklistener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                creatDialogUtil.showinfo();
+                Map map = creatDialogUtil.getApplymap(team.getId());
+                ApplyTeam(map);
             }
         };
         creatDialogUtil = new CreatDialogUtil(this.getActivity(),R.style.ownColorbyZD,clicklistener);
         creatDialogUtil.show();
+    }
+
+    private void ApplyTeam(final Map map) {
+        addDisposable(
+                RetrofitFactory.getRetrofit()
+                        .create(TeamDataService.class)
+                        .ApplyTeam(map)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<Map<String,String>>() {
+                            @Override
+                            public void accept(Map<String,String> result) throws Exception{
+
+                                if (result.get("success").equals("true")){
+                                    Toast.makeText(getContext(),"申请提交成功",Toast.LENGTH_LONG).show();
+                                    creatDialogUtil.dismiss();
+                                }
+                                else
+                                    Toast.makeText(getContext(),"申请失败:"+result.get("error"),Toast.LENGTH_LONG).show();
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                Log.d("apply",throwable.getMessage());
+                                Toast.makeText(getContext(),"数据获取失败,错误原因："+throwable.getMessage(),Toast.LENGTH_LONG).show();
+                            }
+                        })
+        );
     }
 
 
